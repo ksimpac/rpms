@@ -22,7 +22,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('users')->group(function () {
-    Route::get('general_info', 'generalInfoController@index')->name('general_info');
+    Route::name('general_info.')->group(function () {
+        Route::get('general_info', 'generalInfoController@index')->name('index');
+        Route::get('general_info/create', 'generalInfoController@create')->name('create');
+    });
+
     Route::get('education', 'educationController@index')->name('education');
     Route::get('thesis', 'thesisController@index')->name('thesis');
     Route::get('industry_experience', 'industryExperienceController@index')->name('industry_experience');
