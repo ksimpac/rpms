@@ -8,6 +8,11 @@ class educationController extends Controller
 {
     public function index()
     {
-        return 'education';
+        return view('education.index');
+    }
+
+    public function create()
+    {
+        return view('education.create');
     }
 }

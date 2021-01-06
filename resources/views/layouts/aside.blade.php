@@ -7,7 +7,8 @@
                             class="d-none d-md-inline">基本資料</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">學歷</span></a>
+                    <a class="nav-link pl-0" href="{{ route('education.index') }}"><span
+                            class="d-none d-md-inline">學歷</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">期刊論文資料管理</span></a>

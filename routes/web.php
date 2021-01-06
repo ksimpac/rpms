@@ -27,7 +27,11 @@ Route::prefix('users')->group(function () {
         Route::get('general_info/create', 'generalInfoController@create')->name('create');
     });
 
-    Route::get('education', 'educationController@index')->name('education');
+    Route::name('education.')->group(function () {
+        Route::get('education', 'educationController@index')->name('index');
+        Route::get('education/create', 'educationController@create')->name('create');
+    });
+
     Route::get('thesis', 'thesisController@index')->name('thesis');
     Route::get('industry_experience', 'industryExperienceController@index')->name('industry_experience');
     Route::get('tcase', 'tcaseController@index')->name('tcase');
