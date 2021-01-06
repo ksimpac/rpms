@@ -11,7 +11,8 @@
                             class="d-none d-md-inline">學歷</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">期刊論文資料管理</span></a>
+                    <a class="nav-link pl-0" href="{{ route('thesis.index') }}"><span
+                            class="d-none d-md-inline">期刊論文資料管理</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">經歷</span></a>
