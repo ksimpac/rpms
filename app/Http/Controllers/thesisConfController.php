@@ -8,6 +8,11 @@ class thesisConfController extends Controller
 {
     public function index()
     {
-        return 'thesis_conf';
+        return view('thesis_conf.index');
+    }
+
+    public function create()
+    {
+        return view('thesis_conf.create');
     }
 }
