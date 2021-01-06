@@ -8,6 +8,11 @@ class generalInfoController extends Controller
 {
     public function index()
     {
-        return 'general_info';
+        return view('general_info.index');
+    }
+
+    public function create()
+    {
+        return view('general_info.create');
     }
 }
