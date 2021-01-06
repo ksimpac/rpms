@@ -8,6 +8,11 @@ class mostProjectController extends Controller
 {
     public function index()
     {
-        return 'MOST_Project';
+        return view('MOST_project.index');
+    }
+
+    public function create()
+    {
+        return view('MOST_project.create');
     }
 }

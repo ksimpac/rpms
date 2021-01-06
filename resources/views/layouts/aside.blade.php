@@ -23,7 +23,8 @@
                             class="d-none d-md-inline">產學合作計畫參與</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">科技部專題研究計畫</span></a>
+                    <a class="nav-link pl-0" href="{{ route('MOST_project.index') }}"><span
+                            class="d-none d-md-inline">科技部專題研究計畫</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">研討會論文</span></a>

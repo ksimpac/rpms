@@ -47,9 +47,12 @@ Route::prefix('users')->group(function () {
         Route::get('tcase/create', 'tcaseController@create')->name('create');
     });
 
+    Route::name('MOST_project.')->group(function () {
+        Route::get('MOST_project', 'mostProjectController@index')->name('index');
+        Route::get('MOST_project/create', 'mostProjectController@create')->name('create');
+    });
 
 
-    Route::get('MOST_project', 'mostProjectController@index')->name('MOST_project');
     Route::get('thesis_conf', 'thesisConfController@index')->name('thesis_conf');
     Route::get('other', 'otherController@index')->name('other');
 });
