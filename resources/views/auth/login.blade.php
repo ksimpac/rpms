@@ -12,14 +12,14 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="account" class="col-md-4 col-form-label text-md-right">帳號</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right">帳號</label>
 
                             <div class="col-md-6">
-                                <input id="account" type="account"
-                                    class="form-control @error('account') is-invalid @enderror" name="account"
-                                    value="{{ old('account') }}" required autofocus>
+                                <input id="username" type="username"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    value="{{ old('username') }}" required autofocus>
 
-                                @error('account')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
