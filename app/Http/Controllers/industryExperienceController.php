@@ -8,6 +8,11 @@ class industryExperienceController extends Controller
 {
     public function index()
     {
-        return 'industry_experience';
+        return view('industry_experience.index');
+    }
+
+    public function create()
+    {
+        return view('industry_experience.create');
     }
 }

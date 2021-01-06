@@ -15,7 +15,8 @@
                             class="d-none d-md-inline">期刊論文資料管理</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"> <span class="d-none d-md-inline">經歷</span></a>
+                    <a class="nav-link pl-0" href="{{ route('industry_experience.index') }}"> <span
+                            class="d-none d-md-inline">經歷</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="#"><span class="d-none d-md-inline">產學合作計畫參與</span></a>
