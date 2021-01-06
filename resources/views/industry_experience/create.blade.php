@@ -85,7 +85,7 @@
     </div>
 
     <div class="form-group">
-        <label for="identification">佐證資料上傳</label>
+        <label for="identification">佐證資料上傳 (如：勞工保險證明或服務證明)</label>
         <input type="file" class="form-control-file" id="identification" name="identification">
         @error('identification')
         <span class="invalid-feedback" role="alert">
