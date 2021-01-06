@@ -53,6 +53,11 @@
         @enderror
     </div>
 
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Rank factor N/M</h4>
+        <p>SCI/SSCI Rank Factor：N為期刊在所屬研究領域之Impact Factor排序名次(Impact Factor以2019年ISI資料庫之資料為準)；M為該期刊所屬研究領域之總期刊數。</p>
+    </div>
+
     <label for="corresponding_author">是否為通訊作者</label><br />
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="corresponding_author" id="corresponding_author1" value="0">
@@ -98,7 +103,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="identification">佐證資料上傳</label>
+        <label for="identification">佐證資料上傳 (公開發表論文電子全文)</label>
         <input type="file" class="form-control-file" id="identification" name="identification">
         @error('identification')
         <span class="invalid-feedback" role="alert">
