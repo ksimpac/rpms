@@ -15,6 +15,7 @@ class CreateEducationsTable extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('schoolName', 100); //學校名
             $table->string('department', 100); //院系科名

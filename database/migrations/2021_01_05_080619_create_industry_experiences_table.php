@@ -15,6 +15,7 @@ class CreateIndustryExperiencesTable extends Migration
     {
         Schema::create('industry_experience', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('working_units', 100); //任職單位
             $table->string('position', 100); //職稱

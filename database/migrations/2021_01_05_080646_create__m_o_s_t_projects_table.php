@@ -15,6 +15,7 @@ class CreateMOSTProjectsTable extends Migration
     {
         Schema::create('MOST_project', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('projectName', 100); //計畫名稱
             $table->date('startDate'); //執行起始日期

@@ -15,6 +15,7 @@ class CreateThesisTable extends Migration
     {
         Schema::create('thesis', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('publicationName', 100); //刊物名稱
             $table->date('publicationDate'); //年月

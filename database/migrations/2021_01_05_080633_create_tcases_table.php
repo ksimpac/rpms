@@ -15,6 +15,7 @@ class CreateTcasesTable extends Migration
     {
         Schema::create('tcase', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->foreign('username')->references('username')->on('users');
             $table->string('projectName', 100); //計畫名稱
             $table->string('collaboration_name', 100); //合作機構名稱
