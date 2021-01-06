@@ -12,13 +12,14 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">中文姓名</label>
+                            <label for="chineseName" class="col-md-4 col-form-label text-md-right">中文姓名</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="chineseName" type="text"
+                                    class="form-control @error('chineseName') is-invalid @enderror" name="chineseName"
+                                    value="{{ old('chineseName') }}" required autocomplete="off" autofocus>
 
-                                @error('name')
+                                @error('chineseName')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -27,14 +28,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="account" class="col-md-4 col-form-label text-md-right">帳號</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right">帳號</label>
 
                             <div class="col-md-6">
-                                <input id="account" type="text"
-                                    class="form-control @error('account') is-invalid @enderror" name="account"
-                                    value="{{ old('account') }}" required>
+                                <input id="username" type="text"
+                                    class="form-control @error('username') is-invalid @enderror" name="username"
+                                    value="{{ old('username') }}" required autocomplete="off">
 
-                                @error('account')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -70,11 +71,21 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="Nation_ID_No" class="col-md-4 col-form-label text-md-right">身分證字號</label>
+                            <label for="email"
+                                class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="Nation_ID_No" type="password" class="form-control" name="Nation_ID_No"
-                                    required>
+                                <input id="email" type="email" class="form-control" name="email" required
+                                    autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="National_ID_No" class="col-md-4 col-form-label text-md-right">身分證字號</label>
+
+                            <div class="col-md-6">
+                                <input id="National_ID_No" type="text" class="form-control" name="National_ID_No"
+                                    required autocomplete="off">
                             </div>
                         </div>
 
