@@ -57,5 +57,9 @@ Route::prefix('users')->group(function () {
         Route::get('thesis_conf', 'thesisConfController@index')->name('index');
         Route::get('thesis_conf/create', 'thesisConfController@create')->name('create');
     });
-    Route::get('other', 'otherController@index')->name('other');
+
+    Route::name('other.')->group(function () {
+        Route::get('other', 'otherController@index')->name('index');
+        Route::get('other/create', 'otherController@create')->name('create');
+    });
 });
