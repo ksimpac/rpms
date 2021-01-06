@@ -8,6 +8,11 @@ class tcaseController extends Controller
 {
     public function index()
     {
-        return 'tcase';
+        return view('tcase.index');
+    }
+
+    public function create()
+    {
+        return view('tcase.create');
     }
 }
