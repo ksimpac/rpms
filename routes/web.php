@@ -25,6 +25,8 @@ Route::prefix('users')->group(function () {
     Route::name('general_info.')->group(function () {
         Route::get('general_info', 'generalInfoController@index')->name('index');
         Route::get('general_info/create', 'generalInfoController@create')->name('create');
+        Route::post('general_info', 'generalInfoController@store')->name('store');
+        Route::delete('general_info/{username}', 'generalInfoController@destroy')->name('destroy');
     });
 
     Route::name('education.')->group(function () {
