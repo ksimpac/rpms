@@ -23,7 +23,7 @@
     <div class="form-group">
         <label for="startDate">執行起始日期</label>
         <input type="text" class="form-control" id="startDate" name="startDate" aria-describedby="startDateHelp">
-        <small id="startDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
+        <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月/日，例如1901/01/01</small>
         @error('startDate')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
     <div class="form-group">
         <label for="endDate">執行結束日期</label>
         <input type="text" class="form-control" id="endDate" name="endDate" aria-describedby="endDateHelp">
-        <small id="endDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
+        <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月/日，例如1901/01/01</small>
         @error('endDate')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

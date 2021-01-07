@@ -23,7 +23,7 @@
     <div class="form-group">
         <label for="birthday">生日</label>
         <input type="text" class="form-control" id="birthday" name="birthday" aria-describedby="birthdayHelp">
-        <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
+        <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月/日，例如1901/01/01</small>
         @error('birthday')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
