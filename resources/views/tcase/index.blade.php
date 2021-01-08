@@ -22,7 +22,22 @@
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->projectName }}</td>
+            <td>{{ $item->collaboration_name }}</td>
+            <td>{{ $item->endDate }}</td>
+            <td>{{ $item->jobkind }}</td>
+            <td>
+                <form action="{{ route('tcase.destroy', ['id' => $item->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

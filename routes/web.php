@@ -53,6 +53,8 @@ Route::prefix('users')->group(function () {
     Route::name('tcase.')->group(function () {
         Route::get('tcase', 'tcaseController@index')->name('index');
         Route::get('tcase/create', 'tcaseController@create')->name('create');
+        Route::post('tcase', 'tcaseController@store')->name('store');
+        Route::delete('tcase/{id}', 'tcaseController@destroy')->name('destroy');
     });
 
     Route::name('MOST_project.')->group(function () {
