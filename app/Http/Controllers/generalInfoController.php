@@ -33,6 +33,13 @@ class generalInfoController extends Controller
             'course' => ['required', 'string'],
         ]);
 
+        $fileName = strtotime("now") . '.pdf';
+
+        if ($data['teacherCertificateFiles'] != null) {
+            $request->file('teacherCertificateFiles')->storeAs('general_info', $fileName, 'public');
+            $data['teacherCertificateFiles'] = $fileName;
+        }
+
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('general_info')->insert([$data]);

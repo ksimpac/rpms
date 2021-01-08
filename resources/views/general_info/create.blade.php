@@ -8,7 +8,7 @@
 
 @section('card-body-content')
 <span>(*為選填)</span>
-<form action="{{ route('general_info.store') }}" method="POST">
+<form action="{{ route('general_info.store') }}" method="POST" enctype="multipart/form-data">
 
     @csrf
     <div class="form-group">
@@ -138,7 +138,7 @@
     <div class="form-group">
         <label for="course">曾授課程/可授課程</label>
         <textarea class="form-control @error('course') is-invalid @enderror" id="course" name="course" rows="3"
-            aria-describedby="courseHelp" value="{{ old('course') }}"></textarea>
+            aria-describedby="courseHelp">{{ old('course') }}</textarea>
         <small id="courseHelp" class="form-text text-muted">請使用全形頓點間格(、)</small>
         @error('course')
         <span class="invalid-feedback" role="alert">
