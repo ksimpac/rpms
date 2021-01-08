@@ -20,11 +20,26 @@
             <th scope="col">年月</th>
             <th scope="col">作者總人數</th>
             <th scope="col">作者順序</th>
-            <th scope="col">　</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->publicationName }}</td>
+            <td>{{ $item->publicationDate }}</td>
+            <td>{{ $item->authorNo }}</td>
+            <td>{{ $item->order }}</td>
+            <td>
+                <form action="{{ route('thesis.destroy', ['id' => $item->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

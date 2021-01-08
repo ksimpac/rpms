@@ -39,6 +39,8 @@ Route::prefix('users')->group(function () {
     Route::name('thesis.')->group(function () {
         Route::get('thesis', 'thesisController@index')->name('index');
         Route::get('thesis/create', 'thesisController@create')->name('create');
+        Route::post('thesis', 'thesisController@store')->name('store');
+        Route::delete('thesis/{id}', 'thesisController@destroy')->name('destroy');
     });
 
     Route::name('industry_experience.')->group(function () {
