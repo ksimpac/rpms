@@ -9,11 +9,12 @@
 
 @section('card-body-content')
 <span>(*為選填)</span>
-<form action="" method="POST">
-
+<form action="{{ route('other.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
     <div class="form-group">
         <label for="identification">佐證資料上傳</label>
-        <input type="file" class="form-control-file" id="identification" name="identification">
+        <input type="file" class="form-control-file @error('identification') is-invalid @enderror" id="identification"
+            name="identification">
         @error('identification')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

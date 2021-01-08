@@ -75,5 +75,7 @@ Route::prefix('users')->group(function () {
     Route::name('other.')->group(function () {
         Route::get('other', 'otherController@index')->name('index');
         Route::get('other/create', 'otherController@create')->name('create');
+        Route::post('other', 'otherController@store')->name('store');
+        Route::delete('other/{id}', 'otherController@destroy')->name('destroy');
     });
 });
