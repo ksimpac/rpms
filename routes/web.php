@@ -68,6 +68,8 @@ Route::prefix('users')->group(function () {
     Route::name('thesis_conf.')->group(function () {
         Route::get('thesis_conf', 'thesisConfController@index')->name('index');
         Route::get('thesis_conf/create', 'thesisConfController@create')->name('create');
+        Route::post('thesis_conf', 'thesisConfController@store')->name('store');
+        Route::delete('thesis_conf/{id}', 'thesisConfController@destroy')->name('destroy');
     });
 
     Route::name('other.')->group(function () {

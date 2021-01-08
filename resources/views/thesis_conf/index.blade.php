@@ -15,15 +15,30 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">計畫名稱</th>
-            <th scope="col">執行起始日期</th>
-            <th scope="col">執行結束日期</th>
-            <th scope="col">工作類別</th>
-            <th scope="col">　</th>
+            <th scope="col">研討會名稱</th>
+            <th scope="col">論文名稱</th>
+            <th scope="col">發表年份</th>
+            <th scope="col">作者總人數</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->conf_name }}</td>
+            <td>{{ $item->thesisName }}</td>
+            <td>{{ $item->years }}</td>
+            <td>{{ $item->authorNo }}</td>
+            <td>
+                <form action="{{ route('thesis_conf.destroy', ['id' => $item->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection
