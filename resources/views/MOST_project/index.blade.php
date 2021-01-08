@@ -19,11 +19,26 @@
             <th scope="col">執行起始日期</th>
             <th scope="col">執行結束日期</th>
             <th scope="col">工作類別</th>
-            <th scope="col">　</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->projectName }}</td>
+            <td>{{ $item->startDate }}</td>
+            <td>{{ $item->endDate }}</td>
+            <td>{{ $item->jobkind }}</td>
+            <td>
+                <form action="{{ route('MOST_project.destroy', ['id' => $item->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

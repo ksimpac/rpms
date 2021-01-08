@@ -60,6 +60,8 @@ Route::prefix('users')->group(function () {
     Route::name('MOST_project.')->group(function () {
         Route::get('MOST_project', 'mostProjectController@index')->name('index');
         Route::get('MOST_project/create', 'mostProjectController@create')->name('create');
+        Route::post('MOST_project', 'mostProjectController@store')->name('store');
+        Route::delete('users/{id}', 'mostProjectController@destroy')->name('destroy');
     });
 
 
