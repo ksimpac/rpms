@@ -11,6 +11,10 @@ class thesisController extends Controller
     public function index()
     {
         $collection = DB::table('thesis')->get();
+
+        foreach ($collection as $item) {
+            $item->corresponding_author == 0 ? $item->corresponding_author = '否' : $item->corresponding_author = '是';
+        }
         return view('thesis.index', compact('collection'));
     }
 
