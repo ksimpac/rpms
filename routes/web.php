@@ -32,6 +32,8 @@ Route::prefix('users')->group(function () {
     Route::name('education.')->group(function () {
         Route::get('education', 'educationController@index')->name('index');
         Route::get('education/create', 'educationController@create')->name('create');
+        Route::post('education', 'educationController@store')->name('store');
+        Route::delete('education/{username}', 'educationController@destroy')->name('destroy');
     });
 
     Route::name('thesis.')->group(function () {

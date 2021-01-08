@@ -19,11 +19,26 @@
             <th scope="col">院系科名</th>
             <th scope="col">修業年月起</th>
             <th scope="col">修業年月迄</th>
-            <th scope="col">　</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->schoolName }}</td>
+            <td>{{ $item->department }}</td>
+            <td>{{ $item->startDate }}</td>
+            <td>{{ $item->endDate }}</td>
+            <td>
+                <form action="{{ route('general_info.destroy', ['username' => $item->username]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection
