@@ -25,8 +25,8 @@ class tcaseController extends Controller
         $data = $request->validate([
             'projectName' => ['required', 'string', 'max:100'],
             'collaboration_name' => ['required', 'string', 'max:100'],
-            'startDate' => ['required', 'date_format:Y/m'],
-            'endDate' => ['required', 'date_format:Y/m'],
+            'startDate' => ['required', 'date_format:Y/m/d'],
+            'endDate' => ['required', 'date_format:Y/m/d'],
             'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],
             'plantotal_money' => ['required', 'integer', 'max:9999999999'],
             'identification' => ['required', 'file', 'mimes:pdf'],

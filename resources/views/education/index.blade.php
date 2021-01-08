@@ -31,7 +31,7 @@
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
             <td>
-                <form action="{{ route('general_info.destroy', ['username' => $item->username]) }}" method="post">
+                <form action="{{ route('education.destroy', ['username' => $item->username]) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger">Delete</button>

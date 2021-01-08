@@ -103,7 +103,7 @@
             <option value="SCI" {{ old('type') == "SCI" ? 'selected' : ''}}>SCI</option>
             <option value="SCIE" {{ old('type') == "SCIE" ? 'selected' : ''}}>SCIE</option>
             <option value="SSCI" {{ old('type') == "SSCI" ? 'selected' : ''}}>SSCI</option>
-            <option value="其他">其他</option>
+            <option value="其他" {{ old('type') == "其他" ? 'selected' : ''}}>其他</option>
             @error('type')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

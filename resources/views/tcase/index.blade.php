@@ -18,7 +18,7 @@
             <th scope="col">合作機構名稱</th>
             <th scope="col">執行結束日期</th>
             <th scope="col">工作類別</th>
-            <th scope="col">　</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>

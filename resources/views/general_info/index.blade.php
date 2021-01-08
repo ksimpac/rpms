@@ -28,7 +28,7 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->englishName }}</td>
             <td>{{ $item->birthday }}</td>
-            <td>{{ $item->sex }}</td>
+            <td>{{ $item->gender }}</td>
             <td>{{ $item->telephone }}</td>
             <td>
                 <form action="{{ route('general_info.destroy', ['username' => $item->username]) }}" method="post">

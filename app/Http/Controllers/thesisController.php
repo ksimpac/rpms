@@ -45,7 +45,7 @@ class thesisController extends Controller
 
     public function destroy($id)
     {
-        DB::table('general_info')->where('id', $id)->delete();
+        DB::table('thesis')->where('id', $id)->delete();
         return redirect()->route('thesis.index');
     }
 }

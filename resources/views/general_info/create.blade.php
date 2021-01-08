@@ -128,10 +128,10 @@
     <div class="form-group">
         <label for="specialization">專長領域</label>
         <select class="form-control" id="specialization" name="specialization">
-            <option value="智慧流通">智慧流通</option>
-            <option value="物流運輸">物流運輸</option>
-            <option value="新零售">新零售</option>
-            <option value="其他">其他</option>
+            <option value="智慧流通" {{ old('specialization') == '智慧流通' ? 'selected' : '' }}>智慧流通</option>
+            <option value="物流運輸" {{ old('specialization') == '物流運輸' ? 'selected' : '' }}>物流運輸</option>
+            <option value="新零售" {{ old('specialization') == '新零售' ? 'selected' : '' }}>新零售</option>
+            <option value="其他" {{ old('specialization') == '其他' ? 'selected' : '' }}>其他</option>
         </select>
     </div>
 

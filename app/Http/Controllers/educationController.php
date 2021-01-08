@@ -37,7 +37,7 @@ class educationController extends Controller
 
         $fileName = strtotime("now") . '.pdf';
 
-        if ($data['transcript'] != null) {
+        if (isset($data['transcript'])) {
             $request->file('transcript')->storeAs('education\transcript', $fileName, 'public');
             $data['transcript'] = $fileName;
         }
@@ -53,7 +53,7 @@ class educationController extends Controller
 
     public function destroy($username)
     {
-        DB::table('general_info')->where('username', $username)->delete();
+        DB::table('education')->where('username', $username)->delete();
         return redirect()->route('education.index');
     }
 }
