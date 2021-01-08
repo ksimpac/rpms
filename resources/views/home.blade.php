@@ -9,7 +9,7 @@
 
         <div class="col-xl-10">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">系統訊息</div>
 
                 <div class="card-body">
                     @if (session('status'))
