@@ -16,7 +16,8 @@ class CreateThesisConfsTable extends Migration
         Schema::create('thesis_conf', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->string('conf_name', 100); //研討會名稱
             $table->string('thesisName', 100); //論文名稱
             $table->year('years'); //發表年份

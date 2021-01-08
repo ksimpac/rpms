@@ -16,7 +16,8 @@ class CreateOthersTable extends Migration
         Schema::create('other', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->char('identification', 14); //佐證資料上傳
             $table->timestamps();
         });

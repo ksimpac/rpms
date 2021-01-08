@@ -16,7 +16,8 @@ class CreateGeneralInfosTable extends Migration
         Schema::create('general_info', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->string('englishName', 100); //英文姓名
             $table->date('birthday'); //生日
             $table->unsignedTinyInteger('sex'); //性別，0為女，1為男

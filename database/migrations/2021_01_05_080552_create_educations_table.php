@@ -16,11 +16,12 @@ class CreateEducationsTable extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->string('schoolName', 100); //學校名
             $table->string('department', 100); //院系科名
-            $table->date('startDate'); //修業年月起
-            $table->date('endDate'); //修業年月迄
+            $table->char('startDate', 7); //修業年月起
+            $table->char('endDate', 7); //修業年月迄
             $table->enum('degree', ['大學', '碩士', '博士']); //學位
             $table->enum('status', ['畢業', '結業', '肄業']); //修業狀況
             $table->string('country', 100); //畢業國家

@@ -16,13 +16,14 @@ class CreateIndustryExperiencesTable extends Migration
         Schema::create('industry_experience', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->string('working_units', 100); //任職單位
             $table->string('position', 100); //職稱
             $table->enum('type', ['兼任', '專任']); //專兼任
             $table->text('job_description'); //工作內容
-            $table->date('startDate'); //任職時間起
-            $table->date('endDate'); //任職時間迄
+            $table->char('startDate', 7); //任職時間起
+            $table->char('endDate', 7); //任職時間迄
             $table->char('identification', 14); //佐證資料上傳
             $table->timestamps();
         });

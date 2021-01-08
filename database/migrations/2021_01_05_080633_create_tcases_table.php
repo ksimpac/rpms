@@ -16,7 +16,8 @@ class CreateTcasesTable extends Migration
         Schema::create('tcase', function (Blueprint $table) {
             $table->id();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users');
+            $table->foreign('username')->references('username')->on('users')
+                ->constrained()->onDelete('cascade');
             $table->string('projectName', 100); //計畫名稱
             $table->string('collaboration_name', 100); //合作機構名稱
             $table->date('startDate'); //執行起始日期
