@@ -24,7 +24,22 @@
         </tr>
     </thead>
     <tbody>
-
+        @foreach ($collection as $item)
+        <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $item->working_units }}</td>
+            <td>{{ $item->position }}</td>
+            <td>{{ $item->type }}</td>
+            <td>{{ $item->job_description }}</td>
+            <td>
+                <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

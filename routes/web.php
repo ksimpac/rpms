@@ -46,6 +46,8 @@ Route::prefix('users')->group(function () {
     Route::name('industry_experience.')->group(function () {
         Route::get('industry_experience', 'industryExperienceController@index')->name('index');
         Route::get('industry_experience/create', 'industryExperienceController@create')->name('create');
+        Route::post('industry_experience', 'industryExperienceController@store')->name('store');
+        Route::delete('industry_experience/{id}', 'industryExperienceController@destroy')->name('destroy');
     });
 
     Route::name('tcase.')->group(function () {
