@@ -10,7 +10,8 @@ class generalInfoController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('general_info')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('general_info')->where('username', $username)->get();
 
         foreach ($collection as $item) {
             $item->sex == 0 ? $item->gender = '女' : $item->gender = '男';

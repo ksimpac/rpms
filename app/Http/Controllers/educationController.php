@@ -10,7 +10,8 @@ class educationController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('education')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('education')->where('username', Auth::user())->get();
         return view('education.index', compact('collection'));
     }
 

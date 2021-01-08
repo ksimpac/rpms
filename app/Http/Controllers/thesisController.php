@@ -10,7 +10,8 @@ class thesisController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('thesis')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('thesis')->where('username', $username)->get();
 
         foreach ($collection as $item) {
             $item->corresponding_author == 0 ? $item->corresponding_author = '否' : $item->corresponding_author = '是';

@@ -11,7 +11,8 @@ class tcaseController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('tcase')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('tcase')->where('username', $username)->get();
         return view('tcase.index', compact('collection'));
     }
 

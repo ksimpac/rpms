@@ -11,7 +11,8 @@ class mostProjectController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('most_project')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('most_project')->where('username', $username)->get();
         return view('MOST_project.index', compact('collection'));
     }
 

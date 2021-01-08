@@ -10,7 +10,8 @@ class otherController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('other')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('other')->where('username', $username)->get();
         return view('other.index', compact('collection'));
     }
 

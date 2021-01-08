@@ -10,7 +10,8 @@ class industryExperienceController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('industry_experience')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('industry_experience')->where('username', $username)->get();
         return view('industry_experience.index', compact('collection'));
     }
 

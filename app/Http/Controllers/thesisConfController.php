@@ -10,7 +10,8 @@ class thesisConfController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('thesis_conf')->get();
+        $username = Auth::user()->username;
+        $collection = DB::table('thesis_conf')->where('username', $username)->get();
 
         foreach ($collection as $item) {
             $item->corresponding_author == 0 ? $item->corresponding_author = '否' : $item->corresponding_author = '是';
