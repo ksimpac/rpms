@@ -7,7 +7,6 @@
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('MOST_project.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -82,7 +81,7 @@
     </div>
 
     <div class="form-group">
-        <label for="identification">佐證資料上傳</label>
+        <label for="identification">佐證資料上傳(PDF檔案)</label>
         <input type="file" class="form-control-file @error('identification') is-invalid @enderror" id="identification"
             name="identification">
         @error('identification')

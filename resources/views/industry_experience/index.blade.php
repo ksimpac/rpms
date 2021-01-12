@@ -18,9 +18,9 @@
             <th scope="col">#</th>
             <th scope="col">任職單位</th>
             <th scope="col">職稱</th>
-            <th scope="col">專兼任</th>
-            <th scope="col">工作內容</th>
-            <th scope="col">　</th>
+            <th scope="col">任職時間起</th>
+            <th scope="col">任職時間迄</th>
+            <th scope="col">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -29,8 +29,8 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->working_units }}</td>
             <td>{{ $item->position }}</td>
-            <td>{{ $item->type }}</td>
-            <td>{{ $item->job_description }}</td>
+            <td>{{ $item->startDate }}</td>
+            <td>{{ $item->endDate }}</td>
             <td>
                 <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">
                     @csrf

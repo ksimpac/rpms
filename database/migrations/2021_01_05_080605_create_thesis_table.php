@@ -24,7 +24,7 @@ class CreateThesisTable extends Migration
             $table->unsignedTinyInteger('order'); //作者順序
             $table->unsignedTinyInteger('corresponding_author'); //是否為通訊作者，0為否，1為是
             $table->string('thesisName', 100); //論文名稱
-            $table->enum('type', ['SCI', 'SCIE', 'SSCI', '其他']); //收錄分類
+            $table->enum('type', ['SCI', 'SCIE', 'SSCI', 'DOI', '其他']); //收錄分類
             $table->char('identification', 14); //佐證資料上傳
             $table->timestamps();
         });

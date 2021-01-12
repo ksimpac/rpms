@@ -8,7 +8,6 @@
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('industry_experience.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -95,7 +94,7 @@
     </div>
 
     <div class="form-group">
-        <label for="identification">佐證資料上傳 (如：勞工保險證明或服務證明)</label>
+        <label for="identification">佐證資料上傳 (如：勞工保險證明或服務證明)(PDF檔案)</label>
         <input type="file" class="form-control-file @error('identification') is-invalid @enderror" id="identification"
             name="identification" value="{{ old('identification') }}">
         @error('identification')

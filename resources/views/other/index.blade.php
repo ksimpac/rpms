@@ -23,7 +23,8 @@
         @foreach ($collection as $item)
         <tr>
             <td>{{ $loop->index + 1 }}</td>
-            <td><a href="{{ Storage::url('other/' . $item->identification) }}">{{ $item->identification }}</a></td>
+            <td><a href="{{ Storage::url('other/' . $item->identification) }}"
+                    target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <form action="{{ route('other.destroy', ['id' => $item->id]) }}" method="post">
                     @csrf

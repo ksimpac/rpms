@@ -3,11 +3,11 @@
 @section('title')
 <span>
     <h4>學歷</h4>
+    <span>(大學/碩士/博士 皆須填寫)</span>
 </span>
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('education.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -118,7 +118,7 @@
     </div>
 
     <div class="form-group">
-        <label for="certificate">畢業證書上傳</label>
+        <label for="certificate">畢業證書上傳(PDF檔案)</label>
         <input type="file" class="form-control-file @error('certificate') is-invalid @enderror" id="certificate"
             name="certificate">
         @error('certificate')
@@ -129,7 +129,7 @@
     </div>
 
     <div class="form-group">
-        <label for="transcript">成績單上傳*</label>
+        <label for="transcript">成績單上傳(PDF檔案)</label>
         <input type="file" class="form-control-file @error('transcript') is-invalid @enderror" id="transcript"
             name="transcript">
         @error('transcript')

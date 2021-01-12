@@ -7,15 +7,25 @@
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('general_info.store') }}" method="POST" enctype="multipart/form-data">
 
     @csrf
     <div class="form-group">
-        <label for="englishName">英文姓名</label>
-        <input type="text" class="form-control @error('englishName') is-invalid @enderror" id="englishName"
-            name="englishName" value="{{ old('englishName') }}">
-        @error('englishName')
+        <label for="englishLastName">英文姓氏</label>
+        <input type="text" class="form-control @error('englishLastName') is-invalid @enderror" id="englishLastName"
+            name="englishLastName" value="{{ old('englishLastName') }}">
+        @error('englishLastName')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="englishFirstName">英文名子</label>
+        <input type="text" class="form-control @error('englishFirstName') is-invalid @enderror" id="englishFirstName"
+            name="englishFirstName" value="{{ old('englishFirstName') }}">
+        @error('englishFirstName')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
@@ -104,7 +114,7 @@
     </div>
 
     <div class="form-group">
-        <label for="teacherCertificateFiles">教師證影本上傳 (無則免附)</label>
+        <label for="teacherCertificateFiles">教師證影本上傳 (無則免附)(PDF檔案)</label>
         <input type="file" class="form-control-file @error('teacherCertificateFiles') is-invalid @enderror"
             id="teacherCertificateFiles" name="teacherCertificateFiles">
         @error('teacherCertificateFiles')
@@ -114,15 +124,42 @@
         @enderror
     </div>
 
-    <div class="form-group">
-        <label for="position">現職</label>
-        <input type="text" class="form-control @error('position') is-invalid @enderror" id="position" name="position"
-            value="{{ old('position') }}">
-        @error('position')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
+    <div>
+        <label>現職</label>
+
+        <div class="ml-4 form-group">
+            <label for="working_units">公司機構名稱</label>
+            <input type="text" class="form-control @error('working_units') is-invalid @enderror" id="working_units"
+                name="working_units" value="{{ old('working_units') }}">
+            @error('working_units')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="ml-4 form-group">
+            <label for="position">職稱</label>
+            <input type="text" class="form-control @error('position') is-invalid @enderror" id="position"
+                name="position" value="{{ old('position') }}">
+            @error('position')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="ml-4 form-group">
+            <label for="startDate">到職年月</label>
+            <input type="text" class="form-control @error('startDate') is-invalid @enderror" id="startDate"
+                name="startDate" aria-describedby="startDateHelp" value="{{ old('startDate') }}">
+            <small id="startDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
+            @error('startDate')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
     </div>
 
     <div class="form-group">
@@ -139,7 +176,7 @@
         <label for="course">曾授課程/可授課程</label>
         <textarea class="form-control @error('course') is-invalid @enderror" id="course" name="course" rows="3"
             aria-describedby="courseHelp">{{ old('course') }}</textarea>
-        <small id="courseHelp" class="form-text text-muted">請使用全形頓點間格(、)</small>
+        <small id="courseHelp" class="form-text text-muted">請使用全形頓點間隔(、)</small>
         @error('course')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

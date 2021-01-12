@@ -2,13 +2,12 @@
 
 @section('title')
 <div>
-    <h4>期刊論文資料管理</h4>
+    <h4>期刊論文</h4>
     <span>近五年內已發表或出版之相關著作(需收錄於SCI、SCIE、SSCI)至少2篇</span>
 </div>
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -103,6 +102,7 @@
             <option value="SCI" {{ old('type') == "SCI" ? 'selected' : ''}}>SCI</option>
             <option value="SCIE" {{ old('type') == "SCIE" ? 'selected' : ''}}>SCIE</option>
             <option value="SSCI" {{ old('type') == "SSCI" ? 'selected' : ''}}>SSCI</option>
+            <option value="DOI" {{ old('type') == "DOI" ? 'selected' : ''}}>DOI</option>
             <option value="其他" {{ old('type') == "其他" ? 'selected' : ''}}>其他</option>
             @error('type')
             <span class="invalid-feedback" role="alert">
@@ -112,7 +112,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="identification">佐證資料上傳 (公開發表論文電子全文)</label>
+        <label for="identification">佐證資料上傳(公開發表論文電子全文)(PDF檔案)</label>
         <input type="file" class="form-control-file @error('identification') is-invalid @enderror" id="identification"
             name="identification">
         @error('identification')

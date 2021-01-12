@@ -24,7 +24,6 @@ class CreateThesisConfsTable extends Migration
             $table->unsignedTinyInteger('authorNo'); //作者總人數
             $table->unsignedTinyInteger('corresponding_author'); //是否為通訊作者，0為否，1為是
             $table->string('country', 100); //舉行之國家或城市
-            $table->char('identification', 14); //佐證資料上傳
             $table->timestamps();
         });
     }

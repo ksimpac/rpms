@@ -33,7 +33,7 @@ class thesisController extends Controller
             'order' => ['required', 'integer', 'min:1'],
             'corresponding_author' => ['required', 'in:0,1'],
             'thesisName' => ['required', 'string', 'max:100'],
-            'type' => ['required', 'in:SCI,SCIE,SSCI,其他'],
+            'type' => ['required', 'in:SCI,SCIE,SSCI,DOI,其他'],
             'identification' => ['required', 'file', 'mimes:pdf'],
         ]);
 

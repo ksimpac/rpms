@@ -11,7 +11,7 @@ class educationController extends Controller
     public function index()
     {
         $username = Auth::user()->username;
-        $collection = DB::table('education')->where('username', Auth::user())->get();
+        $collection = DB::table('education')->where('username', $username)->get();
         return view('education.index', compact('collection'));
     }
 
@@ -33,7 +33,7 @@ class educationController extends Controller
             'thesis' => $request->input('degree') != '大學' ? ['required', 'string', 'max:100'] : ['string', 'max:100'],
             'advisor' => $request->input('degree') != '大學' ? ['required', 'string', 'max:100'] : ['string', 'max:100'],
             'certificate' => ['required', 'file', 'mimes:pdf'],
-            'transcript' => ['file', 'mimes:pdf']
+            'transcript' => ['required', 'file', 'mimes:pdf']
         ]);
 
         $fileName = strtotime("now") . '.pdf';

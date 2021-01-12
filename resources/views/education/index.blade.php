@@ -3,6 +3,7 @@
 @section('title')
 <span>
     <h4>學歷</h4>
+    <span>(大學/碩士/博士 皆須填寫)</span>
 </span>
 @endsection
 
@@ -17,8 +18,8 @@
             <th scope="col">#</th>
             <th scope="col">學校名</th>
             <th scope="col">院系科名</th>
-            <th scope="col">修業年月起</th>
-            <th scope="col">修業年月迄</th>
+            <th scope="col">學位</th>
+            <th scope="col">修業狀況</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -28,8 +29,8 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->schoolName }}</td>
             <td>{{ $item->department }}</td>
-            <td>{{ $item->startDate }}</td>
-            <td>{{ $item->endDate }}</td>
+            <td>{{ $item->degree }}</td>
+            <td>{{ $item->status }}</td>
             <td>
                 <form action="{{ route('education.destroy', ['username' => $item->username]) }}" method="post">
                     @csrf

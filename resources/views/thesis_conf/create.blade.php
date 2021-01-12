@@ -7,7 +7,6 @@
 @endsection
 
 @section('card-body-content')
-<span>(*為選填)</span>
 <form action="{{ route('thesis_conf.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -83,17 +82,6 @@
         <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" name="country"
             value="{{ old('country') }}">
         @error('country')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-    </div>
-
-    <div class="form-group">
-        <label for="identification">佐證資料上傳</label>
-        <input type="file" class="form-control-file @error('identification') is-invalid @enderror" id="identification"
-            name="identification">
-        @error('identification')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>

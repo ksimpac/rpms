@@ -27,14 +27,17 @@ class generalInfoController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'englishName' => ['required', 'string', 'max:100'],
+            'englishLastName' => ['required', 'string', 'max:100'],
+            'englishFirstName' => ['required', 'string', 'max:100'],
             'birthday' => ['required', 'date_format:Y/m/d'],
             'sex' => ['required', 'in:0,1'],
             'telephone' => ['required', 'string', 'min:10', 'max:10'],
             'Permanent_Address' => ['required', 'string', 'max:100'],
             'Residential_Address' => ['required', 'string', 'max:100'],
             'teacherCertificateFiles' => $request->input('teacherCertificateType') !== "無" ? ['required', 'file', 'mimes:pdf'] : [],
+            'working_units' => ['required', 'string', 'max:100'],
             'position' => ['required', 'string', 'max:100'],
+            'startDate' => ['required', 'date_format:Y/m'],
             'course' => ['required', 'string'],
         ]);
 

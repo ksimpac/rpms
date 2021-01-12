@@ -33,13 +33,7 @@ class thesisConfController extends Controller
             'authorNo' => ['required', 'integer', 'min:1'],
             'corresponding_author' => ['required', 'in:0,1'],
             'country' => ['required', 'string', 'max:100'],
-            'identification' => ['required', 'file', 'mimes:pdf']
         ]);
-
-        $fileName = strtotime("now") . '.pdf';
-
-        $request->file('identification')->storeAs('thesis_conf', $fileName, 'public');
-        $data['identification'] = $fileName;
 
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
