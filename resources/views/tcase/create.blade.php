@@ -1,9 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<span>
-    <h4>產學合作計畫參與</h4>
-</span>
+@include('tcase.title')
 @endsection
 
 @section('card-body-content')

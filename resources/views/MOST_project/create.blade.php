@@ -1,9 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<span>
-    <h4>科技部專題研究計畫(近五年)</h4>
-</span>
+@include('MOST_project.title')
 @endsection
 
 @section('card-body-content')

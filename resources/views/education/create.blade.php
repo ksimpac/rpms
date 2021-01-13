@@ -1,10 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<span>
-    <h4>學歷</h4>
-    <span>(大學/碩士/博士 皆須填寫)</span>
-</span>
+@include('education.title')
 @endsection
 
 @section('card-body-content')

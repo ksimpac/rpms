@@ -1,9 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<span>
-    <h4>研討會論文(近五年)</h4>
-</span>
+@include('thesis_conf.title')
 @endsection
 
 @section('card-body-content')

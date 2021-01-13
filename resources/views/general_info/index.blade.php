@@ -1,9 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<span>
-    <h4>基本資料</h4>
-</span>
+@include('general_info.title')
 @endsection
 
 @section('card-body-content')

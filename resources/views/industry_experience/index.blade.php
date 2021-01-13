@@ -1,10 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-<div>
-    <h4>經歷</h4>
-    <span>(須具備一年(含)以上業界實務經驗或擔任產學合作計畫主持人為期至少一年)</span>
-</div>
+@include('industry_experience.title')
 @endsection
 
 @section('card-body-content')
