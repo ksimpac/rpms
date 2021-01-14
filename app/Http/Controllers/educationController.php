@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class educationController extends Controller
 {
@@ -22,30 +23,7 @@ class educationController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'schoolName' => ['required', 'string', 'max:100'],
-            'department' => ['required', 'string', 'max:100'],
-            'startDate' => ['required', 'date_format:Y/m'],
-            'endDate' => ['required', 'date_format:Y/m'],
-            'degree' => ['in:大學,碩士,博士'],
-            'status' => ['in:畢業,結業,肆業'],
-            'country' => ['required', 'string', 'max:100'],
-            'thesis' => $request->input('degree') != '大學' ? ['required', 'string', 'max:100'] : ['string', 'max:100'],
-            'advisor' => $request->input('degree') != '大學' ? ['required', 'string', 'max:100'] : ['string', 'max:100'],
-            'certificate' => ['required', 'file', 'mimes:pdf'],
-            'transcript' => ['required', 'file', 'mimes:pdf']
-        ]);
-
-        $fileName = strtotime("now") . '.pdf';
-
-        if (isset($data['transcript'])) {
-            $request->file('transcript')->storeAs('education\transcript', $fileName, 'public');
-            $data['transcript'] = $fileName;
-        }
-
-        $request->file('certificate')->storeAs('education\certificate', $fileName, 'public');
-        $data['certificate'] = $fileName;
-
+        $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('education')->insert([$data]);
@@ -56,5 +34,54 @@ class educationController extends Controller
     {
         DB::table('education')->where('username', $username)->delete();
         return redirect()->route('education.index');
+    }
+
+    public function edit($username, $id)
+    {
+        $collection = DB::table('education')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('education.edit', compact('collection'));
+    }
+
+    public function update(Request $request, $username, $id)
+    {
+        $data = $this->validation($request);
+        $data['updated_at'] = now();
+        DB::table('education')->where('username', $username)->where('id', $id)->update($data);
+        return redirect()->route('education.index');
+    }
+
+    private function validation(Request $request)
+    {
+        $requestName = $request->route()->getName();
+        $data = $request->validate([
+            'schoolName' => ['required', 'string', 'max:100'],
+            'department' => ['required', 'string', 'max:100'],
+            'startDate' => ['required', 'date_format:Y/m'],
+            'endDate' => ['required', 'date_format:Y/m'],
+            'degree' => ['in:大學,碩士,博士'],
+            'status' => ['in:畢業,結業,肆業'],
+            'country' => ['required', 'string', 'max:100'],
+            'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:100'],
+            'advisor' => ['required_unless:degree,大學', 'nullable', 'string', 'max:100'],
+            'certificate' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
+            'transcript' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
+        ]);
+
+        $fileName = strtotime("now") . '.pdf';
+
+        if (isset($data['transcript'])) {
+            $request->file('transcript')->storeAs('education\transcript', $fileName, 'public');
+            $data['transcript'] = $fileName;
+        }
+
+        if (isset($data['certificate'])) {
+            $request->file('certificate')->storeAs('education\certificate', $fileName, 'public');
+            $data['certificate'] = $fileName;
+        }
+
+        return $data;
     }
 }

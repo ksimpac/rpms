@@ -23,20 +23,7 @@ class mostProjectController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'projectName' => ['required', 'string', 'max:100'],
-            'startDate' => ['required', 'date_format:Y/m/d'],
-            'endDate' => ['required', 'date_format:Y/m/d'],
-            'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],
-            'plantotal_money' => ['required', 'integer', 'max:9999999999'],
-            'identification' => ['required', 'file', 'mimes:pdf'],
-        ]);
-
-        $fileName = strtotime("now") . '.pdf';
-
-        $request->file('identification')->storeAs('MOST_project', $fileName, 'public');
-        $data['identification'] = $fileName;
-
+        $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('MOST_project')->insert([$data]);
@@ -47,5 +34,45 @@ class mostProjectController extends Controller
     {
         DB::table('MOST_project')->where('id', $id)->delete();
         return redirect()->route('MOST_project.index');
+    }
+
+    public function edit($username, $id)
+    {
+        $collection = DB::table('MOST_project')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        $collection->startDate = str_replace('-', '/', $collection->startDate);
+        $collection->endDate = str_replace('-', '/', $collection->endDate);
+        return view('MOST_project.edit', compact('collection'));
+    }
+
+    public function update(Request $request, $username, $id)
+    {
+        $data = $this->validation($request);
+        $data['updated_at'] = now();
+        DB::table('MOST_project')->where('username', $username)->where('id', $id)->update($data);
+        return redirect()->route('MOST_project.index');
+    }
+
+    private function validation(Request $request)
+    {
+        $requestName = $request->route()->getName();
+        $data = $request->validate([
+            'projectName' => ['required', 'string', 'max:100'],
+            'startDate' => ['required', 'date_format:Y/m/d'],
+            'endDate' => ['required', 'date_format:Y/m/d'],
+            'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],
+            'plantotal_money' => ['required', 'integer', 'max:9999999999'],
+            'identification' => [Rule::requiredIf($requestName == 'MOST_project.store'), 'file', 'mimes:pdf'],
+        ]);
+
+        if (isset($data['identification'])) {
+            $fileName = strtotime("now") . '.pdf';
+            $request->file('identification')->storeAs('MOST_project', $fileName, 'public');
+            $data['identification'] = $fileName;
+        }
+
+        return $data;
     }
 }

@@ -26,15 +26,7 @@ class thesisConfController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'conf_name' => ['required', 'string', 'max:100'],
-            'thesisName' => ['required', 'string', 'max:100'],
-            'years' => ['required', 'date_format:Y'],
-            'authorNo' => ['required', 'integer', 'min:1'],
-            'corresponding_author' => ['required', 'in:0,1'],
-            'country' => ['required', 'string', 'max:100'],
-        ]);
-
+        $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('thesis_conf')->insert([$data]);
@@ -45,5 +37,37 @@ class thesisConfController extends Controller
     {
         DB::table('thesis_conf')->where('id', $id)->delete();
         return redirect()->route('thesis_conf.index');
+    }
+
+    public function edit($username, $id)
+    {
+        $collection = DB::table('thesis_conf')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('thesis_conf.edit', compact('collection'));
+    }
+
+    public function update(Request $request, $username, $id)
+    {
+        $data = $this->validation($request);
+        $data['updated_at'] = now();
+        DB::table('thesis_conf')->where('username', $username)->where('id', $id)->update($data);
+        return redirect()->route('thesis_conf.index');
+    }
+
+    private function validation(Request $request)
+    {
+        $data = $request->validate([
+            'conf_name' => ['required', 'string', 'max:100'],
+            'thesisName' => ['required', 'string', 'max:100'],
+            'years' => ['required', 'date_format:Y'],
+            'authorNo' => ['required', 'integer', 'min:1'],
+            'corresponding_author' => ['required', 'in:0,1'],
+            'country' => ['required', 'string', 'max:100'],
+        ]);
+
+
+        return $data;
     }
 }

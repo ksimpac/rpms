@@ -29,11 +29,15 @@
             <td>{{ $item->degree }}</td>
             <td>{{ $item->status }}</td>
             <td>
-                <form action="{{ route('education.destroy', ['username' => $item->username]) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger">Delete</button>
-                </form>
+                <div class="d-flex justify-content-start">
+                    <a href="{{ route('education.edit', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('education.destroy', ['username' => $item->username]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">刪除</button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach

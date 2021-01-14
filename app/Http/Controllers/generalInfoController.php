@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class generalInfoController extends Controller
 {
@@ -26,28 +27,7 @@ class generalInfoController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'englishLastName' => ['required', 'string', 'max:100'],
-            'englishFirstName' => ['required', 'string', 'max:100'],
-            'birthday' => ['required', 'date_format:Y/m/d'],
-            'sex' => ['required', 'in:0,1'],
-            'telephone' => ['required', 'string', 'min:10', 'max:10'],
-            'Permanent_Address' => ['required', 'string', 'max:100'],
-            'Residential_Address' => ['required', 'string', 'max:100'],
-            'teacherCertificateFiles' => $request->input('teacherCertificateType') !== "無" ? ['required', 'file', 'mimes:pdf'] : [],
-            'working_units' => ['required', 'string', 'max:100'],
-            'position' => ['required', 'string', 'max:100'],
-            'startDate' => ['required', 'date_format:Y/m'],
-            'course' => ['required', 'string'],
-        ]);
-
-        $fileName = strtotime("now") . '.pdf';
-
-        if (isset($data['teacherCertificateFiles'])) {
-            $request->file('teacherCertificateFiles')->storeAs('general_info', $fileName, 'public');
-            $data['teacherCertificateFiles'] = $fileName;
-        }
-
+        $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('general_info')->insert([$data]);
@@ -58,5 +38,53 @@ class generalInfoController extends Controller
     {
         DB::table('general_info')->where('username', $username)->delete();
         return redirect()->route('general_info.index');
+    }
+
+    public function edit($username, $id)
+    {
+        $collection = DB::table('general_info')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        $collection->birthday = str_replace('-', '/', $collection->birthday);
+        return view('general_info.edit', compact('collection'));
+    }
+
+    public function update(Request $request, $username, $id)
+    {
+        $data = $this->validation($request);
+        $data['updated_at'] = now();
+        DB::table('general_info')->where('username', $username)->where('id', $id)->update($data);
+        return redirect()->route('general_info.index');
+    }
+
+    private function validation(Request $request)
+    {
+        $requestName = $request->route()->getName();
+        $data = $request->validate([
+            'englishLastName' => ['required', 'string', 'max:100'],
+            'englishFirstName' => ['required', 'string', 'max:100'],
+            'birthday' => ['required', 'date_format:Y/m/d'],
+            'sex' => ['required', 'in:0,1'],
+            'telephone' => ['required', 'string', 'min:10', 'max:10'],
+            'Permanent_Address' => ['required', 'string', 'max:100'],
+            'Residential_Address' => ['required', 'string', 'max:100'],
+            'teacherCertificateType' => ['required', 'in:教授,副教授,助理教授,講師,無'],
+            'teacherCertificateFiles' => [Rule::requiredIf(function () use ($request, $requestName) {
+                return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != '無';
+            }), 'file', 'mimes:pdf'],
+            'working_units' => ['required', 'string', 'max:100'],
+            'position' => ['required', 'string', 'max:100'],
+            'startDate' => ['required', 'date_format:Y/m'],
+            'course' => ['required', 'string'],
+        ]);
+
+        if (isset($data['teacherCertificateFiles'])) {
+            $fileName = strtotime("now") . '.pdf';
+            $request->file('teacherCertificateFiles')->storeAs('general_info', $fileName, 'public');
+            $data['teacherCertificateFiles'] = $fileName;
+        }
+
+        return $data;
     }
 }

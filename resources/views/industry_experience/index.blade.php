@@ -29,11 +29,15 @@
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
             <td>
-                <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger">Delete</button>
-                </form>
+                <div class="d-flex justify-content-start">
+                    <a href="{{ route('industry_experience.edit', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">刪除</button>
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
