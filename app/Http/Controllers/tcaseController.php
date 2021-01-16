@@ -70,7 +70,7 @@ class tcaseController extends Controller
 
         if (isset($data['identification'])) {
             $fileName = strtotime("now") . '.pdf';
-            $request->file('identification')->storeAs('other', $fileName, 'public');
+            $request->file('identification')->storeAs('tcase', $fileName, 'public');
             $data['identification'] = $fileName;
         }
 

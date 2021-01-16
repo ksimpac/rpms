@@ -63,11 +63,12 @@ class thesisController extends Controller
         $data = $request->validate([
             'publicationName' => ['required', 'string', 'max:100'],
             'publicationDate' => ['required', 'date_format:Y/m'],
+            'DOI' => ['required', 'string'],
             'authorNo' => ['required', 'integer', 'min:1'],
             'order' => ['required', 'integer', 'min:1'],
             'corresponding_author' => ['required', 'in:0,1'],
             'thesisName' => ['required', 'string', 'max:100'],
-            'type' => ['required', 'in:SCI,SCIE,SSCI,DOI,其他'],
+            'type' => ['required', 'in:SCI,SCIE,SSCI,其他'],
             'identification' => [Rule::requiredIf($requestName == 'thesis.store'), 'file', 'mimes:pdf'],
         ]);
 

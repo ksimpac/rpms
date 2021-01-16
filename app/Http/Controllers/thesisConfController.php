@@ -67,7 +67,6 @@ class thesisConfController extends Controller
             'country' => ['required', 'string', 'max:100'],
         ]);
 
-
         return $data;
     }
 }
