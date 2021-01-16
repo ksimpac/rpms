@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <span class="text-danger">截止日期：110年3月2日(二)23:59</span>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

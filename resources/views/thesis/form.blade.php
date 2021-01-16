@@ -24,6 +24,17 @@
 </div>
 
 <div class="form-group">
+    <label for="DOI">DOI</label>
+    <input type="text" class="form-control @error('DOI') is-invalid @enderror" id="DOI" name="DOI"
+        value="{{ old('DOI') ?? $collection->DOI ?? '' }}">
+    @error('DOI')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group">
     <label for="authorNo">作者總人數</label>
     <input type="number" class="form-control @error('authorNo') is-invalid @enderror" id="authorNo" name="authorNo"
         value="{{ old('authorNo') ?? $collection->authorNo ?? '' }}">
@@ -98,9 +109,6 @@
         <option value="SSCI"
             {{ isset($collection->type) && $collection->type == 'SSCI' ? 'selected' : (old('type') == "SSCI" ? 'selected' : '') }}>
             SSCI</option>
-        <option value="DOI"
-            {{ isset($collection->type) && $collection->type == 'DOI' ? 'selected' : (old('type') == "DOI" ? 'selected' : '') }}>
-            DOI</option>
         <option value="其他"
             {{ isset($collection->type) && $collection->type == '其他' ? 'selected' : (old('type') == "其他" ? 'selected' : '') }}>
             其他</option>

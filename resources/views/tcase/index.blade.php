@@ -15,7 +15,7 @@
             <th scope="col">計畫名稱</th>
             <th scope="col">合作機構名稱</th>
             <th scope="col">執行結束日期</th>
-            <th scope="col">工作類別</th>
+            <th scope="col">佐證資料</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -26,7 +26,8 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->collaboration_name }}</td>
             <td>{{ $item->endDate }}</td>
-            <td>{{ $item->jobkind }}</td>
+            <td><a href="{{ Storage::url('tcase/' . $item->identification) }}"
+                    target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('tcase.edit', ['id' => $item->id, 'username' => $item->username]) }}"

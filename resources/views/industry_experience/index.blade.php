@@ -15,8 +15,8 @@
             <th scope="col">#</th>
             <th scope="col">任職單位</th>
             <th scope="col">職稱</th>
-            <th scope="col">任職時間起</th>
-            <th scope="col">任職時間迄</th>
+            <th scope="col">專兼任</th>
+            <th scope="col">佐證資料</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -26,8 +26,9 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->working_units }}</td>
             <td>{{ $item->position }}</td>
-            <td>{{ $item->startDate }}</td>
-            <td>{{ $item->endDate }}</td>
+            <td>{{ $item->type }}</td>
+            <td><a href="{{ Storage::url('industry_experience/' . $item->identification) }}"
+                    target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('industry_experience.edit', ['id' => $item->id, 'username' => $item->username]) }}"

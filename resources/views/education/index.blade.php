@@ -15,8 +15,8 @@
             <th scope="col">#</th>
             <th scope="col">學校名</th>
             <th scope="col">院系科名</th>
-            <th scope="col">學位</th>
-            <th scope="col">修業狀況</th>
+            <th scope="col">畢業證書/口試證明</th>
+            <th scope="col">成績單</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -26,8 +26,10 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->schoolName }}</td>
             <td>{{ $item->department }}</td>
-            <td>{{ $item->degree }}</td>
-            <td>{{ $item->status }}</td>
+            <td><a href="{{ Storage::url('education/certificate/' . $item->certificate) }}"
+                    target="_blank">{{ $item->certificate }}</a></td>
+            <td><a href="{{ Storage::url('education/transcript/' . $item->transcript) }}"
+                    target="_blank">{{ $item->transcript }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('education.edit', ['id' => $item->id, 'username' => $item->username]) }}"

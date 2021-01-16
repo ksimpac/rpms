@@ -16,7 +16,7 @@
             <th scope="col">計畫名稱</th>
             <th scope="col">執行起始日期</th>
             <th scope="col">執行結束日期</th>
-            <th scope="col">工作類別</th>
+            <th scope="col">佐證資料</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -27,7 +27,8 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
-            <td>{{ $item->jobkind }}</td>
+            <td><a href="{{ Storage::url('MOST_project/' . $item->identification) }}"
+                    target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('MOST_project.edit', ['id' => $item->id, 'username' => $item->username]) }}"

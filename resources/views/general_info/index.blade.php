@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">生日</th>
-            <th scope="col">性別</th>
-            <th scope="col">聯絡電話</th>
+            <th scope="col">英文姓氏</th>
+            <th scope="col">英文名字</th>
             <th scope="col">教師證級別</th>
+            <th scope="col">教師證影本</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -24,10 +24,17 @@
         @foreach ($collection as $item)
         <tr>
             <td>{{ $loop->index + 1 }}</td>
-            <td>{{ $item->birthday }}</td>
-            <td>{{ $item->gender }}</td>
-            <td>{{ $item->telephone }}</td>
+            <td>{{ $item->englishLastName }}</td>
+            <td>{{ $item->englishFirstName }}</td>
             <td>{{ $item->teacherCertificateType }}</td>
+            <td>
+                @if(isset($item->teacherCertificateFiles))
+                <a href="{{ Storage::url('general_info/' . $item->teacherCertificateFiles) }}"
+                    target="_blank">{{ $item->teacherCertificateFiles }}</a>
+                @else
+                無
+                @endif
+            </td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('general_info.edit', ['id' => $item->id, 'username' => $item->username]) }}"

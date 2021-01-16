@@ -15,8 +15,8 @@
             <th scope="col">#</th>
             <th scope="col">刊物名稱</th>
             <th scope="col">年月</th>
-            <th scope="col">作者順序</th>
             <th scope="col">收錄分類</th>
+            <th scope="col">佐證資料</th>
             <th scope="col">操作</th>
         </tr>
     </thead>
@@ -26,8 +26,9 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->publicationName }}</td>
             <td>{{ $item->publicationDate }}</td>
-            <td>{{ $item->order }}</td>
             <td>{{ $item->type }}</td>
+            <td><a href="{{ Storage::url('thesis/' . $item->identification) }}"
+                    target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('thesis.edit', ['id' => $item->id, 'username' => $item->username]) }}"
