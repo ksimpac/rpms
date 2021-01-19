@@ -33,7 +33,7 @@
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('education.show', ['id' => $item->id, 'username' => $item->username]) }}"
-                        class="btn btn-info mr-2">查看</a>
+                        class="btn btn-info mr-2">檢視</a>
                     <a href="{{ route('education.edit', ['id' => $item->id, 'username' => $item->username]) }}"
                         class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('education.destroy', ['username' => $item->username]) }}" method="post">
