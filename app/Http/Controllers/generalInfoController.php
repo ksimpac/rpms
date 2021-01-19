@@ -58,6 +58,16 @@ class generalInfoController extends Controller
         return redirect()->route('general_info.index');
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('general_info')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        $collection->sex == 0 ? $collection->gender = '女' : $collection->gender = '男';
+        return view('general_info.show', compact('collection'));
+    }
+
     private function validation(Request $request)
     {
         $requestName = $request->route()->getName();

@@ -37,6 +37,8 @@
             </td>
             <td>
                 <div class="d-flex justify-content-start">
+                    <a href="{{ route('general_info.show', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-info mr-2">檢視</a>
                     <a href="{{ route('general_info.edit', ['id' => $item->id, 'username' => $item->username]) }}"
                         class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('general_info.destroy', ['username' => $item->username]) }}" method="post">

@@ -29,6 +29,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('general_info/create', 'generalInfoController@create')->name('create');
             Route::post('general_info', 'generalInfoController@store')->name('store');
             Route::get('general_info/{username}/{id}/edit', 'generalInfoController@edit')->name('edit');
+            Route::get('general_info/{username}/{id}', 'generalInfoController@show')->name('show');
             Route::patch('general_info/{username}/{id}', 'generalInfoController@update')->name('update');
             Route::delete('general_info/{username}', 'generalInfoController@destroy')->name('destroy');
         });
