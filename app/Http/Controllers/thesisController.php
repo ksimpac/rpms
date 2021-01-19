@@ -49,6 +49,15 @@ class thesisController extends Controller
         return view('thesis.edit', compact('collection'));
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('thesis')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('thesis.show', compact('collection'));
+    }
+
     public function update(Request $request, $username, $id)
     {
         $data = $this->validation($request);

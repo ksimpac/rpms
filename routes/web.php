@@ -49,6 +49,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('thesis/create', 'thesisController@create')->name('create');
             Route::post('thesis', 'thesisController@store')->name('store');
             Route::get('thesis/{username}/{id}/edit', 'thesisController@edit')->name('edit');
+            Route::get('thesis/{username}/{id}', 'thesisController@show')->name('show');
             Route::patch('thesis/{username}/{id}', 'thesisController@update')->name('update');
             Route::delete('thesis/{id}', 'thesisController@destroy')->name('destroy');
         });
