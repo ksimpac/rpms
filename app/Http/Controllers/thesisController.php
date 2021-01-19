@@ -55,6 +55,8 @@ class thesisController extends Controller
             ->where('username', $username)
             ->where('id', $id)->first();
 
+        $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
+
         return view('thesis.show', compact('collection'));
     }
 
