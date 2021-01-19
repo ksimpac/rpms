@@ -39,6 +39,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('education/create', 'educationController@create')->name('create');
             Route::post('education', 'educationController@store')->name('store');
             Route::get('education/{username}/{id}/edit', 'educationController@edit')->name('edit');
+            Route::get('education/{username}/{id}', 'educationController@show')->name('show');
             Route::patch('education/{username}/{id}', 'educationController@update')->name('update');
             Route::delete('education/{username}', 'educationController@destroy')->name('destroy');
         });

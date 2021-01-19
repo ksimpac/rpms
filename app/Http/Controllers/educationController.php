@@ -45,6 +45,15 @@ class educationController extends Controller
         return view('education.edit', compact('collection'));
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('education')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('education.show', compact('collection'));
+    }
+
     public function update(Request $request, $username, $id)
     {
         $data = $this->validation($request);
