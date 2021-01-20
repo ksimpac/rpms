@@ -79,6 +79,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('MOST_project/create', 'mostProjectController@create')->name('create');
             Route::post('MOST_project', 'mostProjectController@store')->name('store');
             Route::get('MOST_project/{username}/{id}/edit', 'mostProjectController@edit')->name('edit');
+            Route::get('MOST_project/{username}/{id}', 'mostProjectController@show')->name('show');
             Route::patch('MOST_project/{username}/{id}', 'mostProjectController@update')->name('update');
             Route::delete('MOST_project/{id}', 'mostProjectController@destroy')->name('destroy');
         });
