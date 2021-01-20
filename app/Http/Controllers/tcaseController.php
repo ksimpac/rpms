@@ -47,6 +47,15 @@ class tcaseController extends Controller
         return view('tcase.edit', compact('collection'));
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('tcase')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('tcase.show', compact('collection'));
+    }
+
     public function update(Request $request, $username, $id)
     {
         $data = $this->validation($request);

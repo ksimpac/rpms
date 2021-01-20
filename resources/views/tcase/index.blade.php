@@ -30,6 +30,8 @@
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
+                    <a href="{{ route('tcase.show', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-info mr-2">檢視</a>
                     <a href="{{ route('tcase.edit', ['id' => $item->id, 'username' => $item->username]) }}"
                         class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('tcase.destroy', ['id' => $item->id]) }}" method="post">

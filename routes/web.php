@@ -69,6 +69,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('tcase/create', 'tcaseController@create')->name('create');
             Route::post('tcase', 'tcaseController@store')->name('store');
             Route::get('tcase/{username}/{id}/edit', 'tcaseController@edit')->name('edit');
+            Route::get('tcase/{username}/{id}', 'tcaseController@show')->name('show');
             Route::patch('tcase/{username}/{id}', 'tcaseController@update')->name('update');
             Route::delete('tcase/{id}', 'tcaseController@destroy')->name('destroy');
         });
