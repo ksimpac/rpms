@@ -47,18 +47,10 @@
     </div>
 
     <div class="form-group row">
-        <label for="staticPlantotal_money" class="col-sm-2 col-form-label">工作類別</label>
+        <label for="staticPlantotal_money" class="col-sm-2 col-form-label">計畫總金額</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticPlantotal_money"
                 value="{{ $collection->plantotal_money }}">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="staticJobkind" class="col-sm-2 col-form-label">工作類別</label>
-        <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticJobkind"
-                value="{{ $collection->jobkind }}">
         </div>
     </div>
 
