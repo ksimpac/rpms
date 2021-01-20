@@ -69,7 +69,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="staticIdentification" class="col-sm-2 col-form-label">論文名稱</label>
+        <label for="staticIdentification" class="col-sm-2 col-form-label">佐證資料上傳</label>
         <div class="col-sm-10">
             <a href="{{ Storage::url('education/' . $collection->identification) }}" target="_blank"
                 class="form-control-plaintext">{{ $collection->identification }}</a>
