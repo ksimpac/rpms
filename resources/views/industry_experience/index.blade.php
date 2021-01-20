@@ -31,6 +31,8 @@
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
+                    <a href="{{ route('industry_experience.show', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-info mr-2">查看</a>
                     <a href="{{ route('industry_experience.edit', ['id' => $item->id, 'username' => $item->username]) }}"
                         class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">

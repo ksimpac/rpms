@@ -45,6 +45,15 @@ class industryExperienceController extends Controller
         return view('industry_experience.edit', compact('collection'));
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('industry_experience')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        return view('industry_experience.show', compact('collection'));
+    }
+
     public function update(Request $request, $username, $id)
     {
         $data = $this->validation($request);

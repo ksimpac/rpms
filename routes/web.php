@@ -59,6 +59,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('industry_experience/create', 'industryExperienceController@create')->name('create');
             Route::post('industry_experience', 'industryExperienceController@store')->name('store');
             Route::get('industry_experience/{username}/{id}/edit', 'industryExperienceController@edit')->name('edit');
+            Route::get('industry_experience/{username}/{id}', 'industryExperienceController@show')->name('show');
             Route::patch('industry_experience/{username}/{id}', 'industryExperienceController@update')->name('update');
             Route::delete('industry_experience/{id}', 'industryExperienceController@destroy')->name('destroy');
         });

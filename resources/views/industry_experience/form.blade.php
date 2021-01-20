@@ -21,7 +21,7 @@
     @enderror
 </div>
 
-<div class="@error('position') is-invalid @enderror">
+<div class="@error('type') is-invalid @enderror">
     <label for="type">兼專任</label><br />
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="type" id="type1" value="兼任"
