@@ -90,6 +90,7 @@ Route::middleware('auth', 'user')->group(function () {
             Route::get('thesis_conf/create', 'thesisConfController@create')->name('create');
             Route::post('thesis_conf', 'thesisConfController@store')->name('store');
             Route::get('thesis_conf/{username}/{id}/edit', 'thesisConfController@edit')->name('edit');
+            Route::get('thesis_conf/{username}/{id}', 'thesisConfController@show')->name('show');
             Route::patch('thesis_conf/{username}/{id}', 'thesisConfController@update')->name('update');
             Route::delete('thesis_conf/{id}', 'thesisConfController@destroy')->name('destroy');
         });

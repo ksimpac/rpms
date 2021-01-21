@@ -30,6 +30,8 @@
             <td>{{ $item->authorNo }}</td>
             <td>
                 <div class="d-flex justify-content-start">
+                    <a href="{{ route('thesis_conf.show', ['id' => $item->id, 'username' => $item->username]) }}"
+                        class="btn btn-info mr-2">檢視</a>
                     <a href="{{ route('thesis_conf.edit', ['id' => $item->id, 'username' => $item->username]) }}"
                         class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('thesis_conf.destroy', ['id' => $item->id]) }}" method="post">

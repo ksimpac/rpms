@@ -48,6 +48,16 @@ class thesisConfController extends Controller
         return view('thesis_conf.edit', compact('collection'));
     }
 
+    public function show($username, $id)
+    {
+        $collection = DB::table('thesis_conf')
+            ->where('username', $username)
+            ->where('id', $id)->first();
+
+        $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
+        return view('thesis_conf.show', compact('collection'));
+    }
+
     public function update(Request $request, $username, $id)
     {
         $data = $this->validation($request);
