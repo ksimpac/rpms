@@ -11,8 +11,8 @@ class tcaseController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('tcase')->where('username', $username)->get();
+        $collection = DB::table('tcase')
+            ->where('username', Auth::user()->username)->get();
         return view('tcase.index', compact('collection'));
     }
 
@@ -36,10 +36,10 @@ class tcaseController extends Controller
         return redirect()->route('tcase.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('tcase')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         $collection->startDate = str_replace('-', '/', $collection->startDate);
@@ -47,20 +47,22 @@ class tcaseController extends Controller
         return view('tcase.edit', compact('collection'));
     }
 
-    public function show($username, $id)
+    public function show($id)
     {
         $collection = DB::table('tcase')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('tcase.show', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('tcase')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('tcase')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('tcase.index');
     }
 

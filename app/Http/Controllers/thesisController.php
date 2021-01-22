@@ -11,8 +11,9 @@ class thesisController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('thesis')->where('username', $username)->get();
+        $collection = DB::table('thesis')
+            ->where('username', Auth::user()->username)
+            ->get();
 
         foreach ($collection as $item) {
             $item->corresponding_author == 0 ? $item->corresponding_author = '否' : $item->corresponding_author = '是';
@@ -40,19 +41,19 @@ class thesisController extends Controller
         return redirect()->route('thesis.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('thesis')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('thesis.edit', compact('collection'));
     }
 
-    public function show($username, $id)
+    public function show($id)
     {
         $collection = DB::table('thesis')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
@@ -60,11 +61,13 @@ class thesisController extends Controller
         return view('thesis.show', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('thesis')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('thesis')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('thesis.index');
     }
 

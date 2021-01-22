@@ -11,8 +11,9 @@ class educationController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('education')->where('username', $username)->get();
+        $collection = DB::table('education')
+            ->where('username', Auth::user()->username)
+            ->get();
         return view('education.index', compact('collection'));
     }
 
@@ -30,35 +31,37 @@ class educationController extends Controller
         return redirect()->route('education.index');
     }
 
-    public function destroy($username)
+    public function destroy($id)
     {
-        DB::table('education')->where('username', $username)->delete();
+        DB::table('education')->where('id', $id)->delete();
         return redirect()->route('education.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('education')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('education.edit', compact('collection'));
     }
 
-    public function show($username, $id)
+    public function show($id)
     {
         $collection = DB::table('education')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('education.show', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('education')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('education')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('education.index');
     }
 

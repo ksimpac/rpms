@@ -24,8 +24,7 @@
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('other.edit', ['id' => $item->id, 'username' => $item->username]) }}"
-                        class="btn btn-warning mr-2">修改</a>
+                    <a href="{{ route('other.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('other.destroy', ['id' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')

@@ -11,8 +11,9 @@ class generalInfoController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('general_info')->where('username', $username)->get();
+        $collection = DB::table('general_info')
+            ->where('username', Auth::user()->username)
+            ->get();
 
         foreach ($collection as $item) {
             $item->sex == 0 ? $item->gender = '女' : $item->gender = '男';
@@ -34,34 +35,36 @@ class generalInfoController extends Controller
         return redirect()->route('general_info.index');
     }
 
-    public function destroy($username)
+    public function destroy($id)
     {
-        DB::table('general_info')->where('username', $username)->delete();
+        DB::table('general_info')->where('id', $id)->delete();
         return redirect()->route('general_info.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('general_info')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         $collection->birthday = str_replace('-', '/', $collection->birthday);
         return view('general_info.edit', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('general_info')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('general_info')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('general_info.index');
     }
 
-    public function show($username, $id)
+    public function show($id)
     {
         $collection = DB::table('general_info')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         $collection->sex == 0 ? $collection->gender = '女' : $collection->gender = '男';

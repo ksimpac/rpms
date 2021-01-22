@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class user
 {
@@ -16,14 +17,20 @@ class user
      */
     public function handle($request, Closure $next)
     {
-        $method = $request->route()->methods[0]; //get form method
-        $url_username = $request->route()->parameter('username'); //username in url
+        $url_id = $request->route()->parameter('id');
+
+        if (!isset($url_id)) {
+            return $next($request);
+        }
+
+        $uri = explode('/', $request->route()->uri());
+        $tableName = $uri[1];
         $username = Auth::user()->username; //real username
 
-        if ($method == 'GET' || $url_username == null) return $next($request);
+        $data = DB::table($tableName)->where('id', $url_id)->first();
 
-        if ($url_username != $username) {
-            return abort(403);
+        if ($data->username !== $username) {
+            abort(404);
         } else {
             return $next($request);
         }

@@ -5,8 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('education.update', ['id' => $collection->id, 'username' => $collection->username]) }}"
-    method="POST" enctype="multipart/form-data">
+<form action="{{ route('education.update', ['id' => $collection->id]) }}" method="POST" enctype="multipart/form-data">
     @method('PATCH')
     @include('education.form')
     <button type="submit" class="btn btn-warning">修改</button>

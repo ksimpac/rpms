@@ -11,8 +11,8 @@ class otherController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('other')->where('username', $username)->get();
+        $collection = DB::table('other')
+            ->where('username', Auth::user()->username)->get();
         return view('other.index', compact('collection'));
     }
 
@@ -36,20 +36,22 @@ class otherController extends Controller
         return redirect()->route('other.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('other')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('other.edit', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('other')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('other')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('other.index');
     }
 

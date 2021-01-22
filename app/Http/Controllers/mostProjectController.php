@@ -11,8 +11,9 @@ class mostProjectController extends Controller
 {
     public function index()
     {
-        $username = Auth::user()->username;
-        $collection = DB::table('MOST_project')->where('username', $username)->get();
+        $collection = DB::table('MOST_project')
+            ->where('username', Auth::user()->username)
+            ->get();
         return view('MOST_project.index', compact('collection'));
     }
 
@@ -36,10 +37,10 @@ class mostProjectController extends Controller
         return redirect()->route('MOST_project.index');
     }
 
-    public function edit($username, $id)
+    public function edit($id)
     {
         $collection = DB::table('MOST_project')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         $collection->startDate = str_replace('-', '/', $collection->startDate);
@@ -47,20 +48,22 @@ class mostProjectController extends Controller
         return view('MOST_project.edit', compact('collection'));
     }
 
-    public function show($username, $id)
+    public function show($id)
     {
         $collection = DB::table('MOST_project')
-            ->where('username', $username)
+            ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
         return view('MOST_project.show', compact('collection'));
     }
 
-    public function update(Request $request, $username, $id)
+    public function update(Request $request, $id)
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('MOST_project')->where('username', $username)->where('id', $id)->update($data);
+        DB::table('MOST_project')
+            ->where('username', Auth::user()->username)
+            ->where('id', $id)->update($data);
         return redirect()->route('MOST_project.index');
     }
 
