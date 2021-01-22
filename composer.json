@@ -15,7 +15,8 @@
         "laravel-lang/lang": "~7.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "2.4"
+        "laravel/ui": "2.4",
+        "meditate/twid": "^0.1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Rules\National_ID_No_Check;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -54,7 +55,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'min:4', 'max:30'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'National_ID_No' => ['required', 'string', 'min:10', 'max:10'],
+            'National_ID_No' => ['required', 'string', 'min:10', 'max:10', new National_ID_No_Check],
         ]);
     }
 
