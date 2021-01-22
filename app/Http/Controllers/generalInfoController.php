@@ -12,12 +12,7 @@ class generalInfoController extends Controller
     public function index()
     {
         $collection = DB::table('general_info')
-            ->where('username', Auth::user()->username)
-            ->get();
-
-        foreach ($collection as $item) {
-            $item->sex == 0 ? $item->gender = '女' : $item->gender = '男';
-        }
+            ->where('username', Auth::user()->username)->get();
         return view('general_info.index', compact('collection'));
     }
 
