@@ -23,6 +23,7 @@ class CreateThesisTable extends Migration
             $table->string('DOI');
             $table->unsignedTinyInteger('authorNo'); //作者總人數
             $table->unsignedTinyInteger('order'); //作者順序
+            $table->string('rank_factor');
             $table->unsignedTinyInteger('corresponding_author'); //是否為通訊作者，0為否，1為是
             $table->string('thesisName', 100); //論文名稱
             $table->enum('type', ['SCI', 'SCIE', 'SSCI', '其他']); //收錄分類

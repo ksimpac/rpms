@@ -46,6 +46,14 @@
     </div>
 
     <div class="form-group row">
+        <label for="staticRank_factor" class="col-sm-2 col-form-label">作者順序</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticRank_factor"
+                value="{{ $collection->rank_factor }}">
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label for="staticCorresponding_author" class="col-sm-2 col-form-label">是否為通訊作者</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticCorresponding_author"

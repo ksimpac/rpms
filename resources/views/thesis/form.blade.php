@@ -37,7 +37,7 @@
 <div class="form-group">
     <label for="authorNo">作者總人數</label>
     <input type="number" class="form-control @error('authorNo') is-invalid @enderror" id="authorNo" name="authorNo"
-        value="{{ old('authorNo') ?? $collection->authorNo ?? '' }}">
+        value="{{ old('authorNo') ?? $collection->authorNo ?? '' }}" min="1">
     @error('authorNo')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -48,8 +48,19 @@
 <div class="form-group">
     <label for="order">作者順序</label>
     <input type="number" class="form-control @error('order') is-invalid @enderror" id="order" name="order"
-        value="{{ old('order') ?? $collection->order ?? '' }}">
+        value="{{ old('order') ?? $collection->order ?? '' }}" min="1">
     @error('order')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+
+<div class="form-group">
+    <label for="rank_factor">Rank factor N/M</label>
+    <input type="text" class="form-control @error('rank_factor') is-invalid @enderror" id="rank_factor"
+        name="rank_factor" value="{{ old('rank_factor') ?? $collection->rank_factor ?? '' }}">
+    @error('rank_factor')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
     </span>
@@ -58,7 +69,8 @@
 
 <div class="alert alert-warning" role="alert">
     <h4 class="alert-heading">Rank factor N/M</h4>
-    <p>SCI/SSCI Rank Factor：N為期刊在所屬研究領域之Impact Factor排序名次(Impact Factor以2019年ISI資料庫之資料為準)；M為該期刊所屬研究領域之總期刊數。</p>
+    <p>SCI/SSCI Rank Factor：N為期刊在所屬研究領域之Impact Factor排序名次（Impact
+        Factor以{{ Carbon\Carbon::now()->year - 1 }}年ISI資料庫之資料為準）；M為該期刊所屬研究領域之總期刊數。</p>
 </div>
 
 <div class="@error('corresponding_author') is-invalid @enderror">

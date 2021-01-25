@@ -80,6 +80,7 @@ class thesisController extends Controller
             'DOI' => ['required', 'string'],
             'authorNo' => ['required', 'integer', 'min:1'],
             'order' => ['required', 'integer', 'min:1'],
+            'rank_factor' => ['required', 'string', 'regex:/\A\d+\/\d+\z/'],
             'corresponding_author' => ['required', 'in:0,1'],
             'thesisName' => ['required', 'string', 'max:100'],
             'type' => ['required', 'in:SCI,SCIE,SSCI,其他'],
@@ -92,6 +93,7 @@ class thesisController extends Controller
             $data['identification'] = $fileName;
         }
 
+        dd($data);
         return $data;
     }
 }

@@ -11,7 +11,7 @@
 </div>
 
 <div class="form-group">
-    <label for="englishFirstName">英文名子</label>
+    <label for="englishFirstName">英文名字</label>
     <input type="text" class="form-control @error('englishFirstName') is-invalid @enderror" id="englishFirstName"
         name="englishFirstName" value="{{ old('englishFirstName') ?? $collection->englishFirstName ?? '' }}">
     @error('englishFirstName')
