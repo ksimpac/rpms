@@ -81,7 +81,7 @@
     <div class="form-group row">
         <label for="staticCertificate" class="col-sm-2 col-form-label">畢業證書</label>
         <div class="col-sm-10">
-            <a href="{{ Storage::url('education/' . $collection->certificate) }}" target="_blank"
+            <a href="{{ url(Storage::url('education/certificate/' . $collection->certificate)) }}" target="_blank"
                 class="form-control-plaintext">{{ $collection->certificate }}</a>
         </div>
     </div>
@@ -89,7 +89,7 @@
     <div class="form-group row">
         <label for="staticTranscript" class="col-sm-2 col-form-label">成績單</label>
         <div class="col-sm-10">
-            <a href="{{ Storage::url('education/' . $collection->transcript) }}" target="_blank"
+            <a href="{{ url(Storage::url('education/transcript/' . $collection->transcript)) }}" target="_blank"
                 class="form-control-plaintext">{{ $collection->transcript }}</a>
         </div>
     </div>

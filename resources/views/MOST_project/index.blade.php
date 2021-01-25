@@ -27,7 +27,7 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
-            <td><a href="{{ Storage::url('MOST_project/' . $item->identification) }}"
+            <td><a href="{{ url(Storage::url('MOST_project/' . $item->identification)) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">

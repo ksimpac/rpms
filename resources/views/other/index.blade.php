@@ -20,7 +20,7 @@
         @foreach ($collection as $item)
         <tr>
             <td>{{ $loop->index + 1 }}</td>
-            <td><a href="{{ Storage::url('other/' . $item->identification) }}"
+            <td><a href="{{ url(Storage::url('other/' . $item->identification)) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">

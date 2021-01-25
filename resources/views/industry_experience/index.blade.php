@@ -27,7 +27,7 @@
             <td>{{ $item->working_units }}</td>
             <td>{{ $item->position }}</td>
             <td>{{ $item->type }}</td>
-            <td><a href="{{ Storage::url('industry_experience/' . $item->identification) }}"
+            <td><a href="{{ url(Storage::url('industry_experience/' . $item->identification)) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">

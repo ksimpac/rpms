@@ -56,7 +56,7 @@
     <div class="form-group row">
         <label for="staticIdentification" class="col-sm-2 col-form-label">佐證資料上傳</label>
         <div class="col-sm-10">
-            <a href="{{ Storage::url('industry_experience/' . $collection->identification) }}" target="_blank"
+            <a href="{{ url(Storage::url('industry_experience/' . $collection->identification)) }}" target="_blank"
                 class="form-control-plaintext">{{ $collection->identification }}</a>
         </div>
     </div>

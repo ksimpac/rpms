@@ -29,7 +29,7 @@
             <td>{{ $item->teacherCertificateType }}</td>
             <td>
                 @if(isset($item->teacherCertificateFiles))
-                <a href="{{ Storage::url('general_info/' . $item->teacherCertificateFiles) }}"
+                <a href="{{ url(Storage::url('general_info/' . $item->teacherCertificateFiles)) }}"
                     target="_blank">{{ $item->teacherCertificateFiles }}</a>
                 @else
                 無

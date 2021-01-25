@@ -73,8 +73,8 @@
         <label for="staticTeacherCertificateFiles" class="col-sm-2 col-form-label">教師證影本</label>
         <div class="col-sm-10">
             @if(isset($collection->teacherCertificateFiles))
-            <span><a href="{{ Storage::url('general_info/' . $collection->teacherCertificateFiles) }}" target="_blank"
-                    class="form-control-plaintext">{{ $collection->teacherCertificateFiles }}</a></span>
+            <span><a href="{{ url(Storage::url('general_info/' . $collection->teacherCertificateFiles)) }}"
+                    target="_blank" class="form-control-plaintext">{{ $collection->teacherCertificateFiles }}</a></span>
             <span></span>
             @else
             無
