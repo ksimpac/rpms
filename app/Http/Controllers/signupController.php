@@ -11,10 +11,9 @@ class signupController extends Controller
     public function store()
     {
 
-        DB::table('signup')
-            ->insertOrIgnore([
-                'username' => Auth::user()->username,
-            ]);
+        DB::table('users')
+            ->where('username', Auth::user()->username)
+            ->update(['isSignup' => 1]);
 
         Alert::success('系統訊息', '已完成報名');
         return redirect()->back();
@@ -73,7 +72,7 @@ class signupController extends Controller
         }
 
         if ($message != "") {
-            Alert::html('系統訊息', $message, 'error');
+            Alert::html('錯誤', $message, 'error')->persistent(true, false);
             return redirect()->back();
         } else {
             return $this->store();

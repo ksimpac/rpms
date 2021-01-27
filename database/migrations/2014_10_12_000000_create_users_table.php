@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('National_ID_No'); //身分證字號
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedTinyInteger('isSignup')->default(0);
             $table->timestamps();
         });
     }
