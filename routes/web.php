@@ -103,5 +103,9 @@ Route::middleware('auth', 'user')->group(function () {
             Route::patch('other/{id}', 'otherController@update')->name('update');
             Route::delete('other/{id}', 'otherController@destroy')->name('destroy');
         });
+
+        Route::name('signup.')->group(function () {
+            Route::post('signup', 'signupController@check')->name('store');
+        });
     });
 });

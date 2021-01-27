@@ -73,7 +73,7 @@ class industryExperienceController extends Controller
             'type' => ['required', 'in:專任,兼任'],
             'job_description' => ['required', 'string'],
             'startDate' => ['required', 'date_format:Y/m'],
-            'endDate' => ['required', 'date_format:Y/m'],
+            'endDate' => ['required', 'date_format:Y/m', 'after:startDate'],
             'identification' => [Rule::requiredIf($requestName == 'industry_experience.store'), 'file', 'mimes:pdf'],
         ]);
 

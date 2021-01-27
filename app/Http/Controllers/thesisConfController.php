@@ -73,7 +73,7 @@ class thesisConfController extends Controller
         $data = $request->validate([
             'conf_name' => ['required', 'string', 'max:100'],
             'thesisName' => ['required', 'string', 'max:100'],
-            'years' => ['required', 'date_format:Y'],
+            'years' => ['required', 'date_format:Y', 'after_or_equal:' . date("Y", strtotime("-5 years")), 'before_or_equal:' . date("Y", strtotime("now"))],
             'authorNo' => ['required', 'integer', 'min:1'],
             'corresponding_author' => ['required', 'in:0,1'],
             'country' => ['required', 'string', 'max:100'],

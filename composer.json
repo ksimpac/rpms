@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
         "meditate/twid": "^0.1.0",
-        "nesbot/carbon": "^2.43"
+        "nesbot/carbon": "^2.43",
+        "realrashid/sweet-alert": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

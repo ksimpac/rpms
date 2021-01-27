@@ -34,6 +34,15 @@
                     <a class="nav-link pl-0" href="{{ route('other.index') }}"><span
                             class="d-none d-md-inline">其他有助審查資料</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link pl-0" href="{{ route('signup.store') }}" onclick="event.preventDefault();
+                            document.getElementById('signupForm').submit();"><span
+                            class="d-none d-md-inline">報名</span></a>
+
+                    <form id="signupForm" action="{{ route('signup.store') }}" method="post" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>

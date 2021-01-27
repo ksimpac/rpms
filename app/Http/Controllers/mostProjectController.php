@@ -71,8 +71,8 @@ class mostProjectController extends Controller
         $requestName = $request->route()->getName();
         $data = $request->validate([
             'projectName' => ['required', 'string', 'max:100'],
-            'startDate' => ['required', 'date_format:Y/m/d'],
-            'endDate' => ['required', 'date_format:Y/m/d'],
+            'startDate' => ['required', 'date_format:Y/m/d', 'after_or_equal:' . date("Y/m/d", strtotime("-5 years"))],
+            'endDate' => ['required', 'date_format:Y/m/d', 'after:startDate', 'before_or_equal:' . date("Y/m/d", strtotime("now"))],
             'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],
             'plantotal_money' => ['required', 'integer', 'max:9999999999'],
             'identification' => [Rule::requiredIf($requestName == 'MOST_project.store'), 'file', 'mimes:pdf'],

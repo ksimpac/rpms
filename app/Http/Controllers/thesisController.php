@@ -76,7 +76,7 @@ class thesisController extends Controller
         $requestName = $request->route()->getName();
         $data = $request->validate([
             'publicationName' => ['required', 'string', 'max:100'],
-            'publicationDate' => ['required', 'date_format:Y/m'],
+            'publicationDate' => ['required', 'date_format:Y/m', 'after_or_equal:' . date("Y/m", strtotime("-5 years")), 'before_or_equal:' . date("Y/m", strtotime("now"))],
             'DOI' => ['required', 'string'],
             'authorNo' => ['required', 'integer', 'min:1'],
             'order' => ['required', 'integer', 'min:1'],
@@ -93,7 +93,6 @@ class thesisController extends Controller
             $data['identification'] = $fileName;
         }
 
-        dd($data);
         return $data;
     }
 }
