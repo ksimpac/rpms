@@ -6,7 +6,9 @@
 
 @section('card-body-content')
 
+@if(Auth::user()->isSignup == 0)
 <span class="d-flex justify-content-end"><a href="{{ route('other.create') }}" class="btn btn-secondary">新增一筆</a></span>
+@endif
 
 <table class="table">
     <thead>
@@ -23,6 +25,7 @@
             <td><a href="{{ url(Storage::url('other/' . $item->identification)) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
+                @if(Auth::user()->isSignup == 0)
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('other.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('other.destroy', ['id' => $item->id]) }}" method="post">
@@ -31,6 +34,7 @@
                         <button class="btn btn-danger">刪除</button>
                     </form>
                 </div>
+                @endif
             </td>
         </tr>
         @endforeach

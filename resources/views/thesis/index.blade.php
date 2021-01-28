@@ -6,8 +6,10 @@
 
 @section('card-body-content')
 
+@if(Auth::user()->isSignup == 0)
 <span class="d-flex justify-content-end"><a href="{{ route('thesis.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
+@endif
 
 <table class="table">
     <thead>
@@ -32,12 +34,14 @@
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('thesis.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
+                    @if(Auth::user()->isSignup == 0)
                     <a href="{{ route('thesis.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
                     <form action="{{ route('thesis.destroy', ['id' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>
                     </form>
+                    @endif
                 </div>
             </td>
         </tr>
