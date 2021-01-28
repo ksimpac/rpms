@@ -29,7 +29,7 @@ class user
 
         $data = DB::table($tableName)->where('id', $url_id)->first();
 
-        if ($data->username !== $username) {
+        if (isset($data->username) && $data->username !== $username) {
             abort(404);
         } else {
             return $next($request);
