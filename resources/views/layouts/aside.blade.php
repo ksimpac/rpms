@@ -38,7 +38,11 @@
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="{{ route('signup.store') }}" onclick="event.preventDefault();
                             document.getElementById('signupForm').submit();"><span
-                            class="d-none d-md-inline">報名</span></a>
+                            class="d-none d-md-inline text-success">
+                            <h4>報名</h4>
+                        </span>
+                        <span class="text-danger">(點下報名後無法修改)</span>
+                    </a>
 
                     <form id="signupForm" action="{{ route('signup.store') }}" method="post" class="d-none">
                         @csrf
