@@ -2,6 +2,7 @@
     <nav class="navbar navbar-expand navbar-light bg-light flex-md-column flex-row align-items-start">
         <div class="collapse navbar-collapse">
             <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                @if(Auth::user()->is_admin == 0)
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="{{ route('general_info.index') }}"><span
                             class="d-none d-md-inline">基本資料</span></a>
@@ -43,6 +44,12 @@
                         @csrf
                     </form>
                 </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link pl-0" href="{{ route('admin.index') }}"><span
+                            class="d-none d-md-inline">匯出資料</span></a>
+                </li>
+                @endif
             </ul>
         </div>
     </nav>

@@ -18,9 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('chineseName'); //姓名
-            $table->string('email')->unique();
-            $table->string('National_ID_No'); //身分證字號
+            $table->string('email')->unique()->nullable();
+            $table->string('National_ID_No')->nullable(); //身分證字號
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedTinyInteger('is_admin');
             $table->unsignedTinyInteger('isSignup')->default(0);
             $table->timestamps();
         });
