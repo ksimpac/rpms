@@ -12,6 +12,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('node_modules/flatpickr/js/flatpickr.js') }}"></script>
+    <script src="{{ asset('node_modules/flatpickr/js/zh-tw.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('node_modules/flatpickr/css/flatpickr.css') }}" rel="stylesheet">
 </head>
 
 <body>

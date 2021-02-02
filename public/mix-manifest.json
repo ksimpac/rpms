@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/node_modules/flatpickr/js/flatpickr.js": "/node_modules/flatpickr/js/flatpickr.js",
+    "/node_modules/flatpickr/js/zh-tw.js": "/node_modules/flatpickr/js/zh-tw.js",
+    "/node_modules/flatpickr/css/flatpickr.css": "/node_modules/flatpickr/css/flatpickr.css"
 }
