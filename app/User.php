@@ -11,6 +11,20 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'username';
+
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
