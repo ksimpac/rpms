@@ -175,7 +175,7 @@
             @endforeach
 
             @for ($i = 1; $i <= ($thesis->thesis_count - $user->thesis_count); $i++)
-                @for ($i = 1; $i <= 10; $i++)
+                @for ($j = 1; $j <= 10; $j++)
                 <td></td>
                 @endfor
             @endfor
@@ -195,7 +195,7 @@
             @endforeach
 
             @for ($i = 1; $i <= ($industry_experiences->industry_experiences_count - $user->industry_experiences_count); $i++)
-                @for ($i = 1; $i <= 7; $i++)
+                @for ($j = 1; $j <= 7; $j++)
                 <td></td>
                 @endfor
             @endfor
@@ -215,7 +215,7 @@
             @endforeach
 
             @for ($i = 1; $i <= ($tcases->tcases_count - $user->tcases_count); $i++)
-                @for ($i = 1; $i <= 7; $i++)
+                @for ($j = 1; $j <= 7; $j++)
                 <td></td>
                 @endfor
             @endfor
@@ -234,7 +234,7 @@
             @endforeach
 
             @for ($i = 1; $i <= ($most_projects->most_projects_count - $user->most_projects_count); $i++)
-                @for ($i = 1; $i <= 6; $i++)
+                @for ($j = 1; $j <= 6; $j++)
                 <td></td>
                 @endfor
             @endfor
@@ -249,7 +249,7 @@
             @endforeach
 
             @for ($i = 1; $i <= ($thesis_confs->thesis_confs_count - $user->thesis_confs_count); $i++)
-                @for ($i = 1; $i <= 6; $i++)
+                @for ($j = 1; $j <= 6; $j++)
                 <td></td>
                 @endfor
             @endfor
