@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::name('admin.')->group(function () {
     Route::get('/export', 'AdminController@index')->name('index');
+    Route::post('/export', 'AdminController@export')->name('export');
 });
 
 Route::middleware('auth', 'user')->group(function () {

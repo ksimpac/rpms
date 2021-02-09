@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="#" method="post">
+<form action="{{ route('admin.export') }}" method="post">
     @csrf
     <div class="form-group">
         <label for="startDate">起始日期</label>
