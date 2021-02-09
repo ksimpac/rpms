@@ -57,12 +57,12 @@
         <option value="博士"
             {{ isset($collection->degree) && $collection->degree === '博士' ? 'selected' : (old('degree') == '博士' ? 'selected' : '') }}>
             博士</option>
-        @error('degree')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
     </select>
+    @error('degree')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 </div>
 
 <div class="form-group">
