@@ -72,7 +72,12 @@ class educationController extends Controller
             'department' => ['required', 'string', 'max:100'],
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m'],
-            'degree' => ['in:大學,碩士,博士', 'unique:education'],
+            'degree' => [
+                'in:大學,碩士,博士',
+                Rule::unique('education')->where(function ($query) {
+                    return $query->where('username', Auth::user()->username);
+                })
+            ],
             'status' => ['in:畢業,結業,肆業'],
             'country' => ['required', 'string', 'max:100'],
             'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:100'],
