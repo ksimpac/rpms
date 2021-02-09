@@ -89,7 +89,7 @@ class thesisController extends Controller
 
         if (isset($data['identification'])) {
             $fileName = strtotime("now") . '.pdf';
-            $request->file('identification')->storeAs('other', $fileName, 'public');
+            $request->file('identification')->storeAs('thesis', $fileName, 'public');
             $data['identification'] = $fileName;
         }
 
