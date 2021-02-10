@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\SignupExport;
 use App\User;
 use RealRashid\SweetAlert\Facades\Alert;
-use Barryvdh\Debugbar\Facade as Debugbar;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class AdminController extends Controller
@@ -17,6 +18,12 @@ class AdminController extends Controller
 
     public function export(Request $request)
     {
+        $data = $request->validate([
+            'startDate' => ['required', 'date_format:Y-m-d H:i'],
+            'endDate' => ['required', 'date_format:Y-m-d H:i', 'after:startDate']
+        ]);
+
+
         $users = User::where('isSignup', 1)->with(
             [
                 'general_info',
@@ -28,30 +35,24 @@ class AdminController extends Controller
                 'thesis_confs',
                 'thesis'
             ]
-        )->withCount([
-            'educations',
-            'industry_experiences',
-            'most_projects',
-            'others',
-            'tcases',
-            'thesis_confs',
-            'thesis'
-        ]);
+        )
+            ->whereBetween('updated_at', [$data['startDate'], $data['endDate']])
+            ->withCount([
+                'educations',
+                'industry_experiences',
+                'most_projects',
+                'others',
+                'tcases',
+                'thesis_confs',
+                'thesis'
+            ]);
 
         if ($users->get()->isEmpty()) {
             Alert::info('系統訊息', '目前尚未有人報名');
             return redirect()->back();
         }
 
-        return view('excel_export', [
-            'users' => $users->get(),
-            'educations' => $users->orderBy('educations_count', 'DESC')->first(),
-            'industry_experiences' => $users->orderBy('industry_experiences_count', 'DESC')->first(),
-            'most_projects' => $users->orderBy('most_projects_count', 'DESC')->first(),
-            'others' => $users->orderBy('others_count', 'DESC')->first(),
-            'tcases' => $users->orderBy('tcases_count', 'DESC')->first(),
-            'thesis_confs' => $users->orderBy('thesis_confs_count', 'DESC')->first(),
-            'thesis' => $users->orderBy('thesis_count', 'DESC')->first(),
-        ]);
+
+        return Excel::download(new SignupExport($users), '報名資訊.xlsx');
     }
 }

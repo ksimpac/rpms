@@ -13,7 +13,10 @@ class signupController extends Controller
 
         DB::table('users')
             ->where('username', Auth::user()->username)
-            ->update(['isSignup' => 1]);
+            ->update([
+                'isSignup' => 1,
+                'updated_at' => now()
+            ]);
 
         Alert::success('系統訊息', '已完成報名');
         return redirect()->back();

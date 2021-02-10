@@ -18,89 +18,89 @@
                 @if($others->others_count != 0) <th colspan="{{ 1 * $others->others_count }}">其他有助審查資料</th> @endif
             </tr>
             <tr>
-                <th rowspan="2">中文姓名</th>
-                <th rowspan="2">英文姓氏</th>
-                <th rowspan="2">英文名字</th>
-                <th rowspan="2">生日</th>
-                <th rowspan="2">性別</th>
-                <th rowspan="2">聯絡電話</th>
-                <th rowspan="2">戶籍地址</th>
-                <th rowspan="2">通訊地址</th>
-                <th rowspan="2">教師證職級</th>
-                <th rowspan="2">教師證影本</th>
-                <th rowspan="2">公司機構名稱</th>
-                <th rowspan="2">職稱</th>
-                <th rowspan="2">到職年月</th>
-                <th rowspan="2">專長領域</th>
-                <th rowspan="2">曾授課程/可授課程</th>
+                <th>中文姓名</th>
+                <th>英文姓氏</th>
+                <th>英文名字</th>
+                <th>生日</th>
+                <th>性別</th>
+                <th>聯絡電話</th>
+                <th>戶籍地址</th>
+                <th>通訊地址</th>
+                <th>教師證職級</th>
+                <th>教師證影本</th>
+                <th>公司機構名稱</th>
+                <th>職稱</th>
+                <th>到職年月</th>
+                <th>專長領域</th>
+                <th>曾授課程/可授課程</th>
 
                 @for ($i = 1; $i <= $educations->educations_count; $i++)
-                    <th rowspan="2">學校名</th>
-                    <th rowspan="2">院系科名</th>
-                    <th rowspan="2">修業年月起</th>
-                    <th rowspan="2">修業年月迄</th>
-                    <th rowspan="2">學位</th>
-                    <th rowspan="2">修業狀況</th>
-                    <th rowspan="2">畢業國家</th>
-                    <th rowspan="2">畢業論文</th>
-                    <th rowspan="2">指導教授</th>
-                    <th rowspan="2">畢業證書</th>
-                    <th rowspan="2">成績單</th>
+                    <th>學校名</th>
+                    <th>院系科名</th>
+                    <th>修業年月起</th>
+                    <th>修業年月迄</th>
+                    <th>學位</th>
+                    <th>修業狀況</th>
+                    <th>畢業國家</th>
+                    <th>畢業論文</th>
+                    <th>指導教授</th>
+                    <th>畢業證書</th>
+                    <th>成績單</th>
                 @endfor
 
                 @for ($i = 1; $i <= $thesis->thesis_count; $i++)
-                    <th rowspan="2">刊物名稱</th>
-                    <th rowspan="2">年月</th>
-                    <th rowspan="2">DOI</th>
-                    <th rowspan="2">作者總人數</th>
-                    <th rowspan="2">作者順序</th>
-                    <th rowspan="2">Rank factor N/M</th>
-                    <th rowspan="2">是否為通訊作者</th>
-                    <th rowspan="2">論文名稱</th>
-                    <th rowspan="2">收錄分類</th>
-                    <th rowspan="2">佐證資料</th>
+                    <th>刊物名稱</th>
+                    <th>年月</th>
+                    <th>DOI</th>
+                    <th>作者總人數</th>
+                    <th>作者順序</th>
+                    <th>Rank factor N/M</th>
+                    <th>是否為通訊作者</th>
+                    <th>論文名稱</th>
+                    <th>收錄分類</th>
+                    <th>佐證資料</th>
                 @endfor
 
                 @for ($i = 1; $i <= $industry_experiences->industry_experiences_count; $i++)
-                    <th rowspan="2">任職單位</th>
-                    <th rowspan="2">職稱</th>
-                    <th rowspan="2">兼專任</th>
-                    <th rowspan="2">工作內容</th>
-                    <th rowspan="2">任職時間起</th>
-                    <th rowspan="2">任職時間迄</th>
-                    <th rowspan="2">佐證資料</th>
+                    <th>任職單位</th>
+                    <th>職稱</th>
+                    <th>兼專任</th>
+                    <th>工作內容</th>
+                    <th>任職時間起</th>
+                    <th>任職時間迄</th>
+                    <th>佐證資料</th>
                 @endfor
 
                 @for ($i = 1; $i <= $tcases->tcases_count; $i++)
-                    <th rowspan="2">計畫名稱</th>
-                    <th rowspan="2">合作機構名稱</th>
-                    <th rowspan="2">執行起始日期</th>
-                    <th rowspan="2">執行結束日期</th>
-                    <th rowspan="2">工作類別</th>
-                    <th rowspan="2">計畫總金額</th>
-                    <th rowspan="2">佐證資料</th>
+                    <th>計畫名稱</th>
+                    <th>合作機構名稱</th>
+                    <th>執行起始日期</th>
+                    <th>執行結束日期</th>
+                    <th>工作類別</th>
+                    <th>計畫總金額</th>
+                    <th>佐證資料</th>
                 @endfor
 
                 @for ($i = 1; $i <= $most_projects->most_projects_count; $i++)
-                    <th rowspan="2">計畫名稱</th>
-                    <th rowspan="2">執行起始日期</th>
-                    <th rowspan="2">執行結束日期</th>
-                    <th rowspan="2">工作類別</th>
-                    <th rowspan="2">計畫總金額</th>
-                    <th rowspan="2">佐證資料</th>
+                    <th>計畫名稱</th>
+                    <th>執行起始日期</th>
+                    <th>執行結束日期</th>
+                    <th>工作類別</th>
+                    <th>計畫總金額</th>
+                    <th>佐證資料</th>
                 @endfor
 
                 @for ($i = 1; $i <= $thesis_confs->thesis_confs_count; $i++)
-                    <th rowspan="2">研討會名稱</th>
-                    <th rowspan="2">論文名稱</th>
-                    <th rowspan="2">發表年份</th>
-                    <th rowspan="2">作者總人數</th>
-                    <th rowspan="2">是否為通訊作者</th>
-                    <th rowspan="2">舉行之國家/城市</th>
+                    <th>研討會名稱</th>
+                    <th>論文名稱</th>
+                    <th>發表年份</th>
+                    <th>作者總人數</th>
+                    <th>是否為通訊作者</th>
+                    <th>舉行之國家/城市</th>
                 @endfor
 
                 @for ($i = 1; $i <= $others->others_count; $i++)
-                    <th rowspan="2">佐證資料</th>
+                    <th>佐證資料</th>
                 @endfor
 
             </tr>
