@@ -82,6 +82,14 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="page-footer fixed-bottom">
+            <div class="footer text-center py-2">
+                <h4>
+                    本網站建議使用Edge、Chrome及Firefox等瀏覽器並使用螢幕解析度1024x768以上（含）可得到最佳瀏覽效果
+                </h4>
+            </div>
+        </footer>
     </div>
     @include('sweetalert::alert')
 </body>
