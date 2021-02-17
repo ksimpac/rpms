@@ -70,19 +70,19 @@ class generalInfoController extends Controller
     {
         $requestName = $request->route()->getName();
         $data = $request->validate([
-            'englishLastName' => ['required', 'string', 'max:100'],
-            'englishFirstName' => ['required', 'string', 'max:100'],
+            'englishLastName' => ['required', 'string', 'max:255'],
+            'englishFirstName' => ['required', 'string', 'max:255'],
             'birthday' => ['required', 'date_format:Y/m/d'],
             'sex' => ['required', 'in:0,1'],
             'telephone' => ['required', 'string', 'min:10', 'max:10'],
-            'Permanent_Address' => ['required', 'string', 'max:100'],
-            'Residential_Address' => ['required', 'string', 'max:100'],
+            'Permanent_Address' => ['required', 'string', 'max:255'],
+            'Residential_Address' => ['required', 'string', 'max:255'],
             'teacherCertificateType' => ['required', 'in:教授,副教授,助理教授,講師,無'],
             'teacherCertificateFiles' => [Rule::requiredIf(function () use ($request, $requestName) {
                 return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != '無';
             }), 'file', 'mimes:pdf'],
-            'working_units' => ['required', 'string', 'max:100'],
-            'position' => ['required', 'string', 'max:100'],
+            'working_units' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m'],
             'course' => ['required', 'string'],
         ]);

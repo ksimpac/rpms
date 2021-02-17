@@ -68,8 +68,8 @@ class industryExperienceController extends Controller
     {
         $requestName = $request->route()->getName();
         $data = $request->validate([
-            'working_units' => ['required', 'string', 'max:100'],
-            'position' => ['required', 'string', 'max:100'],
+            'working_units' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:專任,兼任'],
             'job_description' => ['required', 'string'],
             'startDate' => ['required', 'date_format:Y/m'],

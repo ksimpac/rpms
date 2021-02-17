@@ -18,8 +18,8 @@ class CreateIndustryExperiencesTable extends Migration
             $table->string('username');
             $table->foreign('username')->references('username')->on('users')
                 ->constrained()->onDelete('cascade');
-            $table->string('working_units', 100); //任職單位
-            $table->string('position', 100); //職稱
+            $table->string('working_units'); //任職單位
+            $table->string('position'); //職稱
             $table->enum('type', ['兼任', '專任']); //專兼任
             $table->text('job_description'); //工作內容
             $table->char('startDate', 7); //任職時間起

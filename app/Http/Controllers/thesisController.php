@@ -75,14 +75,14 @@ class thesisController extends Controller
     {
         $requestName = $request->route()->getName();
         $data = $request->validate([
-            'publicationName' => ['required', 'string', 'max:100'],
+            'publicationName' => ['required', 'string', 'max:255'],
             'publicationDate' => ['required', 'date_format:Y/m', 'after_or_equal:' . date("Y/m", strtotime("-5 years")), 'before_or_equal:' . date("Y/m", strtotime("now"))],
             'DOI' => ['required', 'string'],
             'authorNo' => ['required', 'integer', 'min:1'],
             'order' => ['required', 'integer', 'min:1'],
             'rank_factor' => ['required', 'string', 'regex:/\A\d+\/\d+\z/'],
             'corresponding_author' => ['required', 'in:0,1'],
-            'thesisName' => ['required', 'string', 'max:100'],
+            'thesisName' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:SCI,SCIE,SSCI,其他'],
             'identification' => [Rule::requiredIf($requestName == 'thesis.store'), 'file', 'mimes:pdf'],
         ]);

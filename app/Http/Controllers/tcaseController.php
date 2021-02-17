@@ -70,8 +70,8 @@ class tcaseController extends Controller
     {
         $requestName = $request->route()->getName();
         $data = $request->validate([
-            'projectName' => ['required', 'string', 'max:100'],
-            'collaboration_name' => ['required', 'string', 'max:100'],
+            'projectName' => ['required', 'string', 'max:255'],
+            'collaboration_name' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m/d'],
             'endDate' => ['required', 'date_format:Y/m/d'],
             'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],

@@ -68,8 +68,8 @@ class educationController extends Controller
     {
         $requestName = $request->route()->getName();
         $data = $request->validate([
-            'schoolName' => ['required', 'string', 'max:100'],
-            'department' => ['required', 'string', 'max:100'],
+            'schoolName' => ['required', 'string', 'max:255'],
+            'department' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m'],
             'degree' => [
@@ -79,9 +79,9 @@ class educationController extends Controller
                 })
             ],
             'status' => ['in:畢業,結業,肆業'],
-            'country' => ['required', 'string', 'max:100'],
-            'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:100'],
-            'advisor' => ['required_unless:degree,大學', 'nullable', 'string', 'max:100'],
+            'country' => ['required', 'string', 'max:255'],
+            'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
+            'advisor' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
             'certificate' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
             'transcript' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
         ]);

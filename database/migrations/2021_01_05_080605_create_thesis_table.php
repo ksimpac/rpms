@@ -18,14 +18,14 @@ class CreateThesisTable extends Migration
             $table->string('username');
             $table->foreign('username')->references('username')->on('users')
                 ->constrained()->onDelete('cascade');
-            $table->string('publicationName', 100); //刊物名稱
+            $table->string('publicationName'); //刊物名稱
             $table->char('publicationDate', 7); //年月
             $table->string('DOI');
             $table->unsignedTinyInteger('authorNo'); //作者總人數
             $table->unsignedTinyInteger('order'); //作者順序
             $table->string('rank_factor');
             $table->unsignedTinyInteger('corresponding_author'); //是否為通訊作者，0為否，1為是
-            $table->string('thesisName', 100); //論文名稱
+            $table->string('thesisName'); //論文名稱
             $table->enum('type', ['SCI', 'SCIE', 'SSCI', '其他']); //收錄分類
             $table->char('identification', 14); //佐證資料上傳
             $table->timestamps();
