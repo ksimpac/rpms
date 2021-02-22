@@ -83,7 +83,7 @@
             @yield('content')
         </main>
 
-        <footer class="page-footer fixed-bottom">
+        <footer class="page-footer">
             <div class="footer text-center py-2">
                 <h4>
                     本網站建議使用Edge、Chrome及Firefox等瀏覽器並使用螢幕解析度1024x768以上（含）可得到最佳瀏覽效果
