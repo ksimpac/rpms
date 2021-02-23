@@ -73,7 +73,7 @@
 <div class="form-group">
     <label for="endDate">任職時間迄</label>
     <input type="text" class="form-control @error('endDate') is-invalid @enderror" id="endDate" name="endDate"
-        aria-describedby="endDateHelp" value="{{ old('endDate') ?? $collection->startDate ?? '' }}">
+        aria-describedby="endDateHelp" value="{{ old('endDate') ?? $collection->endDate ?? '' }}">
     <small id="endDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
     @error('endDate')
     <span class="invalid-feedback" role="alert">
