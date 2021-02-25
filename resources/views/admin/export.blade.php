@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-@include('admin.title')
+<h4>匯出資料</h4>
 @endsection
 
 @section('card-body-content')
