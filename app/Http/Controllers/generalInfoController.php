@@ -84,6 +84,7 @@ class generalInfoController extends Controller
             'working_units' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m'],
+            'specialization' => ['required', Rule::in(['智慧流通', '物流運輸', '新零售', '其他'])],
             'course' => ['required', 'string'],
         ]);
 
