@@ -70,7 +70,7 @@ class industryExperienceController extends Controller
         $data = $request->validate([
             'working_units' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'in:專任,兼任'],
+            'type' => ['required', 'in:專任,兼任', Rule::in(['專任', '兼任'])],
             'job_description' => ['required', 'string'],
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m', 'after:startDate'],

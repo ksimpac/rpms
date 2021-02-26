@@ -77,7 +77,7 @@ class generalInfoController extends Controller
             'telephone' => ['required', 'string', 'min:10', 'max:10'],
             'Permanent_Address' => ['required', 'string', 'max:255'],
             'Residential_Address' => ['required', 'string', 'max:255'],
-            'teacherCertificateType' => ['required', 'in:教授,副教授,助理教授,講師,無'],
+            'teacherCertificateType' => ['required', Rule::in(['教授', '副教授', '助理教授', '講師', '無'])],
             'teacherCertificateFiles' => [Rule::requiredIf(function () use ($request, $requestName) {
                 return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != '無';
             }), 'file', 'mimes:pdf'],
