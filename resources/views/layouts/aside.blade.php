@@ -50,12 +50,12 @@
                 </li>
                 @else
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ route('admin.index') }}"><span
+                    <a class="nav-link pl-0" href="{{ route('admin.export.index') }}"><span
                             class="d-none d-md-inline">匯出資料</span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ route('admin.profile') }}"><span
+                    <a class="nav-link pl-0" href="{{ route('admin.profile.index') }}"><span
                             class="d-none d-md-inline">檢視</span></a>
                 </li>
                 @endif

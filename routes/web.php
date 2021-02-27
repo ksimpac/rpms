@@ -22,10 +22,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::name('admin.')->group(function () {
-    Route::get('/export', 'AdminController@index')->name('index');
-    Route::post('/export', 'AdminController@export')->name('export');
-    Route::get('/profile', 'AdminController@profile')->name('profile');
-    Route::post('/review', 'AdminController@review')->name('review');
+    Route::name('export.')->group(function () {
+        Route::get('/export', 'Admin\ExportController@index')->name('index');
+        Route::post('/export', 'Admin\ExportController@export')->name('export');
+    });
+
+    Route::name('profile.')->group(function () {
+        Route::get('/profile', 'Admin\ProfileController@index')->name('index');
+        Route::post('/profile', 'Admin\ProfileController@show')->name('show');
+    });
 });
 
 Route::middleware('auth', 'user')->group(function () {

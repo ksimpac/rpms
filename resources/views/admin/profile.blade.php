@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('admin.review') }}" method="post">
+<form action="{{ route('admin.profile.show') }}" method="post">
     @csrf
     <select name="nameList">
         @foreach ($collection as $item)
