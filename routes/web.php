@@ -31,6 +31,11 @@ Route::name('admin.')->group(function () {
         Route::get('/profile', 'Admin\ProfileController@index')->name('index');
         Route::post('/profile', 'Admin\ProfileController@show')->name('show');
     });
+
+    Route::name('register.')->group(function () {
+        Route::get('/register', 'Admin\RegisterController@create')->name('create');
+        Route::post('/register', 'Admin\RegisterController@store')->name('store');
+    });
 });
 
 Route::middleware('auth', 'user')->group(function () {

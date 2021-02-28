@@ -58,6 +58,11 @@
                     <a class="nav-link pl-0" href="{{ route('admin.profile.index') }}"><span
                             class="d-none d-md-inline">檢視</span></a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link pl-0" href="{{ route('admin.register.create') }}"><span
+                            class="d-none d-md-inline">註冊管理員帳號</span></a>
+                </li>
                 @endif
             </ul>
         </div>
