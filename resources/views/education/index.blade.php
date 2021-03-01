@@ -6,7 +6,7 @@
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0)
+@if(Auth::user()->isSignup == 0 && $collection->count() < 3)
 <span class="d-flex justify-content-end"><a href="{{ route('education.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
 @endif
