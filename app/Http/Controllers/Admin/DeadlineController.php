@@ -31,8 +31,8 @@ class DeadlineController extends Controller
             . ' ' . date('H:i', $timestamp);
 
         Deadline::updateOrCreate(
+            ['id' => 1,],
             [
-                'id' => 1,
                 'roc_format' => $deadline,
                 'time' => $data['deadline']
             ]
