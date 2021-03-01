@@ -36,6 +36,11 @@ Route::name('admin.')->group(function () {
         Route::get('/register', 'Admin\RegisterController@create')->name('create');
         Route::post('/register', 'Admin\RegisterController@store')->name('store');
     });
+
+    Route::name('deadline.')->group(function () {
+        Route::get('/deadline', 'Admin\DeadlineController@index')->name('index');
+        Route::post('/deadline', 'Admin\DeadlineController@store')->name('store');
+    });
 });
 
 Route::middleware('auth', 'user')->group(function () {

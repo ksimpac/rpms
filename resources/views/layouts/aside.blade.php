@@ -63,6 +63,11 @@
                     <a class="nav-link pl-0" href="{{ route('admin.register.create') }}"><span
                             class="d-none d-md-inline">註冊管理員帳號</span></a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link pl-0" href="{{ route('admin.deadline.index') }}"><span
+                            class="d-none d-md-inline">設定截止日期</span></a>
+                </li>
                 @endif
             </ul>
         </div>
