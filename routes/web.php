@@ -126,7 +126,7 @@ Route::middleware('auth', 'user')->group(function () {
         });
 
         Route::name('signup.')->group(function () {
-            Route::post('signup', 'signupController@check')->name('store');
+            Route::post('signup', 'signupController@check')->name('store')->middleware('isSignup', 'isDeadline');
         });
     });
 });
