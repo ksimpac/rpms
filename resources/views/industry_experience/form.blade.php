@@ -24,15 +24,15 @@
 <div class="@error('type') is-invalid @enderror">
     <label for="type">兼專任</label><br />
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="type" id="type1" value="兼任"
-            {{ isset($collection->type) && $collection->type == '兼任' ? 'checked' : (old('type') == '兼任' ? 'checked' : '') }}>
+        <input class="form-check-input" type="radio" name="type" id="type1" value="part-time"
+            {{ isset($collection->type) && $collection->type == '兼任' ? 'checked' : (old('type') == 'part-time' ? 'checked' : '') }}>
         <label class="form-check-label" for="type1">
             兼任
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="type" id="type2" value="專任"
-            {{ isset($collection->type) && $collection->type == '專任' ? 'checked' : (old('type') == '專任' ? 'checked' : '') }}>
+        <input class="form-check-input" type="radio" name="type" id="type2" value="full-time"
+            {{ isset($collection->type) && $collection->type == '專任' ? 'checked' : (old('type') == 'full-time' ? 'checked' : '') }}>
         <label class="form-check-label" for="type2">
             專任
         </label>

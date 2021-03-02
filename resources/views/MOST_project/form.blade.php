@@ -37,15 +37,15 @@
 <div class="@error('jobkind') is-invalid @enderror">
     <label for="jobkind">工作類別</label><br />
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="jobkind" id="jobkind1" value="主持人"
-            {{ isset($collection->jobkind) && $collection->jobkind == '主持人' ? 'checked' : (old('jobkind') == '主持人' ? 'checked' : '') }}>
+        <input class="form-check-input" type="radio" name="jobkind" id="jobkind1" value="0"
+            {{ isset($collection->jobkind) && $collection->jobkind == '主持人' ? 'checked' : (old('jobkind') == '0' ? 'checked' : '') }}>
         <label class="form-check-label" for="jobkind1">
             主持人
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="jobkind" id="jobkind2" value="共同主持人"
-            {{ isset($collection->jobkind) && $collection->jobkind == '共同主持人' ? 'checked' : (old('jobkind') == '共同主持人' ? 'checked' : '') }}>
+        <input class="form-check-input" type="radio" name="jobkind" id="jobkind2" value="1"
+            {{ isset($collection->jobkind) && $collection->jobkind == '共同主持人' ? 'checked' : (old('jobkind') == '1' ? 'checked' : '') }}>
         <label class="form-check-label" for="jobkind2">
             共同主持人
         </label>

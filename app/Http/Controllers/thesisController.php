@@ -83,9 +83,11 @@ class thesisController extends Controller
             'rank_factor' => ['required', 'string', 'regex:/\A\d+\/\d+\z/'],
             'corresponding_author' => ['required', 'in:0,1'],
             'thesisName' => ['required', 'string', 'max:255'],
-            'type' => ['required', Rule::in(['SCI', 'SCIE', 'SSCI', '其他'])],
+            'type' => ['required', 'in:SCI,SCIE,SSCI,Other'],
             'identification' => [Rule::requiredIf($requestName == 'thesis.store'), 'file', 'mimes:pdf'],
         ]);
+
+        if ($data['type'] == 'Other') $data['type'] = '其他';
 
         if (isset($data['identification'])) {
             $fileName = strtotime("now") . '.pdf';

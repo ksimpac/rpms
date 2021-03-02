@@ -77,16 +77,37 @@ class generalInfoController extends Controller
             'telephone' => ['required', 'string', 'min:10', 'max:10'],
             'Permanent_Address' => ['required', 'string', 'max:255'],
             'Residential_Address' => ['required', 'string', 'max:255'],
-            'teacherCertificateType' => ['required', Rule::in(['教授', '副教授', '助理教授', '講師', '無'])],
+            'teacherCertificateType' => [
+                'required',
+                'in:Professor,Associate Professor,Assistant Professor,Lecturer,None'
+            ],
             'teacherCertificateFiles' => [Rule::requiredIf(function () use ($request, $requestName) {
                 return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != '無';
             }), 'file', 'mimes:pdf'],
             'working_units' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m'],
-            'specialization' => ['required', Rule::in(['智慧流通', '物流運輸', '新零售', '其他'])],
+            'specialization' => ['required', 'in:0,1,2,3'],
             'course' => ['required', 'string'],
         ]);
+
+        $teacherCertificateType = array(
+            'Professor' => '教授',
+            'Associate Professor' => '副教授',
+            'Assistant Professor' => '助理教授',
+            'Lecturer' => '講師',
+            'None' => '無'
+        );
+
+        $specialization = array(
+            '0' => '智慧流通',
+            '1' => '物流運輸',
+            '2' => '新零售',
+            '3' => '其他',
+        );
+
+        $data['teacherCertificateType'] = $teacherCertificateType[$data['teacherCertificateType']];
+        $data['specialization'] = $specialization[$data['specialization']];
 
         if (isset($data['teacherCertificateFiles'])) {
             $fileName = strtotime("now") . '.pdf';

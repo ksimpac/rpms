@@ -48,14 +48,14 @@
 <div class="form-group">
     <label for="degree">學位</label>
     <select id="degree" class="form-control @error('degree') is-invalid @enderror" name="degree">
-        <option value="大學"
-            {{ isset($collection->degree) && $collection->degree === '大學' ? 'selected' : (old('degree') == '大學' ? 'selected' : '') }}>
+        <option value="bachelor"
+            {{ isset($collection->degree) && $collection->degree === '大學' ? 'selected' : (old('degree') == 'bachelor' ? 'selected' : '') }}>
             大學</option>
-        <option value="碩士"
-            {{ isset($collection->degree) && $collection->degree === '碩士' ? 'selected' : (old('degree') == '碩士' ? 'selected' : '') }}>
+        <option value="master"
+            {{ isset($collection->degree) && $collection->degree === '碩士' ? 'selected' : (old('degree') == 'master' ? 'selected' : '') }}>
             碩士</option>
-        <option value="博士"
-            {{ isset($collection->degree) && $collection->degree === '博士' ? 'selected' : (old('degree') == '博士' ? 'selected' : '') }}>
+        <option value="PhD"
+            {{ isset($collection->degree) && $collection->degree === '博士' ? 'selected' : (old('degree') == 'PhD' ? 'selected' : '') }}>
             博士</option>
     </select>
     @error('degree')
@@ -68,14 +68,14 @@
 <div class="form-group">
     <label for="status">修業狀況</label>
     <select id="status" class="form-control @error('status') is-invalid @enderror" name="status">
-        <option value="畢業"
-            {{ isset($collection->status) && $collection->status === '畢業' ? 'selected' : (old('status') == '畢業' ? 'selected' : '') }}>
+        <option value="graduation"
+            {{ isset($collection->status) && $collection->status === '畢業' ? 'selected' : (old('status') == 'graduation' ? 'selected' : '') }}>
             畢業</option>
-        <option value="結業"
-            {{ isset($collection->status) && $collection->status === '結業' ? 'selected' : (old('status') == '結業' ? 'selected' : '') }}>
+        <option value="completion"
+            {{ isset($collection->status) && $collection->status === '結業' ? 'selected' : (old('status') == 'completion' ? 'selected' : '') }}>
             結業</option>
-        <option value="肆業"
-            {{ isset($collection->status) && $collection->status === '肆業' ? 'selected' : (old('status') == '肆業' ? 'selected' : '') }}>
+        <option value="attendance"
+            {{ isset($collection->status) && $collection->status === '肆業' ? 'selected' : (old('status') == 'attendance' ? 'selected' : '') }}>
             肆業</option>
         @error('status')
         <span class="invalid-feedback" role="alert">

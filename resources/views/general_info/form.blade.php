@@ -94,20 +94,20 @@
 <div class="form-group">
     <label for="teacherCertificateType">教師證職級</label>
     <select class="form-control" id="teacherCertificateType" name="teacherCertificateType">
-        <option value="教授"
-            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '教授' ? 'selected' : (old('teacherCertificateType') == '教授' ? 'selected' : '') }}>
+        <option value="Professor"
+            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '教授' ? 'selected' : (old('teacherCertificateType') == 'Professor' ? 'selected' : '') }}>
             教授</option>
-        <option value="副教授"
-            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '副教授' ? 'selected' : (old('teacherCertificateType') == '副教授' ? 'selected' : '') }}>
+        <option value="Associate Professor"
+            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '副教授' ? 'selected' : (old('teacherCertificateType') == 'Associate Professor' ? 'selected' : '') }}>
             副教授</option>
-        <option value="助理教授"
-            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '助理教授' ? 'selected' : (old('teacherCertificateType') == '助理教授' ? 'selected' : '') }}>
+        <option value="Assistant Professor"
+            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '助理教授' ? 'selected' : (old('teacherCertificateType') == 'Assistant Professor' ? 'selected' : '') }}>
             助理教授</option>
-        <option value="講師"
-            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '講師' ? 'selected' : (old('teacherCertificateType') == '講師' ? 'selected' : '') }}>
+        <option value="Lecturer"
+            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '講師' ? 'selected' : (old('teacherCertificateType') == 'Lecturer' ? 'selected' : '') }}>
             講師</option>
-        <option value="無"
-            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '無' ? 'selected' : (old('teacherCertificateType') == '無' ? 'selected' : '') }}>
+        <option value="None"
+            {{ isset($collection->teacherCertificateType) && $collection->teacherCertificateType == '無' ? 'selected' : (old('teacherCertificateType') == 'None' ? 'selected' : '') }}>
             無</option>
     </select>
 </div>
@@ -164,17 +164,17 @@
 <div class="form-group">
     <label for="specialization">專長領域</label>
     <select class="form-control" id="specialization" name="specialization">
-        <option value="智慧流通"
-            {{ isset($collection->specialization) && $collection->specialization == '智慧流通' ? 'selected' : (old('specialization') == '智慧流通' ? 'selected' : '') }}>
+        <option value="0"
+            {{ isset($collection->specialization) && $collection->specialization == '智慧流通' ? 'selected' : (old('specialization') == '0' ? 'selected' : '') }}>
             智慧流通</option>
-        <option value="物流運輸"
-            {{ isset($collection->specialization) && $collection->specialization == '物流運輸' ? 'selected' : (old('specialization') == '物流運輸' ? 'selected' : '') }}>
+        <option value="1"
+            {{ isset($collection->specialization) && $collection->specialization == '物流運輸' ? 'selected' : (old('specialization') == '1' ? 'selected' : '') }}>
             物流運輸</option>
-        <option value="新零售"
-            {{ isset($collection->specialization) && $collection->specialization == '新零售' ? 'selected' : (old('specialization') == '新零售' ? 'selected' : '') }}>
+        <option value="2"
+            {{ isset($collection->specialization) && $collection->specialization == '新零售' ? 'selected' : (old('specialization') == '2' ? 'selected' : '') }}>
             新零售</option>
-        <option value="其他"
-            {{ isset($collection->specialization) && $collection->specialization == '其他' ? 'selected' : (old('specialization') == '其他' ? 'selected' : '') }}>
+        <option value="3"
+            {{ isset($collection->specialization) && $collection->specialization == '其他' ? 'selected' : (old('specialization') == '3' ? 'selected' : '') }}>
             其他</option>
     </select>
 </div>

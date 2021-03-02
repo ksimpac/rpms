@@ -121,8 +121,8 @@
         <option value="SSCI"
             {{ isset($collection->type) && $collection->type == 'SSCI' ? 'selected' : (old('type') == "SSCI" ? 'selected' : '') }}>
             SSCI</option>
-        <option value="其他"
-            {{ isset($collection->type) && $collection->type == '其他' ? 'selected' : (old('type') == "其他" ? 'selected' : '') }}>
+        <option value="Other"
+            {{ isset($collection->type) && $collection->type == '其他' ? 'selected' : (old('type') == "Other" ? 'selected' : '') }}>
             其他</option>
         @error('type')
         <span class="invalid-feedback" role="alert">

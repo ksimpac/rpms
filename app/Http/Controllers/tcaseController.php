@@ -74,10 +74,13 @@ class tcaseController extends Controller
             'collaboration_name' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m/d'],
             'endDate' => ['required', 'date_format:Y/m/d'],
-            'jobkind' => ['required', Rule::in(['主持人', '共同主持人'])],
+            'jobkind' => ['required', 'in:0,1'],
             'plantotal_money' => ['required', 'integer', 'max:9999999999'],
             'identification' => [Rule::requiredIf($requestName == 'other.store'), 'file', 'mimes:pdf'],
         ]);
+
+        $jobkind = array('0' => '主持人', '1' => '共同主持人');
+        $data['jobkind'] = $jobkind[$data['jobkind']];
 
         if (isset($data['identification'])) {
             $fileName = strtotime("now") . '.pdf';

@@ -70,12 +70,15 @@ class industryExperienceController extends Controller
         $data = $request->validate([
             'working_units' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'in:專任,兼任', Rule::in(['專任', '兼任'])],
+            'type' => ['required', 'in:part-time,full-time'],
             'job_description' => ['required', 'string'],
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m', 'after:startDate'],
             'identification' => [Rule::requiredIf($requestName == 'industry_experience.store'), 'file', 'mimes:pdf'],
         ]);
+
+        $type = array('part-time' => '兼任', 'full-time' => '專任');
+        $data['type'] = $type[$data['type']];
 
         $fileName = strtotime("now") . '.pdf';
 

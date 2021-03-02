@@ -73,18 +73,25 @@ class educationController extends Controller
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m'],
             'degree' => [
-                Rule::in(['大學', '碩士', '博士']),
+                'required',
+                'in:Bachelor,Master,PhD',
                 Rule::unique('education')->where(function ($query) {
                     return $query->where('username', Auth::user()->username);
                 })
             ],
-            'status' => [Rule::in(['畢業', '結業', '肆業'])],
+            'status' => ['required', 'in:Graduation,Completion,Attendance'],
             'country' => ['required', 'string', 'max:255'],
             'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
             'advisor' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
             'certificate' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
             'transcript' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
         ]);
+
+        $degree = array('Bachelor' => '大學', 'Master' => '碩士', 'PhD' => '博士');
+        $status = array('Graduation' => '畢業', 'Completion' => '結業', 'Attendance' => '肄業');
+
+        $data['degree'] = $degree[$data['degree']];
+        $data['status'] = $status[$data['status']];
 
         $fileName = strtotime("now") . '.pdf';
 
