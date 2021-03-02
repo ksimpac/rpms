@@ -91,7 +91,7 @@
         </td>
         <td class="align-middle bg-primary text-white">修業年月起訖</td>
         <td colspan="2">
-            {{ $education->startDate }}<br />
+            {{ $education->startDate }}&nbsp;~&nbsp;{{ $education->endDate }}<br />
             <a href="{{ url(Storage::url('education/certificate/' . $education->certificate)) }}" target="_blank">
                 畢業證書
             </a><br />
