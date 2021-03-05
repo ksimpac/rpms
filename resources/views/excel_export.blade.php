@@ -13,22 +13,18 @@
                 <th colspan="{{ 10 * $thesis->thesis_count }}">期刊論文</th>
                 <th colspan="{{ 7 * $industry_experiences->industry_experiences_count }}">經歷</th>
 
-                {{ Debugbar::info($tcases) }}
                 @if($tcases->tcases_count != 0)
                 <th colspan="{{ 7 * $tcases->tcases_count }}">產學合作計畫參與</th>
                 @endif
 
-                {{ Debugbar::info($most_projects->most_projects_count) }}
                 @if($most_projects->most_projects_count != 0)
                 <th colspan="{{ 6 * $most_projects->most_projects_count }}">科技部專題研究計畫</th>
                 @endif
 
-                {{ Debugbar::info($thesis_confs->thesis_confs_count) }}
                 @if($thesis_confs->thesis_confs_count != 0)
                 <th colspan="{{ 6 * $thesis_confs->thesis_confs_count }}">研討會論文</th>
                 @endif
 
-                {{ Debugbar::info($others->others_count) }}
                 @if($others->others_count != 0)
                 <th colspan="{{ 1 * $others->others_count }}">其他有助審查資料</th>
                 @endif
