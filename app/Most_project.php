@@ -11,7 +11,7 @@ class Most_project extends Model
      *
      * @var string
      */
-    protected $table = 'MOST_project';
+    protected $table = 'most_project';
 
     public function user()
     {

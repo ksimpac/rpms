@@ -11,7 +11,7 @@ class mostProjectController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('MOST_project')
+        $collection = DB::table('most_project')
             ->where('username', Auth::user()->username)->get();
         return view('MOST_project.index', compact('collection'));
     }
@@ -26,19 +26,19 @@ class mostProjectController extends Controller
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
-        DB::table('MOST_project')->insert([$data]);
+        DB::table('most_project')->insert([$data]);
         return redirect()->route('MOST_project.index');
     }
 
     public function destroy($id)
     {
-        DB::table('MOST_project')->where('id', $id)->delete();
+        DB::table('most_project')->where('id', $id)->delete();
         return redirect()->route('MOST_project.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('MOST_project')
+        $collection = DB::table('most_project')
             ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
@@ -49,7 +49,7 @@ class mostProjectController extends Controller
 
     public function show($id)
     {
-        $collection = DB::table('MOST_project')
+        $collection = DB::table('most_project')
             ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
@@ -60,7 +60,7 @@ class mostProjectController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('MOST_project')
+        DB::table('most_project')
             ->where('username', Auth::user()->username)
             ->where('id', $id)->update($data);
         return redirect()->route('MOST_project.index');
