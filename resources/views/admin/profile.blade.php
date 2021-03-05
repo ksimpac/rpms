@@ -68,10 +68,10 @@
         </td>
     </tr>
     <tr>
-        <td class="bg-primary text-white">目前現職</td>
-        <td>{{ $user->general_info->position }}</td>
-        <td class="bg-primary text-white">職位</td>
+        <td class="bg-primary text-white">公司機構名稱</td>
         <td>{{ $user->general_info->working_units }}</td>
+        <td class="bg-primary text-white">職位</td>
+        <td>{{ $user->general_info->position }}</td>
         <td class="bg-primary text-white">到職年月</td>
         <td>{{ $user->general_info->startDate }}</td>
     </tr>

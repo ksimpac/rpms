@@ -22,10 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::name('admin.')->group(function () {
-    Route::name('export.')->group(function () {
-        Route::get('/export', 'Admin\ExportController@index')->name('index');
-        Route::post('/export', 'Admin\ExportController@export')->name('export');
-    });
+
+    Route::post('/export', 'Admin\ExportController@export')->name('export');
 
     Route::name('profile.')->group(function () {
         Route::get('/profile', 'Admin\ProfileController@index')->name('index');

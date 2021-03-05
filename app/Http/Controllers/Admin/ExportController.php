@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\SignupExport;
 use App\User;
+use App\Deadline;
 use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,21 +17,10 @@ class ExportController extends Controller
         'most_projects', 'others', 'tcases', 'thesis_confs', 'thesis'
     ];
 
-    public function index()
-    {
-        return view('admin.export');
-    }
-
     public function export(Request $request)
     {
-        $data = $request->validate([
-            'startDate' => ['required', 'date_format:Y-m-d H:i'],
-            'endDate' => ['required', 'date_format:Y-m-d H:i', 'after:startDate']
-        ]);
-
-
         $users = User::where('isSignup', 1)->with($this->tables)
-            ->whereBetween('updated_at', [$data['startDate'], $data['endDate']])
+            ->where('updated_at', '<=', Deadline::find(1)->time)
             ->withCount([
                 'educations',
                 'industry_experiences',
@@ -41,11 +31,63 @@ class ExportController extends Controller
                 'thesis'
             ]);
 
+        $educations = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'educations',
+            ])->orderBy('educations_count', 'DESC')->first();
+
+        $industry_experiences = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'industry_experiences',
+            ])->orderBy('industry_experiences_count', 'DESC')->first();
+
+        $most_projects = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'most_projects',
+            ])->orderBy('most_projects_count', 'DESC')->first();
+
+        $others = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'others',
+            ])->orderBy('others_count', 'DESC')->first();
+
+        $tcases = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'tcases',
+            ])->orderBy('tcases_count', 'DESC')->first();
+
+        $thesis_confs = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'thesis_confs',
+            ])->orderBy('thesis_confs_count', 'DESC')->first();
+
+        $thesis = User::where('isSignup', 1)->with($this->tables)
+            ->where('updated_at', '<=', Deadline::find(1)->time)
+            ->withCount([
+                'thesis',
+            ])->orderBy('thesis_count', 'DESC')->first();
+
+
         if ($users->get()->isEmpty()) {
             Alert::info('系統訊息', '目前尚未有人報名');
             return redirect()->back();
         }
 
-        return Excel::download(new SignupExport($users), '報名資訊.xlsx');
+        return Excel::download(new SignupExport(
+            $users,
+            $educations,
+            $industry_experiences,
+            $most_projects,
+            $others,
+            $tcases,
+            $thesis_confs,
+            $thesis
+        ), '報名資訊.xlsx');
     }
 }

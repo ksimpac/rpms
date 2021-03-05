@@ -50,8 +50,12 @@
                 </li>
                 @else
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ route('admin.export.index') }}"><span
-                            class="d-none d-md-inline">匯出資料</span></a>
+                    <a class="nav-link pl-0" href="{{ route('admin.export') }}" onclick="event.preventDefault();
+                    document.getElementById('export-form').submit();"><span class="d-none d-md-inline">匯出資料</span></a>
+
+                    <form id="export-form" action="{{ route('admin.export') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
 
                 <li class="nav-item">
