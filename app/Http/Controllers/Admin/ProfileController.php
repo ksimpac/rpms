@@ -49,6 +49,19 @@ class ProfileController extends Controller
             return array_search($data->degree, $degree_order);
         });
 
+        foreach ($user->educations as $education) {
+            switch ($education->degree) {
+                case 'Bachelor':
+                    $education->degree = '大學';
+                    break;
+                case 'Master':
+                    $education->degree = '碩士';
+                    break;
+                default:
+                    $education->degree = '博士';
+            }
+        }
+
         return view('admin.profile', compact('collection', 'user'));
     }
 

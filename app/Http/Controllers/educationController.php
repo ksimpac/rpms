@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class educationController extends Controller
 {
@@ -51,6 +52,17 @@ class educationController extends Controller
             ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
+        switch ($collection->degree) {
+            case 'Bachelor':
+                $collection->degree = '大學';
+                break;
+            case 'Master':
+                $collection->degree = '碩士';
+                break;
+            default:
+                $collection->degree = '博士';
+        }
+
         return view('education.show', compact('collection'));
     }
 
@@ -58,15 +70,28 @@ class educationController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('education')
+        $row = DB::table('education')
             ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+            ->where('id', $id)->first();
+        $oldCertificate = $row->certificate;
+        $oldTranscript = $row->transcript;
+
+        if (isset($data['transcript'])) {
+            File::delete(storage_path('public\stroage\certificate'), $oldCertificate);
+        }
+
+        if (isset($data['certificate'])) {
+            File::delete(storage_path('public\stroage\transcript'), $oldTranscript);
+        }
+
+        $row->update($data);
         return redirect()->route('education.index');
     }
 
     private function validation(Request $request)
     {
         $requestName = $request->route()->getName();
+
         $data = $request->validate([
             'schoolName' => ['required', 'string', 'max:255'],
             'department' => ['required', 'string', 'max:255'],
@@ -75,22 +100,19 @@ class educationController extends Controller
             'degree' => [
                 'required',
                 'in:Bachelor,Master,PhD',
-                Rule::unique('education')->where(function ($query) {
+                Rule::unique('education', 'degree')->where(function ($query) {
                     return $query->where('username', Auth::user()->username);
                 })
             ],
             'status' => ['required', 'in:Graduation,Completion,Attendance'],
             'country' => ['required', 'string', 'max:255'],
-            'thesis' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
-            'advisor' => ['required_unless:degree,大學', 'nullable', 'string', 'max:255'],
+            'thesis' => ['required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'],
+            'advisor' => ['required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'],
             'certificate' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
             'transcript' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
         ]);
 
-        $degree = array('Bachelor' => '大學', 'Master' => '碩士', 'PhD' => '博士');
         $status = array('Graduation' => '畢業', 'Completion' => '結業', 'Attendance' => '肄業');
-
-        $data['degree'] = $degree[$data['degree']];
         $data['status'] = $status[$data['status']];
 
         $fileName = strtotime("now") . '.pdf';
