@@ -18,26 +18,30 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes();
+Auth::routes([
+    'reset' => false,
+    'verify' => false,
+]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::name('admin.')->group(function () {
+Route::prefix('admin')->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::post('/export', 'Admin\ExportController@export')->name('export');
 
-    Route::post('/export', 'Admin\ExportController@export')->name('export');
+        Route::name('profile.')->group(function () {
+            Route::get('/profile', 'Admin\ProfileController@index')->name('index');
+            Route::post('/profile', 'Admin\ProfileController@show')->name('show');
+        });
 
-    Route::name('profile.')->group(function () {
-        Route::get('/profile', 'Admin\ProfileController@index')->name('index');
-        Route::post('/profile', 'Admin\ProfileController@show')->name('show');
-    });
+        Route::name('register.')->group(function () {
+            Route::get('/register', 'Admin\RegisterController@create')->name('create');
+            Route::post('/register', 'Admin\RegisterController@store')->name('store');
+        });
 
-    Route::name('register.')->group(function () {
-        Route::get('/register', 'Admin\RegisterController@create')->name('create');
-        Route::post('/register', 'Admin\RegisterController@store')->name('store');
-    });
-
-    Route::name('deadline.')->group(function () {
-        Route::get('/deadline', 'Admin\DeadlineController@index')->name('index');
-        Route::post('/deadline', 'Admin\DeadlineController@store')->name('store');
+        Route::name('deadline.')->group(function () {
+            Route::get('/deadline', 'Admin\DeadlineController@index')->name('index');
+            Route::post('/deadline', 'Admin\DeadlineController@store')->name('store');
+        });
     });
 });
 
