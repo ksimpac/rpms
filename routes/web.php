@@ -43,6 +43,11 @@ Route::middleware('auth', 'admin')->group(function () {
                 Route::get('/deadline', 'Admin\DeadlineController@index')->name('index');
                 Route::post('/deadline', 'Admin\DeadlineController@store')->name('store');
             });
+
+            Route::name('resetSignup.')->group(function () {
+                Route::get('/resetSignup', 'Admin\ResetsignupController@index')->name('index');
+                Route::patch('/resetSignup', 'Admin\ResetsignupController@update')->name('update');
+            });
         });
     });
 });

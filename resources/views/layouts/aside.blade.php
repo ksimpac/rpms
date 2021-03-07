@@ -72,6 +72,11 @@
                     <a class="nav-link pl-0" href="{{ route('admin.deadline.index') }}"><span
                             class="d-none d-md-inline">設定截止日期</span></a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link pl-0" href="{{ route('admin.resetSignup.index') }}"><span
+                            class="d-none d-md-inline">重新開放報名</span></a>
+                </li>
                 @endif
             </ul>
         </div>
