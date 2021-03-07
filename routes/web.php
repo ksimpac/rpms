@@ -51,7 +51,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::prefix('users')->group(function () {
         Route::name('general_info.')->group(function () {
             Route::get('general_info', 'generalInfoController@index')->name('index');
-            Route::get('general_info/create', 'generalInfoController@create')->name('create')->middleware('isSignup', 'isDeadline');
+            Route::get('general_info/create', 'generalInfoController@create')->name('create')->middleware('isSignup', 'isDeadline', 'general_info');
             Route::post('general_info', 'generalInfoController@store')->name('store')->middleware('isSignup');
             Route::get('general_info/{id}/edit', 'generalInfoController@edit')->name('edit')->middleware('isSignup');
             Route::get('general_info/{id}', 'generalInfoController@show')->name('show');
@@ -61,7 +61,7 @@ Route::middleware('auth', 'user')->group(function () {
 
         Route::name('education.')->group(function () {
             Route::get('education', 'educationController@index')->name('index');
-            Route::get('education/create', 'educationController@create')->name('create')->middleware('isSignup', 'isDeadline');
+            Route::get('education/create', 'educationController@create')->name('create')->middleware('isSignup', 'isDeadline', 'education');
             Route::post('education', 'educationController@store')->name('store')->middleware('isSignup');
             Route::get('education/{id}/edit', 'educationController@edit')->name('edit')->middleware('isSignup');
             Route::get('education/{id}', 'educationController@show')->name('show');
