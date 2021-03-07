@@ -27,7 +27,7 @@ class educationController extends Controller
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
-        DB::table('education')->insert([$data]);
+        DB::table('education')->insert($data);
         return redirect()->route('education.index');
     }
 
@@ -91,23 +91,28 @@ class educationController extends Controller
     private function validation(Request $request)
     {
         $requestName = $request->route()->getName();
+        $degreeValidationNoUniqueRule = ['required', 'in:Bachelor,Master,PhD'];
+        $degreeValidationHasUniqueRule = array([
+            'required', 'in:Bachelor,Master,PhD',
+            Rule::unique('education', 'degree')->where(function ($query) {
+                return $query->where('username', Auth::user()->username);
+            })
+        ]);
 
         $data = $request->validate([
             'schoolName' => ['required', 'string', 'max:255'],
             'department' => ['required', 'string', 'max:255'],
             'startDate' => ['required', 'date_format:Y/m'],
             'endDate' => ['required', 'date_format:Y/m'],
-            'degree' => [
-                'required',
-                'in:Bachelor,Master,PhD',
-                Rule::unique('education', 'degree')->where(function ($query) {
-                    return $query->where('username', Auth::user()->username);
-                })
-            ],
             'status' => ['required', 'in:Graduation,Completion,Attendance'],
             'country' => ['required', 'string', 'max:255'],
-            'thesis' => ['required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'],
-            'advisor' => ['required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'],
+            'degree' => $requestName == 'education.store' ? $degreeValidationHasUniqueRule : $degreeValidationNoUniqueRule,
+            'thesis' => [
+                'required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'
+            ],
+            'advisor' => [
+                'required_unless:degree,Bachelor', 'nullable', 'string', 'max:255'
+            ],
             'certificate' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
             'transcript' => [Rule::requiredIf($requestName == 'education.store'), 'file', 'mimes:pdf'],
         ]);

@@ -47,15 +47,16 @@
 
 <div class="form-group">
     <label for="degree">學位</label>
-    <select id="degree" class="form-control @error('degree') is-invalid @enderror" name="degree">
+    <select id="degree" class="form-control @error('degree') is-invalid @enderror" name="degree"
+        @if(Request::route()->getName() == 'education.edit') disabled @endif>
         <option value="Bachelor"
-            {{ isset($collection->degree) && $collection->degree === '大學' ? 'selected' : (old('degree') == 'Bachelor' ? 'selected' : '') }}>
+            {{ isset($collection->degree) && $collection->degree === 'Bachelor' ? 'selected' : (old('degree') == 'Bachelor' ? 'selected' : '') }}>
             大學</option>
         <option value="Master"
-            {{ isset($collection->degree) && $collection->degree === '碩士' ? 'selected' : (old('degree') == 'Master' ? 'selected' : '') }}>
+            {{ isset($collection->degree) && $collection->degree === 'Master' ? 'selected' : (old('degree') == 'Master' ? 'selected' : '') }}>
             碩士</option>
         <option value="PhD"
-            {{ isset($collection->degree) && $collection->degree === '博士' ? 'selected' : (old('degree') == 'PhD' ? 'selected' : '') }}>
+            {{ isset($collection->degree) && $collection->degree === 'PhD' ? 'selected' : (old('degree') == 'PhD' ? 'selected' : '') }}>
             博士</option>
     </select>
     @error('degree')
