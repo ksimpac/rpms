@@ -17,6 +17,7 @@ class user
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::user()->is_admin != 0) return abort(404);
         $url_id = $request->route()->parameter('id');
 
         if (!isset($url_id)) {
@@ -30,7 +31,7 @@ class user
         $data = DB::table($tableName)->where('id', $url_id)->first();
 
         if (isset($data->username) && $data->username !== $username) {
-            abort(404);
+            return abort(404);
         } else {
             return $next($request);
         }
