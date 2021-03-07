@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class industryExperienceController extends Controller
 {
@@ -32,7 +33,10 @@ class industryExperienceController extends Controller
 
     public function destroy($id)
     {
-        DB::table('industry_experience')->where('id', $id)->delete();
+        $queryBuilder = DB::table('industry_experience')->where('id', $id);
+        $oldIdentification = $queryBuilder->first()->identification;
+        File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
+        $queryBuilder->delete();
         return redirect()->route('industry_experience.index');
     }
 
@@ -58,9 +62,13 @@ class industryExperienceController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('industry_experience')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $table = DB::table('industry_experience');
+        if (isset($data['identification'])) {
+            $oldIdentification = $table->where('username', Auth::user()->username)
+                ->where('id', $id)->first()->identification;
+            File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
+        }
+        $table->update($data);
         return redirect()->route('industry_experience.index');
     }
 

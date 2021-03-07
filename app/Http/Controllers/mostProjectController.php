@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class mostProjectController extends Controller
 {
@@ -32,7 +33,10 @@ class mostProjectController extends Controller
 
     public function destroy($id)
     {
-        DB::table('most_project')->where('id', $id)->delete();
+        $queryBuilder = DB::table('most_project')->where('id', $id);
+        $oldIdentification = $queryBuilder->first()->identification;
+        File::delete(storage_path('app/public/MOST_project/'), $oldIdentification);
+        $queryBuilder->delete();
         return redirect()->route('MOST_project.index');
     }
 
@@ -60,9 +64,13 @@ class mostProjectController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('most_project')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $table = DB::table('most_project');
+        if (isset($data['identification'])) {
+            $oldIdentification = $table->where('username', Auth::user()->username)
+                ->where('id', $id)->first()->identification;
+            File::delete(storage_path('app/public/MOST_project/'), $oldIdentification);
+        }
+        $table->update($data);
         return redirect()->route('MOST_project.index');
     }
 

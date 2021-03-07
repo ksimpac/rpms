@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class otherController extends Controller
 {
@@ -32,7 +33,10 @@ class otherController extends Controller
 
     public function destroy($id)
     {
-        DB::table('other')->where('id', $id)->delete();
+        $queryBuilder = DB::table('other')->where('id', $id);
+        $oldIdentification = $queryBuilder->first()->identification;
+        File::delete(storage_path('app/public/other/'), $oldIdentification);
+        $queryBuilder->delete();
         return redirect()->route('other.index');
     }
 
@@ -49,9 +53,13 @@ class otherController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('other')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $table = DB::table('other');
+        if (isset($data['identification'])) {
+            $oldIdentification = $table->where('username', Auth::user()->username)
+                ->where('id', $id)->first()->identification;
+            File::delete(storage_path('app/public/other/'), $oldIdentification);
+        }
+        $table->update($data);
         return redirect()->route('other.index');
     }
 

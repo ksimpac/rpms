@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class tcaseController extends Controller
 {
@@ -32,7 +33,10 @@ class tcaseController extends Controller
 
     public function destroy($id)
     {
-        DB::table('tcase')->where('id', $id)->delete();
+        $queryBuilder = DB::table('tcase')->where('id', $id);
+        $oldIdentification = $queryBuilder->first()->identification;
+        File::delete(storage_path('app/public/tcase/'), $oldIdentification);
+        $queryBuilder->delete();
         return redirect()->route('tcase.index');
     }
 
@@ -60,9 +64,13 @@ class tcaseController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('tcase')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $table = DB::table('tcase');
+        if (isset($data['identification'])) {
+            $oldIdentification = $table->where('username', Auth::user()->username)
+                ->where('id', $id)->first()->identification;
+            File::delete(storage_path('app/public/tcase/'), $oldIdentification);
+        }
+        $table->update($data);
         return redirect()->route('tcase.index');
     }
 

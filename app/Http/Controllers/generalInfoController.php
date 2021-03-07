@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Classes\File;
 
 class generalInfoController extends Controller
 {
@@ -32,7 +33,12 @@ class generalInfoController extends Controller
 
     public function destroy($id)
     {
-        DB::table('general_info')->where('id', $id)->delete();
+        $queryBuilder = DB::table('general_info')->where('id', $id);
+        $oldTeacherCertificateFiles = $queryBuilder->first()->teacherCertificateFiles;
+        if (isset($oldTeacherCertificateFiles)) {
+            File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
+        }
+        $queryBuilder->delete();
         return redirect()->route('general_info.index');
     }
 
@@ -50,9 +56,13 @@ class generalInfoController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        DB::table('general_info')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $table = DB::table('general_info');
+        if (isset($data['teacherCertificateFiles'])) {
+            $oldTeacherCertificateFiles = $table->where('username', Auth::user()->username)
+                ->where('id', $id)->first()->teacherCertificateFiles;
+            File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
+        }
+        $table->update($data);
         return redirect()->route('general_info.index');
     }
 
@@ -82,7 +92,7 @@ class generalInfoController extends Controller
                 'in:Professor,Associate Professor,Assistant Professor,Lecturer,None'
             ],
             'teacherCertificateFiles' => [Rule::requiredIf(function () use ($request, $requestName) {
-                return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != '無';
+                return $requestName == 'general_info.store' && $request->input('teacherCertificateType') != 'None';
             }), 'file', 'mimes:pdf'],
             'working_units' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],

@@ -33,7 +33,13 @@ class educationController extends Controller
 
     public function destroy($id)
     {
-        DB::table('education')->where('id', $id)->delete();
+        $queryBuilder = DB::table('education')->where('id', $id);
+        $row = $queryBuilder->first();
+        $oldCertificate = $row->certificate;
+        $oldTranscript = $row->transcript;
+        File::delete(storage_path('app/public/education/transcript/'), $oldTranscript);
+        File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
+        $queryBuilder->delete();
         return redirect()->route('education.index');
     }
 
@@ -70,21 +76,21 @@ class educationController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $row = DB::table('education')
-            ->where('username', Auth::user()->username)
+        $table = DB::table('education');
+        $row = $table->where('username', Auth::user()->username)
             ->where('id', $id)->first();
         $oldCertificate = $row->certificate;
         $oldTranscript = $row->transcript;
 
         if (isset($data['transcript'])) {
-            File::delete(storage_path('public\stroage\certificate'), $oldCertificate);
+            File::delete(storage_path('app/public/education/transcript/'), $oldTranscript);
         }
 
         if (isset($data['certificate'])) {
-            File::delete(storage_path('public\stroage\transcript'), $oldTranscript);
+            File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
         }
 
-        $row->update($data);
+        $table->update($data);
         return redirect()->route('education.index');
     }
 
