@@ -35,7 +35,11 @@ class signupController extends Controller
             DB::table('thesis')
             ->where('username', $username)
             ->whereIn('type', ['SCI', 'SCIE', 'SSCI'])
-            ->count() >= 2
+            ->count() >= 2 &&
+            DB::table('thesis')->select(DB::raw("timestampdiff(YEAR,
+            STR_TO_DATE(concat(publicationDate, '/01'), '%Y/%m/%d'),
+            NOW()) as yeardiff"))->where('username', $username)
+            ->having('yeardiff', '>=', 5)->get()->count() == 0
         ) {
             $thesis = 1;
         } else {
@@ -55,6 +59,29 @@ class signupController extends Controller
             $industry_experience = 0;
         }
 
+        if (
+            DB::table('most_project')
+            ->select(DB::raw("timestampdiff(YEAR, startDate,
+            NOW()) as yeardiff"))->where('username', $username)
+            ->having('yeardiff', '>', 5)->get()->count() > 0
+        ) {
+            $most_project = 0;
+        } else {
+            $most_project = 1;
+        }
+
+        if (
+            DB::table('thesis_conf')
+            ->select(DB::raw("timestampdiff(YEAR,
+            DATE(concat(years, '-01-01')), NOW()) as yeardiff"))
+            ->where('username', $username)->having('yeardiff', '>', 5)
+            ->get()->count() > 0
+        ) {
+            $thesis_conf = 0;
+        } else {
+            $thesis_conf = 1;
+        }
+
 
         $message = "";
 
@@ -71,7 +98,15 @@ class signupController extends Controller
         }
 
         if ($industry_experience < 1) {
-            $message .= "請填寫經歷或確認填寫的資料是否具備該項目的條件<br />";
+            $message .= "請確認經歷填寫的資料是否具備該項目的條件<br />";
+        }
+
+        if ($most_project < 1) {
+            $message .= "科技部專題研究計畫不允許超過5年的資料<br />";
+        }
+
+        if ($thesis_conf < 1) {
+            $message .= "研討會論文不允許超過5年的資料<br />";
         }
 
         if ($message != "") {
