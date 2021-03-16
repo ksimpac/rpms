@@ -44,9 +44,9 @@ Route::middleware('auth', 'admin')->group(function () {
                 Route::post('/deadline', 'Admin\DeadlineController@store')->name('store');
             });
 
-            Route::name('resetSignup.')->group(function () {
-                Route::get('/resetSignup', 'Admin\ResetsignupController@index')->name('index');
-                Route::patch('/resetSignup', 'Admin\ResetsignupController@update')->name('update');
+            Route::name('resetUsers.')->group(function () {
+                Route::get('/resetUsers', 'Admin\ResetUsersController@index')->name('index');
+                Route::patch('/resetUsers', 'Admin\ResetUsersController@update')->name('update');
             });
         });
     });
