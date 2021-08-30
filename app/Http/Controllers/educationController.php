@@ -98,12 +98,12 @@ class educationController extends Controller
     {
         $requestName = $request->route()->getName();
         $degreeValidationNoUniqueRule = ['required', 'in:Bachelor,Master,PhD'];
-        $degreeValidationHasUniqueRule = array([
+        $degreeValidationHasUniqueRule = [
             'required', 'in:Bachelor,Master,PhD',
             Rule::unique('education', 'degree')->where(function ($query) {
                 return $query->where('username', Auth::user()->username);
             })
-        ]);
+        ];
 
         $data = $request->validate([
             'schoolName' => ['required', 'string', 'max:255'],
