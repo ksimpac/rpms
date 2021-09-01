@@ -7,9 +7,11 @@
 @section('card-body-content')
 <form action="{{ route('admin.profile.show') }}" method="post">
     @csrf
-    <select name="nameList">
+    <select id="nameList" name="nameList">
         @foreach ($collection as $item)
-        <option value="{{ $item['id'] }}">{{ $item['chineseName'] }}</option>
+        <option value="{{ $item['id'] }}" @if (isset($user->chineseName) && $user->chineseName == $item['chineseName'])
+            selected
+            @endif>{{ $item['chineseName'] }}</option>
         @endforeach
     </select>
     <button type="submit" class="btn btn-primary">檢視</button>
