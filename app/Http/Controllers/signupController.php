@@ -10,7 +10,6 @@ class signupController extends Controller
 {
     public function store()
     {
-
         DB::table('users')
             ->where('username', Auth::user()->username)
             ->update([
@@ -35,7 +34,7 @@ class signupController extends Controller
             DB::table('thesis')
             ->where('username', $username)
             ->whereIn('type', ['SCI', 'SCIE', 'SSCI'])
-            ->count() >= 2 &&
+            ->count() >= 1 &&
             DB::table('thesis')->select(DB::raw("timestampdiff(YEAR,
             STR_TO_DATE(concat(publicationDate, '/01'), '%Y/%m/%d'),
             NOW()) as yeardiff"))->where('username', $username)
@@ -94,7 +93,7 @@ class signupController extends Controller
         }
 
         if ($thesis < 1) {
-            $message .= "請確認期刊論文填寫的資料是否具備該項目的條件<br />";
+            $message .= "請填寫期刊論文<br />";
         }
 
         if ($industry_experience < 1) {
