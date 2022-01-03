@@ -57,7 +57,7 @@
 </div>
 
 <div class="form-group">
-    <label for="rank_factor">Rank factor N/M</label>
+    <label for="rank_factor">Journal Rank: N/M</label>
     <input type="text" class="form-control @error('rank_factor') is-invalid @enderror" id="rank_factor"
         name="rank_factor" value="{{ old('rank_factor') ?? $collection->rank_factor ?? '' }}">
     @error('rank_factor')
@@ -68,23 +68,24 @@
 </div>
 
 <div class="alert alert-warning" role="alert">
-    <h4 class="alert-heading">Rank factor N/M</h4>
-    <p>SCI/SSCI Rank Factor：N為期刊在所屬研究領域之Impact Factor排序名次（Impact
-        Factor以{{ Carbon\Carbon::now()->year - 1 }}年ISI資料庫之資料為準）；M為該期刊所屬研究領域之總期刊數。</p>
+    <h4 class="alert-heading">Journal Rank: N/M</h4>
+    <p>SCI/SSCI Rank：N為期刊在所屬研究領域之排序名次；M為該期刊所屬研究領域之總期刊數。（Impact Factor以最近年度ISI資料庫之資料為準）</p>
 </div>
 
 <div class="@error('corresponding_author') is-invalid @enderror">
     <label for="corresponding_author">是否為通訊作者</label><br />
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="corresponding_author" id="corresponding_author1" value="0"
-            {{ isset($collection->corresponding_author) && $collection->corresponding_author == '0' ? 'checked' : (old('corresponding_author') == '0' ? 'checked': '') }}>
+        <input class="form-check-input" type="radio" name="corresponding_author" id="corresponding_author1" value="0" {{
+            isset($collection->corresponding_author) && $collection->corresponding_author == '0' ? 'checked' :
+        (old('corresponding_author') == '0' ? 'checked': '') }}>
         <label class="form-check-label" for="corresponding_author1">
             否
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="corresponding_author" id="corresponding_author2" value="1"
-            {{ isset($collection->corresponding_author) && $collection->corresponding_author == '1' ? 'checked' : (old('corresponding_author') == '1' ? 'checked': '') }}>
+        <input class="form-check-input" type="radio" name="corresponding_author" id="corresponding_author2" value="1" {{
+            isset($collection->corresponding_author) && $collection->corresponding_author == '1' ? 'checked' :
+        (old('corresponding_author') == '1' ? 'checked': '') }}>
         <label class="form-check-label" for="corresponding_author2">
             是
         </label>
@@ -112,17 +113,17 @@
 <div class="form-group">
     <label for="type">收錄分類</label>
     <select id="type" class="form-control @error('type') is-invalid @enderror" name="type">
-        <option value="SCI"
-            {{ isset($collection->type) && $collection->type == 'SCI' ? 'selected' : (old('type') == "SCI" ? 'selected' : '') }}>
+        <option value="SCI" {{ isset($collection->type) && $collection->type == 'SCI' ? 'selected' : (old('type') ==
+            "SCI" ? 'selected' : '') }}>
             SCI</option>
-        <option value="SCIE"
-            {{ isset($collection->type) && $collection->type == 'SCIE' ? 'selected' : (old('type') == "SCIE" ? 'selected' : '') }}>
+        <option value="SCIE" {{ isset($collection->type) && $collection->type == 'SCIE' ? 'selected' : (old('type') ==
+            "SCIE" ? 'selected' : '') }}>
             SCIE</option>
-        <option value="SSCI"
-            {{ isset($collection->type) && $collection->type == 'SSCI' ? 'selected' : (old('type') == "SSCI" ? 'selected' : '') }}>
+        <option value="SSCI" {{ isset($collection->type) && $collection->type == 'SSCI' ? 'selected' : (old('type') ==
+            "SSCI" ? 'selected' : '') }}>
             SSCI</option>
-        <option value="Other"
-            {{ isset($collection->type) && $collection->type == '其他' ? 'selected' : (old('type') == "Other" ? 'selected' : '') }}>
+        <option value="Other" {{ isset($collection->type) && $collection->type == '其他' ? 'selected' : (old('type') ==
+            "Other" ? 'selected' : '') }}>
             其他</option>
         @error('type')
         <span class="invalid-feedback" role="alert">
