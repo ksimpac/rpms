@@ -64,13 +64,13 @@ class mostProjectController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('most_project');
+        $row = DB::table('most_project')->where('username', Auth::user()->username)
+            ->where('id', $id);
         if (isset($data['identification'])) {
-            $oldIdentification = $table->where('username', Auth::user()->username)
-                ->where('id', $id)->first()->identification;
+            $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/MOST_project/'), $oldIdentification);
         }
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('MOST_project.index');
     }
 

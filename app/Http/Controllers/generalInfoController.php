@@ -56,13 +56,13 @@ class generalInfoController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('general_info');
+        $row = DB::table('general_info')->where('username', Auth::user()->username)
+            ->where('id', $id);
         if (isset($data['teacherCertificateFiles'])) {
-            $oldTeacherCertificateFiles = $table->where('username', Auth::user()->username)
-                ->where('id', $id)->first()->teacherCertificateFiles;
+            $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
             File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
         }
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('general_info.index');
     }
 

@@ -64,13 +64,13 @@ class tcaseController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('tcase');
+        $row = DB::table('tcase')->where('username', Auth::user()->username)
+            ->where('id', $id);
         if (isset($data['identification'])) {
-            $oldIdentification = $table->where('username', Auth::user()->username)
-                ->where('id', $id)->first()->identification;
+            $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/tcase/'), $oldIdentification);
         }
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('tcase.index');
     }
 

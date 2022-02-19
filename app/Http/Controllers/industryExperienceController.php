@@ -62,13 +62,13 @@ class industryExperienceController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('industry_experience');
+        $row = DB::table('industry_experience')->where('username', Auth::user()->username)
+            ->where('id', $id);
         if (isset($data['identification'])) {
-            $oldIdentification = $table->where('username', Auth::user()->username)
-                ->where('id', $id)->first()->identification;
+            $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
         }
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('industry_experience.index');
     }
 

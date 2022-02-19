@@ -69,13 +69,13 @@ class thesisController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('thesis');
+        $row = DB::table('thesis')->where('username', Auth::user()->username)
+            ->where('id', $id);
         if (isset($data['identification'])) {
-            $oldIdentification = $table->where('username', Auth::user()->username)
-                ->where('id', $id)->first()->identification;
+            $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/thesis/'), $oldIdentification);
         }
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('thesis.index');
     }
 

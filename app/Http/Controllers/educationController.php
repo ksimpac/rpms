@@ -76,9 +76,8 @@ class educationController extends Controller
     {
         $data = $this->validation($request);
         $data['updated_at'] = now();
-        $table = DB::table('education');
-        $row = $table->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
+        $row = DB::table('education')->where('username', Auth::user()->username)
+            ->where('id', $id);
         $oldCertificate = $row->certificate;
         $oldTranscript = $row->transcript;
 
@@ -90,7 +89,7 @@ class educationController extends Controller
             File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
         }
 
-        $table->update($data);
+        $row->update($data);
         return redirect()->route('education.index');
     }
 
