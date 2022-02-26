@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('title')
-@include('MOST_project.title')
+@include('most_project.title')
 @endsection
 
 @section('card-body-content')
 
 @if(Auth::user()->isSignup == 0)
-<span class="d-flex justify-content-end"><a href="{{ route('MOST_project.create') }}"
+<span class="d-flex justify-content-end"><a href="{{ route('most_project.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
 @endif
 
@@ -29,14 +29,14 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
-            <td><a href="{{ url(Storage::url('MOST_project/' . $item->identification)) }}"
+            <td><a href="{{ url(Storage::url('most_project/' . $item->identification)) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('MOST_project.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
+                    <a href="{{ route('most_project.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
                     @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('MOST_project.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('MOST_project.destroy', ['id' => $item->id]) }}" method="post">
+                    <a href="{{ route('most_project.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('most_project.destroy', ['id' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

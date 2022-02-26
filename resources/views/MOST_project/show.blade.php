@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-@include('MOST_project.title')
+@include('most_project.title')
 @endsection
 
 @section('card-body-content')
@@ -49,7 +49,7 @@
     <div class="form-group row">
         <label for="staticIdentification" class="col-sm-2 col-form-label">佐證資料上傳</label>
         <div class="col-sm-10">
-            <a href="{{ url(Storage::url('MOST_project/' . $collection->identification)) }}" target="_blank"
+            <a href="{{ url(Storage::url('most_project/' . $collection->identification)) }}" target="_blank"
                 class="form-control-plaintext">{{ $collection->identification }}</a>
         </div>
     </div>

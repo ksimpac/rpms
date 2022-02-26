@@ -104,14 +104,14 @@ Route::middleware('auth', 'user')->group(function () {
             Route::delete('tcase/{id}', 'tcaseController@destroy')->name('destroy')->middleware('isSignup');
         });
 
-        Route::name('MOST_project.')->group(function () {
-            Route::get('MOST_project', 'mostProjectController@index')->name('index');
-            Route::get('MOST_project/create', 'mostProjectController@create')->name('create')->middleware('isSignup', 'isDeadline');
-            Route::post('MOST_project', 'mostProjectController@store')->name('store')->middleware('isSignup');
-            Route::get('MOST_project/{id}/edit', 'mostProjectController@edit')->name('edit')->middleware('isSignup');
-            Route::get('MOST_project/{id}', 'mostProjectController@show')->name('show');
-            Route::patch('MOST_project/{id}', 'mostProjectController@update')->name('update')->middleware('isSignup');
-            Route::delete('MOST_project/{id}', 'mostProjectController@destroy')->name('destroy')->middleware('isSignup');
+        Route::name('most_project.')->group(function () {
+            Route::get('most_project', 'mostProjectController@index')->name('index');
+            Route::get('most_project/create', 'mostProjectController@create')->name('create')->middleware('isSignup', 'isDeadline');
+            Route::post('most_project', 'mostProjectController@store')->name('store')->middleware('isSignup');
+            Route::get('most_project/{id}/edit', 'mostProjectController@edit')->name('edit')->middleware('isSignup');
+            Route::get('most_project/{id}', 'mostProjectController@show')->name('show');
+            Route::patch('most_project/{id}', 'mostProjectController@update')->name('update')->middleware('isSignup');
+            Route::delete('most_project/{id}', 'mostProjectController@destroy')->name('destroy')->middleware('isSignup');
         });
 
 

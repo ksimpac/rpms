@@ -14,12 +14,12 @@ class mostProjectController extends Controller
     {
         $collection = DB::table('most_project')
             ->where('username', Auth::user()->username)->get();
-        return view('MOST_project.index', compact('collection'));
+        return view('most_project.index', compact('collection'));
     }
 
     public function create()
     {
-        return view('MOST_project.create');
+        return view('most_project.create');
     }
 
     public function store(Request $request)
@@ -28,16 +28,16 @@ class mostProjectController extends Controller
         $data['username'] = Auth::user()->username;
         $data['created_at'] = $data['updated_at'] = now();
         DB::table('most_project')->insert([$data]);
-        return redirect()->route('MOST_project.index');
+        return redirect()->route('most_project.index');
     }
 
     public function destroy($id)
     {
         $queryBuilder = DB::table('most_project')->where('id', $id);
         $oldIdentification = $queryBuilder->first()->identification;
-        File::delete(storage_path('app/public/MOST_project/'), $oldIdentification);
+        File::delete(storage_path('app/public/most_project/'), $oldIdentification);
         $queryBuilder->delete();
-        return redirect()->route('MOST_project.index');
+        return redirect()->route('most_project.index');
     }
 
     public function edit($id)
@@ -48,7 +48,7 @@ class mostProjectController extends Controller
 
         $collection->startDate = str_replace('-', '/', $collection->startDate);
         $collection->endDate = str_replace('-', '/', $collection->endDate);
-        return view('MOST_project.edit', compact('collection'));
+        return view('most_project.edit', compact('collection'));
     }
 
     public function show($id)
@@ -57,7 +57,7 @@ class mostProjectController extends Controller
             ->where('username', Auth::user()->username)
             ->where('id', $id)->first();
 
-        return view('MOST_project.show', compact('collection'));
+        return view('most_project.show', compact('collection'));
     }
 
     public function update(Request $request, $id)
@@ -68,10 +68,10 @@ class mostProjectController extends Controller
             ->where('id', $id);
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/MOST_project/'), $oldIdentification);
+            File::delete(storage_path('app/public/most_project/'), $oldIdentification);
         }
         $row->update($data);
-        return redirect()->route('MOST_project.index');
+        return redirect()->route('most_project.index');
     }
 
     private function validation(Request $request)
@@ -83,7 +83,7 @@ class mostProjectController extends Controller
             'endDate' => ['required', 'date_format:Y/m/d', 'after:startDate', 'before_or_equal:' . date("Y/m/d", strtotime("now"))],
             'jobkind' => ['required', 'in:0,1'],
             'plantotal_money' => ['required', 'integer', 'max:9999999999'],
-            'identification' => [Rule::requiredIf($requestName == 'MOST_project.store'), 'file', 'mimes:pdf'],
+            'identification' => [Rule::requiredIf($requestName == 'most_project.store'), 'file', 'mimes:pdf'],
         ]);
 
         $jobkind = array('0' => '主持人', '1' => '共同主持人');
@@ -91,7 +91,7 @@ class mostProjectController extends Controller
 
         if (isset($data['identification'])) {
             $fileName = strtotime("now") . '.pdf';
-            $request->file('identification')->storeAs('MOST_project', $fileName, 'public');
+            $request->file('identification')->storeAs('most_project', $fileName, 'public');
             $data['identification'] = $fileName;
         }
 

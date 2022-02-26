@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('title')
-@include('MOST_project.title')
+@include('most_project.title')
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('MOST_project.update', ['id' => $collection->id]) }}" method="POST"
+<form action="{{ route('most_project.update', ['id' => $collection->id]) }}" method="POST"
     enctype="multipart/form-data">
-    @include('MOST_project.form')
+    @include('most_project.form')
     @method('PATCH')
     <button type="submit" class="btn btn-warning">修改</button>
 </form>
