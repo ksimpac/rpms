@@ -25,7 +25,7 @@ class user
         }
 
         $uri = explode('/', $request->route()->uri());
-        $tableName = $uri[1];
+        $tableName = strtolower($uri[1]);
         $username = Auth::user()->username; //real username
 
         $data = DB::table($tableName)->where('id', $url_id)->first();

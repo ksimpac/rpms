@@ -38,7 +38,7 @@ class signupController extends Controller
             DB::table('thesis')->select(DB::raw("timestampdiff(YEAR,
             STR_TO_DATE(concat(publicationDate, '/01'), '%Y/%m/%d'),
             NOW()) as yeardiff"))->where('username', $username)
-            ->having('yeardiff', '>=', 5)->get()->count() == 0
+            ->having('yeardiff', '>', 5)->get()->count() == 0
         ) {
             $thesis = 1;
         } else {
