@@ -12,6 +12,10 @@ class Industry_experience extends Model
      * @var string
      */
     protected $table = 'industry_experience';
+    protected $fillable = [
+        'username', 'working_units', 'position', 'type',
+        'job_description', 'startDate', 'endDate', 'identification'
+    ];
 
     public function user()
     {

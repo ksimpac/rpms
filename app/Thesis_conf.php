@@ -12,6 +12,10 @@ class Thesis_conf extends Model
      * @var string
      */
     protected $table = 'thesis_conf';
+    protected $fillable = [
+        'username', 'conf_name', 'thesisName', 'years', 'authorNo',
+        'corresponding_author', 'country'
+    ];
 
     public function user()
     {

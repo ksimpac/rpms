@@ -12,6 +12,11 @@ class Thesis extends Model
      * @var string
      */
     protected $table = 'thesis';
+    protected $fillable = [
+        'username', 'publicationName', 'publicationDate', 'DOI', 'authorNo',
+        'order', 'rank_factor', 'corresponding_author', 'thesisName',
+        'type', 'identification'
+    ];
 
     public function user()
     {

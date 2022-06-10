@@ -12,6 +12,10 @@ class Most_project extends Model
      * @var string
      */
     protected $table = 'most_project';
+    protected $fillable = [
+        'username', 'projectName', 'startDate', 'endDate',
+        'jobkind', 'plantotal_money', 'identification'
+    ];
 
     public function user()
     {

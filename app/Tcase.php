@@ -12,6 +12,10 @@ class Tcase extends Model
      * @var string
      */
     protected $table = 'tcase';
+    protected $fillable = [
+        'username', 'projectName', 'collaboration_name', 'startDate',
+        'endDate', 'jobkind', 'plantotal_money', 'identification'
+    ];
 
     public function user()
     {

@@ -12,6 +12,13 @@ class General_info extends Model
      * @var string
      */
     protected $table = 'general_info';
+    protected $fillable = [
+        'username', 'englishLastName', 'englishFirstName', 'birthday', 'sex',
+        'telephone', 'Permanent_Address', 'Residential_Address',
+        'teacherCertificateType', 'teacherCertificateFiles',
+        'working_units', 'position', 'startDate', 'specialization',
+        'course'
+    ];
 
     public function user()
     {

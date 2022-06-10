@@ -12,6 +12,11 @@ class Education extends Model
      * @var string
      */
     protected $table = 'education';
+    protected $fillable = [
+        'username', 'schoolName', 'department', 'startDate',
+        'endDate', 'status', 'country', 'degree', 'thesis',
+        'advisor', 'certificate', 'transcript'
+    ];
 
     public function user()
     {

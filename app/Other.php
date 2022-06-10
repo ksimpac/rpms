@@ -12,6 +12,7 @@ class Other extends Model
      * @var string
      */
     protected $table = 'other';
+    protected $fillable = ['username', 'identification'];
 
     public function user()
     {
