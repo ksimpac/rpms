@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Classes\File;
+use App\Education;
 
 class educationController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('education')
-            ->where('username', Auth::user()->username)->get();
+        $collection = Education::where('username', Auth::user()->username)->get();
         return view('education.index', compact('collection'));
     }
 
@@ -26,37 +25,30 @@ class educationController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('education')->insert($data);
+        Education::create($data);
         return redirect()->route('education.index');
     }
 
     public function destroy($id)
     {
-        $queryBuilder = DB::table('education')->where('id', $id);
-        $row = $queryBuilder->first();
+        $row = Education::where('id', $id)->firstOrFail();
         $oldCertificate = $row->certificate;
         $oldTranscript = $row->transcript;
         File::delete(storage_path('app/public/education/transcript/'), $oldTranscript);
         File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
-        $queryBuilder->delete();
+        $row->delete();
         return redirect()->route('education.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('education')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Education::where('id', $id)->firstOrFail();
         return view('education.edit', compact('collection'));
     }
 
     public function show($id)
     {
-        $collection = DB::table('education')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
+        $collection = Education::where('id', $id)->firstOrFail();
 
         switch ($collection->degree) {
             case 'Bachelor':
@@ -75,9 +67,8 @@ class educationController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        $row = DB::table('education')->where('username', Auth::user()->username)
-            ->where('id', $id);
+        $data['username'] = Auth::user()->username;
+        $row = Education::where('id', $id)->firstOrFail();
         $oldCertificate = $row->certificate;
         $oldTranscript = $row->transcript;
 

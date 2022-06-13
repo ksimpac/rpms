@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Classes\File;
+use App\General_info;
 
 class generalInfoController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('general_info')
-            ->where('username', Auth::user()->username)->get();
+        $collection = General_info::where('username', Auth::user()->username)->get();
         return view('general_info.index', compact('collection'));
     }
 
@@ -26,28 +25,24 @@ class generalInfoController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('general_info')->insert([$data]);
+        General_info::create($data);
         return redirect()->route('general_info.index');
     }
 
     public function destroy($id)
     {
-        $queryBuilder = DB::table('general_info')->where('id', $id);
-        $oldTeacherCertificateFiles = $queryBuilder->first()->teacherCertificateFiles;
+        $row = General_info::where('id', $id)->firstOrFail();
+        $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
         if (isset($oldTeacherCertificateFiles)) {
             File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
         }
-        $queryBuilder->delete();
+        $row->delete();
         return redirect()->route('general_info.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('general_info')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = General_info::where('id', $id)->firstOrFail();
         $collection->birthday = str_replace('-', '/', $collection->birthday);
         return view('general_info.edit', compact('collection'));
     }
@@ -55,9 +50,8 @@ class generalInfoController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        $row = DB::table('general_info')->where('username', Auth::user()->username)
-            ->where('id', $id);
+        $data['username'] = Auth::user()->username;
+        $row = General_info::where('id', $id)->firstOrFail();
         if (isset($data['teacherCertificateFiles'])) {
             $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
             File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
@@ -68,10 +62,7 @@ class generalInfoController extends Controller
 
     public function show($id)
     {
-        $collection = DB::table('general_info')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = General_info::where('id', $id)->firstOrFail();
         $collection->sex == 0 ? $collection->gender = '女' : $collection->gender = '男';
         return view('general_info.show', compact('collection'));
     }

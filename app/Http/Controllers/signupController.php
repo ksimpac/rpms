@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\User;
+use App\General_info;
+use App\Education;
+use App\Thesis;
+use App\Industry_experience;
+use App\Most_project;
+use App\Thesis_conf;
 
 class signupController extends Controller
 {
     public function store()
     {
-        DB::table('users')
-            ->where('username', Auth::user()->username)
-            ->update([
-                'isSignup' => 1,
-                'updated_at' => now()
-            ]);
+        User::where('username', Auth::user()->username)->update([
+            'isSignup' => 1,
+            'updated_at' => now()
+        ]);
 
         Alert::success('系統訊息', '已完成報名');
         return redirect()->back();
@@ -24,18 +29,14 @@ class signupController extends Controller
     public function check()
     {
         $username = Auth::user()->username;
-        $general_info = DB::table('general_info')
-            ->where('username', $username)->count();
-        $education = DB::table('education')
-            ->select('degree')
-            ->where('username', $username)->count();
+        $general_info = General_info::where('username', $username)->count();
+        $education = Education::select('degree')->where('username', $username)->count();
 
         if (
-            DB::table('thesis')
-            ->where('username', $username)
+            Thesis::where('username', $username)
             ->whereIn('type', ['SCI', 'SCIE', 'SSCI'])
             ->count() >= 1 &&
-            DB::table('thesis')->select(DB::raw("timestampdiff(YEAR,
+            Thesis::select(DB::raw("timestampdiff(YEAR,
             STR_TO_DATE(concat(publicationDate, '/01'), '%Y/%m/%d'),
             NOW()) as yeardiff"))->where('username', $username)
             ->having('yeardiff', '>', 5)->get()->count() == 0
@@ -46,8 +47,7 @@ class signupController extends Controller
         }
 
         if (
-            DB::table('industry_experience')
-            ->select(DB::raw("timestampdiff(YEAR,
+            Industry_experience::select(DB::raw("timestampdiff(YEAR,
             STR_TO_DATE(concat(startDate, '/01'), '%Y/%m/%d'),
             STR_TO_DATE(concat(endDate, '/01'), '%Y/%m/%d')) as yeardiff"))
             ->where('username', $username)->having('yeardiff', '>=', 1)->get()
@@ -59,8 +59,7 @@ class signupController extends Controller
         }
 
         if (
-            DB::table('most_project')
-            ->select(DB::raw("timestampdiff(YEAR, startDate,
+            Most_project::select(DB::raw("timestampdiff(YEAR, startDate,
             NOW()) as yeardiff"))->where('username', $username)
             ->having('yeardiff', '>', 5)->get()->count() > 0
         ) {
@@ -70,8 +69,7 @@ class signupController extends Controller
         }
 
         if (
-            DB::table('thesis_conf')
-            ->select(DB::raw("timestampdiff(YEAR,
+            Thesis_conf::select(DB::raw("timestampdiff(YEAR,
             DATE(concat(years, '-01-01')), NOW()) as yeardiff"))
             ->where('username', $username)->having('yeardiff', '>', 5)
             ->get()->count() > 0

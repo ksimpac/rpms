@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Classes\File;
+use App\Industry_experience;
 
 class industryExperienceController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('industry_experience')
-            ->where('username', Auth::user()->username)->get();
+        $collection = Industry_experience::where('username', Auth::user()->username)->get();
         return view('industry_experience.index', compact('collection'));
     }
 
@@ -26,44 +25,36 @@ class industryExperienceController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('industry_experience')->insert([$data]);
+        Industry_experience::create($data);
         return redirect()->route('industry_experience.index');
     }
 
     public function destroy($id)
     {
-        $queryBuilder = DB::table('industry_experience')->where('id', $id);
-        $oldIdentification = $queryBuilder->first()->identification;
+        $row = Industry_experience::where('id', $id)->firstOrFail();
+        $oldIdentification = $row->identification;
         File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
-        $queryBuilder->delete();
+        $row->delete();
         return redirect()->route('industry_experience.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('industry_experience')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Industry_experience::where('id', $id)->firstOrFail();
         return view('industry_experience.edit', compact('collection'));
     }
 
     public function show($id)
     {
-        $collection = DB::table('industry_experience')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Industry_experience::where('id', $id)->firstOrFail();
         return view('industry_experience.show', compact('collection'));
     }
 
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        $row = DB::table('industry_experience')->where('username', Auth::user()->username)
-            ->where('id', $id);
+        $data['username'] = Auth::user()->username;
+        $row = Industry_experience::where('id', $id);
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);

@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Classes\File;
+use App\Tcase;
 
 class tcaseController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('tcase')
-            ->where('username', Auth::user()->username)->get();
+        $collection = Tcase::where('username', Auth::user()->username)->get();
         return view('tcase.index', compact('collection'));
     }
 
@@ -26,26 +25,22 @@ class tcaseController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('tcase')->insert([$data]);
+        Tcase::create($data);
         return redirect()->route('tcase.index');
     }
 
     public function destroy($id)
     {
-        $queryBuilder = DB::table('tcase')->where('id', $id);
-        $oldIdentification = $queryBuilder->first()->identification;
+        $row = Tcase::where('id', $id)->firstOrFail();
+        $oldIdentification = $row->identification;
         File::delete(storage_path('app/public/tcase/'), $oldIdentification);
-        $queryBuilder->delete();
+        $row->delete();
         return redirect()->route('tcase.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('tcase')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Tcase::where('id', $id)->firstOrFail();
         $collection->startDate = str_replace('-', '/', $collection->startDate);
         $collection->endDate = str_replace('-', '/', $collection->endDate);
         return view('tcase.edit', compact('collection'));
@@ -53,19 +48,15 @@ class tcaseController extends Controller
 
     public function show($id)
     {
-        $collection = DB::table('tcase')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Tcase::where('id', $id)->firstOrFail();
         return view('tcase.show', compact('collection'));
     }
 
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        $row = DB::table('tcase')->where('username', Auth::user()->username)
-            ->where('id', $id);
+        $data['username'] = Auth::user()->username;
+        $row = Tcase::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/tcase/'), $oldIdentification);

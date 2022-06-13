@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Classes\File;
+use App\Most_project;
 
 class mostProjectController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('most_project')
-            ->where('username', Auth::user()->username)->get();
+        $collection = Most_project::where('username', Auth::user()->username)->get();
         return view('most_project.index', compact('collection'));
     }
 
@@ -26,26 +25,22 @@ class mostProjectController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('most_project')->insert([$data]);
+        Most_project::create($data);
         return redirect()->route('most_project.index');
     }
 
     public function destroy($id)
     {
-        $queryBuilder = DB::table('most_project')->where('id', $id);
-        $oldIdentification = $queryBuilder->first()->identification;
+        $row = Most_project::where('id', $id)->firstOrFail();
+        $oldIdentification = $row->identification;
         File::delete(storage_path('app/public/most_project/'), $oldIdentification);
-        $queryBuilder->delete();
+        $row->delete();
         return redirect()->route('most_project.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('most_project')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Most_project::where('id', $id)->firstOrFail();
         $collection->startDate = str_replace('-', '/', $collection->startDate);
         $collection->endDate = str_replace('-', '/', $collection->endDate);
         return view('most_project.edit', compact('collection'));
@@ -53,19 +48,15 @@ class mostProjectController extends Controller
 
     public function show($id)
     {
-        $collection = DB::table('most_project')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Most_project::where('id', $id)->firstOrFail();
         return view('most_project.show', compact('collection'));
     }
 
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        $row = DB::table('most_project')->where('username', Auth::user()->username)
-            ->where('id', $id);
+        $data['username'] = Auth::user()->username;
+        $row = Most_project::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
             File::delete(storage_path('app/public/most_project/'), $oldIdentification);

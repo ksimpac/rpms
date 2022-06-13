@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Thesis_conf;
 
 class thesisConfController extends Controller
 {
     public function index()
     {
-        $collection = DB::table('thesis_conf')
-            ->where('username', Auth::user()->username)->get();
+        $collection = Thesis_conf::where('username', Auth::user()->username)->get();
 
         foreach ($collection as $item) {
             $item->corresponding_author == 0 ? $item->corresponding_author = '否' : $item->corresponding_author = '是';
         }
+
         return view('thesis_conf.index', compact('collection'));
     }
 
@@ -28,32 +28,25 @@ class thesisConfController extends Controller
     {
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $data['created_at'] = $data['updated_at'] = now();
-        DB::table('thesis_conf')->insert([$data]);
+        Thesis_conf::create($data);
         return redirect()->route('thesis_conf.index');
     }
 
     public function destroy($id)
     {
-        DB::table('thesis_conf')->where('id', $id)->delete();
+        Thesis_conf::where('id', $id)->delete();
         return redirect()->route('thesis_conf.index');
     }
 
     public function edit($id)
     {
-        $collection = DB::table('thesis_conf')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Thesis_conf::where('id', $id)->firstOrFail();
         return view('thesis_conf.edit', compact('collection'));
     }
 
     public function show($id)
     {
-        $collection = DB::table('thesis_conf')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->first();
-
+        $collection = Thesis_conf::where('id', $id)->firstOrFail();
         $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
         return view('thesis_conf.show', compact('collection'));
     }
@@ -61,10 +54,8 @@ class thesisConfController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        $data['updated_at'] = now();
-        DB::table('thesis_conf')
-            ->where('username', Auth::user()->username)
-            ->where('id', $id)->update($data);
+        $data['username'] = Auth::user()->username;
+        Thesis_conf::where('id', $id)->firstOrFail()->update($data);
         return redirect()->route('thesis_conf.index');
     }
 
