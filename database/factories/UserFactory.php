@@ -4,7 +4,6 @@
 
 use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +18,13 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'username' => $faker->userName,
+        'password' => bcrypt('1234567890'),
+        'chineseName' => $faker->name,
+        'email' => $faker->email,
+        'National_ID_No' => $faker->personalIdentityNumber,
+        'email_verified_at' => $faker->unixTime,
+        'is_admin' => 0,
+        'isSignup' => $faker->boolean(50) === true ? 1 : 0,
     ];
 });
