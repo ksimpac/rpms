@@ -35,7 +35,7 @@ class signupController extends Controller
         if (
             Thesis::where('username', $username)
             ->whereIn('type', ['SCI', 'SCIE', 'SSCI'])
-            ->count() >= 1 &&
+            ->count() >= 2 &&
             Thesis::select(DB::raw("timestampdiff(YEAR,
             STR_TO_DATE(concat(publicationDate, '/01'), '%Y/%m/%d'),
             NOW()) as yeardiff"))->where('username', $username)
@@ -91,7 +91,7 @@ class signupController extends Controller
         }
 
         if ($thesis < 1) {
-            $message .= "請填寫期刊論文<br />";
+            $message .= "請確認期刊論文填寫的資料是否具備該項目的條件<br />";
         }
 
         if ($industry_experience < 1) {
