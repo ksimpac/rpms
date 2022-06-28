@@ -11,8 +11,9 @@ class MostProjectSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
-            factory(App\Most_project::class, rand(1, 10))->create();
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
+            $mostProject = factory(App\Most_project::class, rand(1, 10))->make();
+            $user->most_projects()->saveMany($mostProject);
         });
     }
 }

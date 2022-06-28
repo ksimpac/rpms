@@ -11,8 +11,9 @@ class TcaseSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
-            factory(App\Tcase::class, rand(0, 10))->create();
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
+            $tcase = factory(App\Tcase::class, rand(0, 10))->make();
+            $user->tcases()->saveMany($tcase);
         });
     }
 }

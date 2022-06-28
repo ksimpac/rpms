@@ -11,8 +11,9 @@ class IndustryExperienceSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
-            factory(App\Industry_experience::class, rand(1, 10))->create();
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
+            $industryExperience = factory(App\Industry_experience::class, rand(1, 10))->make();
+            $user->industry_experiences()->saveMany($industryExperience);
         });
     }
 }

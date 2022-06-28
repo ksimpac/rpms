@@ -11,12 +11,11 @@ class EducationSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
             $degreeElements = array('Bachelor', 'Master', 'PhD');
             foreach ($degreeElements as $element) {
-                factory(App\Education::class)->create([
-                    'degree' => $element
-                ]);
+                $education = factory(App\Education::class)->make(['degree' => $element]);
+                $user->educations()->save($education);
             }
         });
     }

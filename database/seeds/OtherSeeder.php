@@ -11,8 +11,9 @@ class OtherSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
-            factory(App\Other::class, rand(0, 10))->create();
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
+            $other = factory(App\Other::class, rand(0, 10))->make();
+            $user->others()->saveMany($other);
         });
     }
 }

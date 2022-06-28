@@ -11,8 +11,9 @@ class GeneralInfoSeeder extends Seeder
      */
     public function run()
     {
-        App\User::where('is_admin', 0)->get()->each(function () {
-            factory(App\General_info::class)->create();
+        App\User::where('is_admin', 0)->get()->each(function ($user) {
+            $generalInfo = factory(App\General_info::class)->make();
+            $user->general_info()->save($generalInfo);
         });
     }
 }
