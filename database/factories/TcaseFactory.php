@@ -4,12 +4,10 @@
 
 use App\Tcase;
 use Faker\Generator as Faker;
-use App\User;
 use Illuminate\Support\Str;
 
 $factory->define(Tcase::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'projectName' => $faker->realText($faker->numberBetween(10, 20)),
         'collaboration_name' => $faker->company,
         'startDate' => $faker->date('Y/m/d'),

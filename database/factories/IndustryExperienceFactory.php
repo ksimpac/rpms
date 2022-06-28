@@ -4,12 +4,10 @@
 
 use App\Industry_experience;
 use Faker\Generator as Faker;
-use App\User;
 use Illuminate\Support\Str;
 
 $factory->define(Industry_experience::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'working_units' => $faker->catchPhrase,
         'position' => $faker->jobTitle,
         'type' => $faker->randomElement(array('兼任', '專任')),

@@ -4,12 +4,10 @@
 
 use App\Most_project;
 use Faker\Generator as Faker;
-use App\User;
 use Illuminate\Support\Str;
 
 $factory->define(Most_project::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'projectName' => $faker->realText($faker->numberBetween(10, 20)),
         'startDate' => $faker->date('Y/m/d'),
         'endDate' => $faker->date('Y/m/d'),

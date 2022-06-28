@@ -4,12 +4,10 @@
 
 use App\Education;
 use Faker\Generator as Faker;
-use App\User;
 use Illuminate\Support\Str;
 
 $factory->define(Education::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'schoolName' => $faker->company,
         'department' => $faker->companyModifier,
         'startDate' => $faker->date('Y/m'),

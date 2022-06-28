@@ -3,14 +3,11 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use App\User;
 use App\General_info;
 use Illuminate\Support\Str;
 
 $factory->define(General_info::class, function (Faker $faker) {
-    $user = User::all()->random();
     return [
-        'username' => $user->username,
         'englishLastName' => \Faker\Factory::create('en_US')->lastName,
         'englishFirstName' => \Faker\Factory::create('en_US')->FirstName,
         'birthday' => $faker->date,

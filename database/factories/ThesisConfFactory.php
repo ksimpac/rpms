@@ -4,11 +4,9 @@
 
 use App\Thesis_conf;
 use Faker\Generator as Faker;
-use App\User;
 
 $factory->define(Thesis_conf::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'conf_name' => $faker->realText($faker->numberBetween(10, 20)),
         'thesisName' => $faker->realText($faker->numberBetween(10, 20)),
         'years' => $faker->year,

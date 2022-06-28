@@ -4,12 +4,10 @@
 
 use App\Thesis;
 use Faker\Generator as Faker;
-use App\User;
 use Illuminate\Support\Str;
 
 $factory->define(Thesis::class, function (Faker $faker) {
     return [
-        'username' => User::all()->random(),
         'publicationName' => $faker->realText($faker->numberBetween(10, 20)),
         'publicationDate' => $faker->date('Y/m'),
         'DOI' => $faker->url,
