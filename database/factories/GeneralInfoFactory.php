@@ -14,7 +14,7 @@ $factory->define(General_info::class, function (Faker $faker) {
         'englishLastName' => \Faker\Factory::create('en_US')->lastName,
         'englishFirstName' => \Faker\Factory::create('en_US')->FirstName,
         'birthday' => $faker->date,
-        'sex' => substr($user->National_ID_No, 1, 1) == '2' ? '0' : '1',
+        'sex' => $faker->boolean(50) === true ? '0' : '1',
         'telephone' => PhoneNumber($faker),
         'Permanent_Address' => $faker->address,
         'Residential_Address' => $faker->address,
