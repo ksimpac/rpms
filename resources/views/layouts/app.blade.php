@@ -41,7 +41,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <span class="text-danger">
-                            截止日期：{{ DB::table('deadline')->first()->roc_format }}
+                            截止日期：{{ DB::table('deadline')->first()->roc_format ?? '未設定' }}
                         </span>
                     </ul>
 
