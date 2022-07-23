@@ -13,6 +13,6 @@
             因個資法的關係，此動作將會刪除所有報名資料並無法還原，請謹慎操作！
         </div>
     </div>
-    <button type="submit" class="btn btn-warning">設定</button>
+    <button type="submit" class="btn btn-danger">刪除</button>
 </form>
 @endsection
