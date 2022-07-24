@@ -22,7 +22,7 @@
         @foreach ($collection as $item)
         <tr>
             <td>{{ $loop->index + 1 }}</td>
-            <td><a href="{{ url(Storage::url('other/' . $item->identification)) }}"
+            <td><a href="{{ url(Storage::url('other/' . $item->identification . '.pdf')) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 @if(Auth::user()->isSignup == 0)

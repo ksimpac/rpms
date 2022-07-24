@@ -29,7 +29,7 @@
             <td>{{ $item->publicationName }}</td>
             <td>{{ $item->publicationDate }}</td>
             <td>{{ $item->type }}</td>
-            <td><a href="{{ url(Storage::url('thesis/' . $item->identification)) }}"
+            <td><a href="{{ url(Storage::url('thesis/' . $item->identification . '.pdf')) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">

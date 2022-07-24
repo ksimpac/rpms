@@ -28,9 +28,9 @@
             <td>{{ $loop->index + 1 }}</td>
             <td>{{ $item->schoolName }}</td>
             <td>{{ $item->department }}</td>
-            <td><a href="{{ url(Storage::url('education/certificate/' . $item->certificate)) }}"
+            <td><a href="{{ url(Storage::url('education/certificate/' . $item->certificate . '.pdf')) }}"
                     target="_blank">{{ $item->certificate }}</a></td>
-            <td><a href="{{ url(Storage::url('education/transcript/' . $item->transcript)) }}"
+            <td><a href="{{ url(Storage::url('education/transcript/' . $item->transcript . '.pdf')) }}"
                     target="_blank">{{ $item->transcript }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">

@@ -28,7 +28,7 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->collaboration_name }}</td>
             <td>{{ $item->endDate }}</td>
-            <td><a href="{{ url(Storage::url('tcase/' . $item->identification)) }}"
+            <td><a href="{{ url(Storage::url('tcase/' . $item->identification . '.pdf')) }}"
                     target="_blank">{{ $item->identification }}</a></td>
 
             <td>

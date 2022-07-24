@@ -29,7 +29,7 @@
             <td>{{ $item->projectName }}</td>
             <td>{{ $item->startDate }}</td>
             <td>{{ $item->endDate }}</td>
-            <td><a href="{{ url(Storage::url('most_project/' . $item->identification)) }}"
+            <td><a href="{{ url(Storage::url('most_project/' . $item->identification . '.pdf')) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
