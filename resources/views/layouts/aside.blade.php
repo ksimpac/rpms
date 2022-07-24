@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ route('admin.resetUsers.index') }}"><span
+                    <a class="nav-link pl-0" href="{{ route('admin.removeUsers.index') }}"><span
                             class="d-none d-md-inline">刪除報名資料</span></a>
                 </li>
                 @endif
