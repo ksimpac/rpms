@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Thesis;
+use Illuminate\Support\Facades\Storage;
 
 class thesisController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Thesis::where('username', Auth::user()->username)->get();
@@ -39,7 +42,7 @@ class thesisController extends Controller
     {
         $row = Thesis::where('id', $id)->firstOrFail();
         $oldIdentification = $row->identification;
-        File::delete(storage_path('app/public/thesis/'), $oldIdentification);
+        Storage::delete('public/thesis/' . $oldIdentification . $this->fileExtension);
         $row->delete();
         return redirect()->route('thesis.index');
     }
@@ -64,7 +67,7 @@ class thesisController extends Controller
         $row = Thesis::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/thesis/'), $oldIdentification);
+            Storage::delete('public/thesis/' . $oldIdentification . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('thesis.index');

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Tcase;
+use Illuminate\Support\Facades\Storage;
 
 class tcaseController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Tcase::where('username', Auth::user()->username)->get();
@@ -33,7 +36,7 @@ class tcaseController extends Controller
     {
         $row = Tcase::where('id', $id)->firstOrFail();
         $oldIdentification = $row->identification;
-        File::delete(storage_path('app/public/tcase/'), $oldIdentification);
+        Storage::delete('public/tcase/' . $oldIdentification . $this->fileExtension);
         $row->delete();
         return redirect()->route('tcase.index');
     }
@@ -59,7 +62,7 @@ class tcaseController extends Controller
         $row = Tcase::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/tcase/'), $oldIdentification);
+            Storage::delete('public/tcase/' . $oldIdentification . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('tcase.index');

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Most_project;
+use Illuminate\Support\Facades\Storage;
 
 class mostProjectController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Most_project::where('username', Auth::user()->username)->get();
@@ -33,7 +36,7 @@ class mostProjectController extends Controller
     {
         $row = Most_project::where('id', $id)->firstOrFail();
         $oldIdentification = $row->identification;
-        File::delete(storage_path('app/public/most_project/'), $oldIdentification);
+        Storage::delete('public/most_project/' . $oldIdentification . $this->fileExtension);
         $row->delete();
         return redirect()->route('most_project.index');
     }
@@ -59,7 +62,7 @@ class mostProjectController extends Controller
         $row = Most_project::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/most_project/'), $oldIdentification);
+            Storage::delete('public/most_project/' . $oldIdentification . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('most_project.index');

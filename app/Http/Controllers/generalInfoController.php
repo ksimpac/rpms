@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\General_info;
+use Illuminate\Support\Facades\Storage;
 
 class generalInfoController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = General_info::where('username', Auth::user()->username)->get();
@@ -34,7 +37,7 @@ class generalInfoController extends Controller
         $row = General_info::where('id', $id)->firstOrFail();
         $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
         if (isset($oldTeacherCertificateFiles)) {
-            File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
+            Storage::delete('public/general_info/' . $oldTeacherCertificateFiles . $this->fileExtension);
         }
         $row->delete();
         return redirect()->route('general_info.index');
@@ -54,7 +57,7 @@ class generalInfoController extends Controller
         $row = General_info::where('id', $id)->firstOrFail();
         if (isset($data['teacherCertificateFiles'])) {
             $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
-            File::delete(storage_path('app/public/general_info/'), $oldTeacherCertificateFiles);
+            Storage::delete('public/general_info/' . $oldTeacherCertificateFiles . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('general_info.index');

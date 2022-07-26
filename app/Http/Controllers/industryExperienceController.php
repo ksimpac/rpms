@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Industry_experience;
+use Illuminate\Support\Facades\Storage;
 
 class industryExperienceController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Industry_experience::where('username', Auth::user()->username)->get();
@@ -33,7 +36,7 @@ class industryExperienceController extends Controller
     {
         $row = Industry_experience::where('id', $id)->firstOrFail();
         $oldIdentification = $row->identification;
-        File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
+        Storage::delete('public/industry_experience/' . $oldIdentification . $this->fileExtension);
         $row->delete();
         return redirect()->route('industry_experience.index');
     }
@@ -57,7 +60,7 @@ class industryExperienceController extends Controller
         $row = Industry_experience::where('id', $id);
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/industry_experience/'), $oldIdentification);
+            Storage::delete('public/industry_experience/' . $oldIdentification . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('industry_experience.index');

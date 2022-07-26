@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Education;
+use Illuminate\Support\Facades\Storage;
 
 class educationController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Education::where('username', Auth::user()->username)->get();
@@ -34,8 +37,8 @@ class educationController extends Controller
         $row = Education::where('id', $id)->firstOrFail();
         $oldCertificate = $row->certificate;
         $oldTranscript = $row->transcript;
-        File::delete(storage_path('app/public/education/transcript/'), $oldTranscript);
-        File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
+        Storage::delete('public/education/transcript/' . $oldTranscript . $this->fileExtension);
+        Storage::delete('public/education/certificate/' . $oldCertificate . $this->fileExtension);
         $row->delete();
         return redirect()->route('education.index');
     }
@@ -73,11 +76,11 @@ class educationController extends Controller
         $oldTranscript = $row->transcript;
 
         if (isset($data['transcript'])) {
-            File::delete(storage_path('app/public/education/transcript/'), $oldTranscript);
+            Storage::delete('public/education/transcript/' . $oldTranscript . $this->fileExtension);
         }
 
         if (isset($data['certificate'])) {
-            File::delete(storage_path('app/public/education/certificate/'), $oldCertificate);
+            Storage::delete('public/education/certificate/' . $oldCertificate . $this->fileExtension);
         }
 
         $row->update($data);

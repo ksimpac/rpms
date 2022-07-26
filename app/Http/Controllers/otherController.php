@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use App\Classes\File;
 use App\Other;
+use Illuminate\Support\Facades\Storage;
 
 class otherController extends Controller
 {
+
+    private $fileExtension = '.pdf';
+
     public function index()
     {
         $collection = Other::where('username', Auth::user()->username)->get();
@@ -33,7 +36,7 @@ class otherController extends Controller
     {
         $row = Other::where('id', $id)->firstOrFail();
         $oldIdentification = $row->identification;
-        File::delete(storage_path('app/public/other/'), $oldIdentification);
+        Storage::delete('public/other/' . $oldIdentification . $this->fileExtension);
         $row->delete();
         return redirect()->route('other.index');
     }
@@ -51,7 +54,7 @@ class otherController extends Controller
         $row = Other::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
             $oldIdentification = $row->identification;
-            File::delete(storage_path('app/public/other/'), $oldIdentification);
+            Storage::delete('public/other/' . $oldIdentification . $this->fileExtension);
         }
         $row->update($data);
         return redirect()->route('other.index');
