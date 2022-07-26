@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Thesis_conf;
 
-class thesisConfController extends Controller
+class ThesisConfController extends Controller
 {
     public function index()
     {

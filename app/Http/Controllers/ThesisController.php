@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Thesis;
 use Illuminate\Support\Facades\Storage;
 
-class thesisController extends Controller
+class ThesisController extends Controller
 {
 
     private $fileExtension = '.pdf';

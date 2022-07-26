@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Education;
 use Illuminate\Support\Facades\Storage;
 
-class educationController extends Controller
+class EducationController extends Controller
 {
 
     private $fileExtension = '.pdf';

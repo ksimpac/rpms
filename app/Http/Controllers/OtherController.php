@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Other;
 use Illuminate\Support\Facades\Storage;
 
-class otherController extends Controller
+class OtherController extends Controller
 {
 
     private $fileExtension = '.pdf';

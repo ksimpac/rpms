@@ -13,7 +13,7 @@ use App\Industry_experience;
 use App\Most_project;
 use App\Thesis_conf;
 
-class signupController extends Controller
+class SignupController extends Controller
 {
     public function store()
     {

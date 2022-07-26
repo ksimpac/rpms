@@ -49,102 +49,102 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'as' => 'admin.', 'm
 
 Route::group(['prefix' => '/users', 'middleware' => ['web']], function () {
     Route::name('general_info.')->group(function () {
-        Route::get('general_info', 'generalInfoController@index')->name('index');
-        Route::get('general_info/{id}', 'generalInfoController@show')->name('show');
+        Route::get('general_info', 'GeneralInfoController@index')->name('index');
+        Route::get('general_info/{id}', 'GeneralInfoController@show')->name('show');
         Route::middleware('isSignup', 'isDeadline')->group(function () {
-            Route::get('general_info/create', 'generalInfoController@create')->name('create')->middleware('general_info');
-            Route::post('general_info', 'generalInfoController@store')->name('store');
-            Route::get('general_info/{id}/edit', 'generalInfoController@edit')->name('edit');
-            Route::patch('general_info/{id}', 'generalInfoController@update')->name('update');
-            Route::delete('general_info/{id}', 'generalInfoController@destroy')->name('destroy');
+            Route::get('general_info/create', 'GeneralInfoController@create')->name('create')->middleware('general_info');
+            Route::post('general_info', 'GeneralInfoController@store')->name('store');
+            Route::get('general_info/{id}/edit', 'GeneralInfoController@edit')->name('edit');
+            Route::patch('general_info/{id}', 'GeneralInfoController@update')->name('update');
+            Route::delete('general_info/{id}', 'GeneralInfoController@destroy')->name('destroy');
         });
     });
 
     Route::name('education.')->group(function () {
-        Route::get('education', 'educationController@index')->name('index');
-        Route::get('education/{id}', 'educationController@show')->name('show');
+        Route::get('education', 'EducationController@index')->name('index');
+        Route::get('education/{id}', 'EducationController@show')->name('show');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('education/create', 'educationController@create')->name('create')->middleware('education');
-            Route::post('education', 'educationController@store')->name('store');
-            Route::get('education/{id}/edit', 'educationController@edit')->name('edit');
-            Route::patch('education/{id}', 'educationController@update')->name('update');
-            Route::delete('education/{id}', 'educationController@destroy')->name('destroy');
+            Route::get('education/create', 'EducationController@create')->name('create')->middleware('education');
+            Route::post('education', 'EducationController@store')->name('store');
+            Route::get('education/{id}/edit', 'EducationController@edit')->name('edit');
+            Route::patch('education/{id}', 'EducationController@update')->name('update');
+            Route::delete('education/{id}', 'EducationController@destroy')->name('destroy');
         });
     });
 
     Route::name('thesis.')->group(function () {
-        Route::get('thesis', 'thesisController@index')->name('index');
-        Route::get('thesis/{id}', 'thesisController@show')->name('show');
+        Route::get('thesis', 'ThesisController@index')->name('index');
+        Route::get('thesis/{id}', 'ThesisController@show')->name('show');
         Route::middleware('isSignup', 'isDeadline')->group(function () {
-            Route::get('thesis/create', 'thesisController@create')->name('create');
-            Route::post('thesis', 'thesisController@store')->name('store');
-            Route::get('thesis/{id}/edit', 'thesisController@edit')->name('edit');
-            Route::patch('thesis/{id}', 'thesisController@update')->name('update');
-            Route::delete('thesis/{id}', 'thesisController@destroy')->name('destroy');
+            Route::get('thesis/create', 'ThesisController@create')->name('create');
+            Route::post('thesis', 'ThesisController@store')->name('store');
+            Route::get('thesis/{id}/edit', 'ThesisController@edit')->name('edit');
+            Route::patch('thesis/{id}', 'ThesisController@update')->name('update');
+            Route::delete('thesis/{id}', 'ThesisController@destroy')->name('destroy');
         });
     });
 
     Route::name('industry_experience.')->group(function () {
-        Route::get('industry_experience', 'industryExperienceController@index')->name('index');
-        Route::get('industry_experience/{id}', 'industryExperienceController@show')->name('show');
+        Route::get('industry_experience', 'IndustryExperienceController@index')->name('index');
+        Route::get('industry_experience/{id}', 'IndustryExperienceController@show')->name('show');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('industry_experience/create', 'industryExperienceController@create')->name('create');
-            Route::post('industry_experience', 'industryExperienceController@store')->name('store');
-            Route::get('industry_experience/{id}/edit', 'industryExperienceController@edit')->name('edit');
-            Route::patch('industry_experience/{id}', 'industryExperienceController@update')->name('update');
-            Route::delete('industry_experience/{id}', 'industryExperienceController@destroy')->name('destroy');
+            Route::get('industry_experience/create', 'IndustryExperienceController@create')->name('create');
+            Route::post('industry_experience', 'IndustryExperienceController@store')->name('store');
+            Route::get('industry_experience/{id}/edit', 'IndustryExperienceController@edit')->name('edit');
+            Route::patch('industry_experience/{id}', 'IndustryExperienceController@update')->name('update');
+            Route::delete('industry_experience/{id}', 'IndustryExperienceController@destroy')->name('destroy');
         });
     });
 
     Route::name('tcase.')->group(function () {
-        Route::get('tcase', 'tcaseController@index')->name('index');
-        Route::get('tcase/{id}', 'tcaseController@show')->name('show');
+        Route::get('tcase', 'TcaseController@index')->name('index');
+        Route::get('tcase/{id}', 'TcaseController@show')->name('show');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('tcase/create', 'tcaseController@create')->name('create');
-            Route::post('tcase', 'tcaseController@store')->name('store');
-            Route::get('tcase/{id}/edit', 'tcaseController@edit')->name('edit');
-            Route::patch('tcase/{id}', 'tcaseController@update')->name('update');
-            Route::delete('tcase/{id}', 'tcaseController@destroy')->name('destroy');
+            Route::get('tcase/create', 'TcaseController@create')->name('create');
+            Route::post('tcase', 'TcaseController@store')->name('store');
+            Route::get('tcase/{id}/edit', 'TcaseController@edit')->name('edit');
+            Route::patch('tcase/{id}', 'TcaseController@update')->name('update');
+            Route::delete('tcase/{id}', 'TcaseController@destroy')->name('destroy');
         });
     });
 
     Route::name('most_project.')->group(function () {
-        Route::get('most_project', 'mostProjectController@index')->name('index');
-        Route::get('most_project/{id}', 'mostProjectController@show')->name('show');
+        Route::get('most_project', 'MostProjectController@index')->name('index');
+        Route::get('most_project/{id}', 'MostProjectController@show')->name('show');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('most_project/create', 'mostProjectController@create')->name('create');
-            Route::post('most_project', 'mostProjectController@store')->name('store');
-            Route::get('most_project/{id}/edit', 'mostProjectController@edit')->name('edit');
-            Route::patch('most_project/{id}', 'mostProjectController@update')->name('update');
-            Route::delete('most_project/{id}', 'mostProjectController@destroy')->name('destroy');
+            Route::get('most_project/create', 'MostProjectController@create')->name('create');
+            Route::post('most_project', 'MostProjectController@store')->name('store');
+            Route::get('most_project/{id}/edit', 'MostProjectController@edit')->name('edit');
+            Route::patch('most_project/{id}', 'MostProjectController@update')->name('update');
+            Route::delete('most_project/{id}', 'MostProjectController@destroy')->name('destroy');
         });
     });
 
 
     Route::name('thesis_conf.')->group(function () {
-        Route::get('thesis_conf', 'thesisConfController@index')->name('index');
-        Route::get('thesis_conf/{id}', 'thesisConfController@show')->name('show');
+        Route::get('thesis_conf', 'ThesisConfController@index')->name('index');
+        Route::get('thesis_conf/{id}', 'ThesisConfController@show')->name('show');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('thesis_conf/create', 'thesisConfController@create')->name('create');
-            Route::post('thesis_conf', 'thesisConfController@store')->name('store');
-            Route::get('thesis_conf/{id}/edit', 'thesisConfController@edit')->name('edit');
-            Route::patch('thesis_conf/{id}', 'thesisConfController@update')->name('update');
-            Route::delete('thesis_conf/{id}', 'thesisConfController@destroy')->name('destroy');
+            Route::get('thesis_conf/create', 'ThesisConfController@create')->name('create');
+            Route::post('thesis_conf', 'ThesisConfController@store')->name('store');
+            Route::get('thesis_conf/{id}/edit', 'ThesisConfController@edit')->name('edit');
+            Route::patch('thesis_conf/{id}', 'ThesisConfController@update')->name('update');
+            Route::delete('thesis_conf/{id}', 'ThesisConfController@destroy')->name('destroy');
         });
     });
 
     Route::name('other.')->group(function () {
-        Route::get('other', 'otherController@index')->name('index');
+        Route::get('other', 'OtherController@index')->name('index');
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('other/create', 'otherController@create')->name('create');
-            Route::post('other', 'otherController@store')->name('store');
-            Route::get('other/{id}/edit', 'otherController@edit')->name('edit');
-            Route::patch('other/{id}', 'otherController@update')->name('update');
-            Route::delete('other/{id}', 'otherController@destroy')->name('destroy');
+            Route::get('other/create', 'OtherController@create')->name('create');
+            Route::post('other', 'OtherController@store')->name('store');
+            Route::get('other/{id}/edit', 'OtherController@edit')->name('edit');
+            Route::patch('other/{id}', 'OtherController@update')->name('update');
+            Route::delete('other/{id}', 'OtherController@destroy')->name('destroy');
         });
     });
 
     Route::name('signup.')->group(function () {
-        Route::post('signup', 'signupController@check')->name('store')->middleware('isSignup', 'isDeadline');
+        Route::post('signup', 'SignupController@check')->name('store')->middleware('isSignup', 'isDeadline');
     });
 });

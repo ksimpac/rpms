@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Industry_experience;
 use Illuminate\Support\Facades\Storage;
 
-class industryExperienceController extends Controller
+class IndustryExperienceController extends Controller
 {
 
     private $fileExtension = '.pdf';
