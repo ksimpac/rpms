@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Education;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EducationController extends Controller
 {
@@ -21,6 +22,11 @@ class EducationController extends Controller
 
     public function create()
     {
+        if (Education::where('username', Auth::user()->username)->count() === 3) {
+            Alert::error('錯誤', '學歷只能新增三筆資料');
+            return redirect()->route('education.index');
+        }
+
         return view('education.create');
     }
 

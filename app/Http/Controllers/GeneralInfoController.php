@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\General_info;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GeneralInfoController extends Controller
 {
@@ -21,6 +22,11 @@ class GeneralInfoController extends Controller
 
     public function create()
     {
+        if (General_info::where('username', Auth::user()->username)->count() > 0) {
+            Alert::error('錯誤', '基本資料只能新增一筆');
+            return redirect()->route('general_info.index');
+        }
+
         return view('general_info.create');
     }
 

@@ -50,7 +50,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'as' => 'admin.', 'm
 Route::group(['prefix' => '/users', 'middleware' => ['web']], function () {
     Route::name('general_info.')->group(function () {
         Route::middleware('isSignup', 'isDeadline')->group(function () {
-            Route::get('general_info/create', 'GeneralInfoController@create')->name('create')->middleware('general_info');
+            Route::get('general_info/create', 'GeneralInfoController@create')->name('create');
             Route::post('general_info', 'GeneralInfoController@store')->name('store');
             Route::get('general_info/{id}/edit', 'GeneralInfoController@edit')->name('edit');
             Route::patch('general_info/{id}', 'GeneralInfoController@update')->name('update');
@@ -62,7 +62,7 @@ Route::group(['prefix' => '/users', 'middleware' => ['web']], function () {
 
     Route::name('education.')->group(function () {
         Route::middleware(['isSignup', 'isDeadline'])->group(function () {
-            Route::get('education/create', 'EducationController@create')->name('create')->middleware('education');
+            Route::get('education/create', 'EducationController@create')->name('create');
             Route::post('education', 'EducationController@store')->name('store');
             Route::get('education/{id}/edit', 'EducationController@edit')->name('edit');
             Route::patch('education/{id}', 'EducationController@update')->name('update');
