@@ -10,11 +10,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Thesis::class);
         $collection = Thesis::where('username', Auth::user()->username)->get();
 
         foreach ($collection as $item) {
@@ -26,49 +35,51 @@ class ThesisController extends Controller
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Thesis::class);
         return view('thesis.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Thesis::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Thesis::create($data);
         return redirect()->route('thesis.index');
     }
 
-    public function destroy($id)
+    public function destroy(Thesis $thesis)
     {
-        $row = Thesis::where('id', $id)->firstOrFail();
-        $oldIdentification = $row->identification;
+        $this->authorize($this->methodMappingTable['destroy'], $thesis);
+        $oldIdentification = $thesis->identification;
         Storage::delete('public/thesis/' . $oldIdentification . $this->fileExtension);
-        $row->delete();
+        $thesis->delete();
         return redirect()->route('thesis.index');
     }
 
-    public function edit($id)
+    public function edit(Thesis $thesis)
     {
-        $collection = Thesis::where('id', $id)->firstOrFail();
-        return view('thesis.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $thesis);
+        return view('thesis.edit', compact('thesis'));
     }
 
-    public function show($id)
+    public function show(Thesis $thesis)
     {
-        $collection = Thesis::where('id', $id)->firstOrFail();
-        $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
-        return view('thesis.show', compact('collection'));
+        $this->authorize($this->methodMappingTable['show'], $thesis);
+        $thesis->corresponding_author = $thesis->corresponding_author == '0' ? '否' : '是';
+        return view('thesis.show', compact('thesis'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Thesis $thesis)
     {
+        $this->authorize($this->methodMappingTable['update'], $thesis);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = Thesis::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
-            $oldIdentification = $row->identification;
+            $oldIdentification = $thesis->identification;
             Storage::delete('public/thesis/' . $oldIdentification . $this->fileExtension);
         }
-        $row->update($data);
+        $thesis->update($data);
         return redirect()->route('thesis.index');
     }
 

@@ -11,17 +11,28 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class EducationController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Education::class);
         $collection = Education::where('username', Auth::user()->username)->get();
         return view('education.index', compact('collection'));
     }
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Education::class);
+
         if (Education::where('username', Auth::user()->username)->count() === 3) {
             Alert::error('錯誤', '學歷只能新增三筆資料');
             return redirect()->route('education.index');
@@ -32,54 +43,55 @@ class EducationController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Education::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Education::create($data);
         return redirect()->route('education.index');
     }
 
-    public function destroy($id)
+    public function destroy(Education $education)
     {
-        $row = Education::where('id', $id)->firstOrFail();
-        $oldCertificate = $row->certificate;
-        $oldTranscript = $row->transcript;
+        $this->authorize($this->methodMappingTable['destroy'], $education);
+        $oldCertificate = $education->certificate;
+        $oldTranscript = $education->transcript;
         Storage::delete('public/education/transcript/' . $oldTranscript . $this->fileExtension);
         Storage::delete('public/education/certificate/' . $oldCertificate . $this->fileExtension);
-        $row->delete();
+        $education->delete();
         return redirect()->route('education.index');
     }
 
-    public function edit($id)
+    public function edit(Education $education)
     {
-        $collection = Education::where('id', $id)->firstOrFail();
-        return view('education.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $education);
+        return view('education.edit', compact('education'));
     }
 
-    public function show($id)
+    public function show(Education $education)
     {
-        $collection = Education::where('id', $id)->firstOrFail();
+        $this->authorize($this->methodMappingTable['show'], $education);
 
-        switch ($collection->degree) {
+        switch ($education->degree) {
             case 'Bachelor':
-                $collection->degree = '大學';
+                $education->degree = '大學';
                 break;
             case 'Master':
-                $collection->degree = '碩士';
+                $education->degree = '碩士';
                 break;
             default:
-                $collection->degree = '博士';
+                $education->degree = '博士';
         }
 
-        return view('education.show', compact('collection'));
+        return view('education.show', compact('education'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Education $education)
     {
+        $this->authorize($this->methodMappingTable['update'], $education);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = Education::where('id', $id)->firstOrFail();
-        $oldCertificate = $row->certificate;
-        $oldTranscript = $row->transcript;
+        $oldCertificate = $education->certificate;
+        $oldTranscript = $education->transcript;
 
         if (isset($data['transcript'])) {
             Storage::delete('public/education/transcript/' . $oldTranscript . $this->fileExtension);
@@ -89,7 +101,7 @@ class EducationController extends Controller
             Storage::delete('public/education/certificate/' . $oldCertificate . $this->fileExtension);
         }
 
-        $row->update($data);
+        $education->update($data);
         return redirect()->route('education.index');
     }
 

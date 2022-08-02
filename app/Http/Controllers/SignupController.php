@@ -12,6 +12,7 @@ use App\Thesis;
 use App\Industry_experience;
 use App\Most_project;
 use App\Thesis_conf;
+use Illuminate\Support\Facades\Gate;
 
 class SignupController extends Controller
 {
@@ -28,9 +29,12 @@ class SignupController extends Controller
 
     public function check()
     {
-        $username = Auth::user()->username;
+        $user = Auth::user();
+        $username = $user->username;
         $general_info = General_info::where('username', $username)->count();
         $education = Education::select('degree')->where('username', $username)->count();
+
+        Gate::authorize('check', $user);
 
         if (
             Thesis::where('username', $username)

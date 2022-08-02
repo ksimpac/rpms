@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Exports\SignupExport;
 use App\User;
 use App\Deadline;
 use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Gate;
 
 class ExportController extends Controller
 {
@@ -17,8 +17,9 @@ class ExportController extends Controller
         'most_projects', 'others', 'tcases', 'thesis_confs', 'thesis'
     ];
 
-    public function export(Request $request)
+    public function export()
     {
+        Gate::authorize('export', User::class);
         $users = User::where('isSignup', 1)->with($this->tables)
             ->where('updated_at', '<=', Deadline::find(1)->time)
             ->withCount([

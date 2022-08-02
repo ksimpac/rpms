@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Education;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -11,17 +12,28 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class GeneralInfoController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Education::class);
         $collection = General_info::where('username', Auth::user()->username)->get();
         return view('general_info.index', compact('collection'));
     }
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Education::class);
+
         if (General_info::where('username', Auth::user()->username)->count() > 0) {
             Alert::error('錯誤', '基本資料只能新增一筆');
             return redirect()->route('general_info.index');
@@ -32,48 +44,49 @@ class GeneralInfoController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Education::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         General_info::create($data);
         return redirect()->route('general_info.index');
     }
 
-    public function destroy($id)
+    public function destroy(General_info $general_info)
     {
-        $row = General_info::where('id', $id)->firstOrFail();
-        $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
+        $this->authorize($this->methodMappingTable['destroy'], $general_info);
+        $oldTeacherCertificateFiles = $general_info->teacherCertificateFiles;
         if (isset($oldTeacherCertificateFiles)) {
             Storage::delete('public/general_info/' . $oldTeacherCertificateFiles . $this->fileExtension);
         }
-        $row->delete();
+        $general_info->delete();
         return redirect()->route('general_info.index');
     }
 
-    public function edit($id)
+    public function edit(General_info $general_info)
     {
-        $collection = General_info::where('id', $id)->firstOrFail();
-        $collection->birthday = str_replace('-', '/', $collection->birthday);
-        return view('general_info.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $general_info);
+        $general_info->birthday = str_replace('-', '/', $general_info->birthday);
+        return view('general_info.edit', compact('general_info'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, General_info $general_info)
     {
+        $this->authorize($this->methodMappingTable['update'], $general_info);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = General_info::where('id', $id)->firstOrFail();
         if (isset($data['teacherCertificateFiles'])) {
-            $oldTeacherCertificateFiles = $row->teacherCertificateFiles;
+            $oldTeacherCertificateFiles = $general_info->teacherCertificateFiles;
             Storage::delete('public/general_info/' . $oldTeacherCertificateFiles . $this->fileExtension);
         }
-        $row->update($data);
+        $general_info->update($data);
         return redirect()->route('general_info.index');
     }
 
-    public function show($id)
+    public function show(General_info $general_info)
     {
-        $collection = General_info::where('id', $id)->firstOrFail();
-        $collection->sex == 0 ? $collection->gender = '女' : $collection->gender = '男';
-        return view('general_info.show', compact('collection'));
+        $this->authorize($this->methodMappingTable['show'], $general_info);
+        $general_info->sex == 0 ? $general_info->gender = '女' : $general_info->gender = '男';
+        return view('general_info.show', compact('general_info'));
     }
 
     private function validation(Request $request)

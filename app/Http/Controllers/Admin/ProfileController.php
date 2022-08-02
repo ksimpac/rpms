@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -15,12 +16,14 @@ class ProfileController extends Controller
 
     public function index()
     {
+        Gate::authorize('profile', User::class);
         $collection = $this->getNameList();
         return view('admin.profile', compact('collection'));
     }
 
     public function show(Request $request)
     {
+        Gate::authorize('profile', User::class);
         $collection = $this->getNameList();
         $data = $request->validate(
             [

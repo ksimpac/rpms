@@ -10,14 +10,25 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class DeadlineController extends Controller
 {
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
+
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Deadline::class);
         return view('admin.deadline');
     }
 
     public function store(Request $request)
     {
-
+        $this->authorize($this->methodMappingTable['store'], Deadline::class);
         $data = $request->validate([
             'deadline' => ['required', 'date_format:Y-m-d H:i']
         ]);

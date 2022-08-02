@@ -10,61 +10,72 @@ use Illuminate\Support\Facades\Storage;
 
 class MostProjectController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Most_project::class);
         $collection = Most_project::where('username', Auth::user()->username)->get();
         return view('most_project.index', compact('collection'));
     }
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Most_project::class);
         return view('most_project.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Most_project::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Most_project::create($data);
         return redirect()->route('most_project.index');
     }
 
-    public function destroy($id)
+    public function destroy(Most_project $most_project)
     {
-        $row = Most_project::where('id', $id)->firstOrFail();
-        $oldIdentification = $row->identification;
+        $this->authorize($this->methodMappingTable['destroy'], $most_project);
+        $oldIdentification = $most_project->identification;
         Storage::delete('public/most_project/' . $oldIdentification . $this->fileExtension);
-        $row->delete();
+        $most_project->delete();
         return redirect()->route('most_project.index');
     }
 
-    public function edit($id)
+    public function edit(Most_project $most_project)
     {
-        $collection = Most_project::where('id', $id)->firstOrFail();
-        $collection->startDate = str_replace('-', '/', $collection->startDate);
-        $collection->endDate = str_replace('-', '/', $collection->endDate);
-        return view('most_project.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $most_project);
+        $most_project->startDate = str_replace('-', '/', $most_project->startDate);
+        $most_project->endDate = str_replace('-', '/', $most_project->endDate);
+        return view('most_project.edit', compact('most_project'));
     }
 
-    public function show($id)
+    public function show(Most_project $most_project)
     {
-        $collection = Most_project::where('id', $id)->firstOrFail();
-        return view('most_project.show', compact('collection'));
+        $this->authorize($this->methodMappingTable['show'], $most_project);
+        return view('most_project.show', compact('most_project'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Most_project $most_project)
     {
+        $this->authorize($this->methodMappingTable['update'], $most_project);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = Most_project::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
-            $oldIdentification = $row->identification;
+            $oldIdentification = $most_project->identification;
             Storage::delete('public/most_project/' . $oldIdentification . $this->fileExtension);
         }
-        $row->update($data);
+        $most_project->update($data);
         return redirect()->route('most_project.index');
     }
 

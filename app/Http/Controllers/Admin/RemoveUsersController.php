@@ -7,17 +7,20 @@ use App\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RemoveUsersController extends Controller
 {
     public function index()
     {
+        Gate::authorize('removeUsers', User::class);
         $users = User::where('is_admin', 0)->paginate(7);
         return view('admin.removeUsers', compact('users'));
     }
 
     public function delete()
     {
+        Gate::authorize('removeUsers', User::class);
         $directories = Storage::allDirectories('public');
 
         foreach ($directories as $directory) {
@@ -31,6 +34,8 @@ class RemoveUsersController extends Controller
 
     public function removeSelectedUsers(Request $request)
     {
+        Gate::authorize('removeUsers', User::class);
+
         foreach ($request['user'] as $key => $value) {
             $username = User::where('id', $key)->value('username');
             $this->deleteUserFiles($username);

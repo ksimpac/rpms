@@ -10,53 +10,64 @@ use Illuminate\Support\Facades\Storage;
 
 class OtherController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Other::class);
         $collection = Other::where('username', Auth::user()->username)->get();
         return view('other.index', compact('collection'));
     }
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Other::class);
         return view('other.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Other::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Other::create($data);
         return redirect()->route('other.index');
     }
 
-    public function destroy($id)
+    public function destroy(Other $other)
     {
-        $row = Other::where('id', $id)->firstOrFail();
-        $oldIdentification = $row->identification;
+        $this->authorize($this->methodMappingTable['destroy'], $other);
+        $oldIdentification = $other->identification;
         Storage::delete('public/other/' . $oldIdentification . $this->fileExtension);
-        $row->delete();
+        $other->delete();
         return redirect()->route('other.index');
     }
 
-    public function edit($id)
+    public function edit(Other $other)
     {
-        $collection = Other::where('id', $id)->firstOrFail();
-        return view('other.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $other);
+        return view('other.edit', compact('other'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Other $other)
     {
+        $this->authorize($this->methodMappingTable['update'], $other);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = Other::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
-            $oldIdentification = $row->identification;
+            $oldIdentification = $other->identification;
             Storage::delete('public/other/' . $oldIdentification . $this->fileExtension);
         }
-        $row->update($data);
+        $other->update($data);
         return redirect()->route('other.index');
     }
 

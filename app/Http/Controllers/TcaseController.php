@@ -10,61 +10,72 @@ use Illuminate\Support\Facades\Storage;
 
 class TcaseController extends Controller
 {
-
     private $fileExtension = '.pdf';
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
 
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Tcase::class);
         $collection = Tcase::where('username', Auth::user()->username)->get();
         return view('tcase.index', compact('collection'));
     }
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Tcase::class);
         return view('tcase.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Tcase::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Tcase::create($data);
         return redirect()->route('tcase.index');
     }
 
-    public function destroy($id)
+    public function destroy(Tcase $tcase)
     {
-        $row = Tcase::where('id', $id)->firstOrFail();
-        $oldIdentification = $row->identification;
+        $this->authorize($this->methodMappingTable['destroy'], $tcase);
+        $oldIdentification = $tcase->identification;
         Storage::delete('public/tcase/' . $oldIdentification . $this->fileExtension);
-        $row->delete();
+        $tcase->delete();
         return redirect()->route('tcase.index');
     }
 
-    public function edit($id)
+    public function edit(Tcase $tcase)
     {
-        $collection = Tcase::where('id', $id)->firstOrFail();
-        $collection->startDate = str_replace('-', '/', $collection->startDate);
-        $collection->endDate = str_replace('-', '/', $collection->endDate);
-        return view('tcase.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $tcase);
+        $tcase->startDate = str_replace('-', '/', $tcase->startDate);
+        $tcase->endDate = str_replace('-', '/', $tcase->endDate);
+        return view('tcase.edit', compact('tcase'));
     }
 
-    public function show($id)
+    public function show(Tcase $tcase)
     {
-        $collection = Tcase::where('id', $id)->firstOrFail();
-        return view('tcase.show', compact('collection'));
+        $this->authorize($this->methodMappingTable['show'], $tcase);
+        return view('tcase.show', compact('tcase'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Tcase $tcase)
     {
+        $this->authorize($this->methodMappingTable['update'], $tcase);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        $row = Tcase::where('id', $id)->firstOrFail();
         if (isset($data['identification'])) {
-            $oldIdentification = $row->identification;
+            $oldIdentification = $tcase->identification;
             Storage::delete('public/tcase/' . $oldIdentification . $this->fileExtension);
         }
-        $row->update($data);
+        $tcase->update($data);
         return redirect()->route('tcase.index');
     }
 

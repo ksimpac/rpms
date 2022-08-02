@@ -6,16 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 class RegisterController extends Controller
 {
     public function create()
     {
+        Gate::authorize('register', User::class);
         return view('admin.register');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('register', User::class);
         $data = $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'string', 'max:255', 'confirmed'],

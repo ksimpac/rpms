@@ -8,8 +8,19 @@ use App\Thesis_conf;
 
 class ThesisConfController extends Controller
 {
+    private $methodMappingTable = array(
+        'index' => 'viewAny',
+        'show' => 'view',
+        'create' => 'create',
+        'store' => 'create',
+        'edit' => 'update',
+        'update' => 'update',
+        'destroy' => 'delete',
+    );
+
     public function index()
     {
+        $this->authorize($this->methodMappingTable['index'], Thesis_conf::class);
         $collection = Thesis_conf::where('username', Auth::user()->username)->get();
 
         foreach ($collection as $item) {
@@ -21,41 +32,45 @@ class ThesisConfController extends Controller
 
     public function create()
     {
+        $this->authorize($this->methodMappingTable['create'], Thesis_conf::class);
         return view('thesis_conf.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize($this->methodMappingTable['store'], Thesis_conf::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         Thesis_conf::create($data);
         return redirect()->route('thesis_conf.index');
     }
 
-    public function destroy($id)
+    public function destroy(Thesis_conf $thesis_conf)
     {
-        Thesis_conf::where('id', $id)->delete();
+        $this->authorize($this->methodMappingTable['destroy'], $thesis_conf);
+        $thesis_conf->delete();
         return redirect()->route('thesis_conf.index');
     }
 
-    public function edit($id)
+    public function edit(Thesis_conf $thesis_conf)
     {
-        $collection = Thesis_conf::where('id', $id)->firstOrFail();
-        return view('thesis_conf.edit', compact('collection'));
+        $this->authorize($this->methodMappingTable['edit'], $thesis_conf);
+        return view('thesis_conf.edit', compact('thesis_conf'));
     }
 
-    public function show($id)
+    public function show(Thesis_conf $thesis_conf)
     {
-        $collection = Thesis_conf::where('id', $id)->firstOrFail();
-        $collection->corresponding_author = $collection->corresponding_author == '0' ? '否' : '是';
-        return view('thesis_conf.show', compact('collection'));
+        $this->authorize($this->methodMappingTable['show'], $thesis_conf);
+        $thesis_conf->corresponding_author = $thesis_conf->corresponding_author == '0' ? '否' : '是';
+        return view('thesis_conf.show', compact('thesis_conf'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Thesis_conf $thesis_conf)
     {
+        $this->authorize($this->methodMappingTable['update'], $thesis_conf);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
-        Thesis_conf::where('id', $id)->firstOrFail()->update($data);
+        $thesis_conf->update($data);
         return redirect()->route('thesis_conf.index');
     }
 
