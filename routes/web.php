@@ -31,7 +31,7 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'as' => 'admin.', 'm
     });
 
     Route::name('register.')->group(function () {
-        Route::get('/register', 'RegisterController@create')->name('create');
+        Route::get('/register', 'RegisterController@index')->name('index');
         Route::post('/register', 'RegisterController@store')->name('store');
     });
 

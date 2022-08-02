@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
 
 class RegisterController extends Controller
 {
-    public function create()
+    public function index()
     {
         Gate::authorize('register', User::class);
         return view('admin.register');
