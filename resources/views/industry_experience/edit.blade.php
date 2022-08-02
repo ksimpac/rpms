@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('industry_experience.update', ['id' => $collection->id]) }}" method="POST"
+<form action="{{ route('industry_experience.update', ['industry_experience' => $industry_experience->id]) }}" method="POST"
     enctype="multipart/form-data">
     @include('industry_experience.form')
     @method('PATCH')

@@ -39,10 +39,10 @@
             </td>
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('general_info.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
+                    <a href="{{ route('general_info.show', ['general_info' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
                     @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('general_info.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('general_info.destroy', ['id' => $item->id]) }}" method="post">
+                    <a href="{{ route('general_info.edit', ['general_info' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('general_info.destroy', ['general_info' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

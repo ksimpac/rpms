@@ -33,12 +33,12 @@
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('industry_experience.show', ['id' => $item->id]) }}"
+                    <a href="{{ route('industry_experience.show', ['industry_experience' => $item->id]) }}"
                         class="btn btn-info mr-2">檢視</a>
                     @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('industry_experience.edit', ['id' => $item->id]) }}"
+                    <a href="{{ route('industry_experience.edit', ['industry_experience' => $item->id]) }}"
                         class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('industry_experience.destroy', ['id' => $item->id]) }}" method="post">
+                    <form action="{{ route('industry_experience.destroy', ['industry_experience' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

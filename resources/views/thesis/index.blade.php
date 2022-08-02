@@ -33,10 +33,10 @@
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('thesis.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
+                    <a href="{{ route('thesis.show', ['thesis' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
                     @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('thesis.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('thesis.destroy', ['id' => $item->id]) }}" method="post">
+                    <a href="{{ route('thesis.edit', ['thesis' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('thesis.destroy', ['thesis' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

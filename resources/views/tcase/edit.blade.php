@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('tcase.update', ['id' => $collection->id]) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('tcase.update', ['tcase' => $tcase->id]) }}" method="POST" enctype="multipart/form-data">
     @include('tcase.form')
     @method('PATCH')
     <button type="submit" class="btn btn-warning">修改</button>

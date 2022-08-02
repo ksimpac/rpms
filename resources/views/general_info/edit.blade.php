@@ -5,7 +5,7 @@
 @endsection
 
 @section('card-body-content')
-<form action="{{ route('general_info.update', ['id' => $collection->id]) }}" method="POST"
+<form action="{{ route('general_info.update', ['general_info' => $general_info->id]) }}" method="POST"
     enctype="multipart/form-data">
     @method('PATCH')
     @include('general_info.form')

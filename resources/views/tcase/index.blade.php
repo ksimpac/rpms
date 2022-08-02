@@ -33,10 +33,10 @@
 
             <td>
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('tcase.show', ['id' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
+                    <a href="{{ route('tcase.show', ['tcase' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
                     @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('tcase.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('tcase.destroy', ['id' => $item->id]) }}" method="post">
+                    <a href="{{ route('tcase.edit', ['tcase' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('tcase.destroy', ['tcase' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

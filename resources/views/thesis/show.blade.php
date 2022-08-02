@@ -10,7 +10,7 @@
         <label for="staticPublicationName" class="col-sm-2 col-form-label">刊物名稱</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticPublicationName"
-                value="{{ $collection->publicationName }}">
+                value="{{ $thesis->publicationName }}">
         </div>
     </div>
 
@@ -18,14 +18,14 @@
         <label for="staticPublicationDate" class="col-sm-2 col-form-label">年月</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticPublicationDate"
-                value="{{ $collection->publicationDate }}">
+                value="{{ $thesis->publicationDate }}">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticDOI" class="col-sm-2 col-form-label">DOI</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticDOI" value="{{ $collection->DOI }}">
+            <input type="text" readonly class="form-control-plaintext" id="staticDOI" value="{{ $thesis->DOI }}">
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <label for="staticAuthorNo" class="col-sm-2 col-form-label">作者總人數</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticAuthorNo"
-                value="{{ $collection->authorNo }}">
+                value="{{ $thesis->authorNo }}">
         </div>
     </div>
 
@@ -41,7 +41,7 @@
         <label for="staticOrder" class="col-sm-2 col-form-label">作者順序</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticOrder"
-                value="{{ $collection->order }}">
+                value="{{ $thesis->order }}">
         </div>
     </div>
 
@@ -49,7 +49,7 @@
         <label for="staticRank_factor" class="col-sm-2 col-form-label">作者順序</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticRank_factor"
-                value="{{ $collection->rank_factor }}">
+                value="{{ $thesis->rank_factor }}">
         </div>
     </div>
 
@@ -57,7 +57,7 @@
         <label for="staticCorresponding_author" class="col-sm-2 col-form-label">是否為通訊作者</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticCorresponding_author"
-                value="{{ $collection->corresponding_author }}">
+                value="{{ $thesis->corresponding_author }}">
         </div>
     </div>
 
@@ -65,22 +65,22 @@
         <label for="staticThesisName" class="col-sm-2 col-form-label">論文名稱</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticThesisName"
-                value="{{ $collection->thesisName }}">
+                value="{{ $thesis->thesisName }}">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticType" class="col-sm-2 col-form-label">收錄分類</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticType" value="{{ $collection->type }}">
+            <input type="text" readonly class="form-control-plaintext" id="staticType" value="{{ $thesis->type }}">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticIdentification" class="col-sm-2 col-form-label">佐證資料上傳</label>
         <div class="col-sm-10">
-            <a href="{{ url(Storage::url('thesis/' . $collection->identification)) }}" target="_blank"
-                class="form-control-plaintext">{{ $collection->identification }}</a>
+            <a href="{{ url(Storage::url('thesis/' . $thesis->identification)) }}" target="_blank"
+                class="form-control-plaintext">{{ $thesis->identification }}</a>
         </div>
     </div>
 

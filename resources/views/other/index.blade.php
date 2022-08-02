@@ -27,8 +27,8 @@
             <td>
                 @if(Auth::user()->isSignup == 0)
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('other.edit', ['id' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('other.destroy', ['id' => $item->id]) }}" method="post">
+                    <a href="{{ route('other.edit', ['other' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    <form action="{{ route('other.destroy', ['other' => $item->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">刪除</button>

@@ -10,7 +10,7 @@
         <label for="staticEnglishLastName" class="col-sm-2 col-form-label">英文姓氏</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticEnglishLastName"
-                value="{{ $collection->englishLastName}}">
+                value="{{ $general_info->englishLastName}}">
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <label for="staticEnglishFirstName" class="col-sm-2 col-form-label">英文名字</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticEnglishFirstName"
-                value="{{ $collection->englishFirstName }}">
+                value="{{ $general_info->englishFirstName }}">
         </div>
     </div>
 
@@ -26,14 +26,14 @@
         <label for="staticBirthday" class="col-sm-2 col-form-label">生日</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticBirthday"
-                value="{{ $collection->birthday }}">
+                value="{{ $general_info->birthday }}">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticSex" class="col-sm-2 col-form-label">性別</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ $collection->gender }}">
+            <input type="text" readonly class="form-control-plaintext" id="staticSex" value="{{ $general_info->gender }}">
         </div>
     </div>
 
@@ -41,7 +41,7 @@
         <label for="staticTelephone" class="col-sm-2 col-form-label">聯絡電話</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticTelephone"
-                value="{{ $collection->telephone }}">
+                value="{{ $general_info->telephone }}">
         </div>
     </div>
 
@@ -49,7 +49,7 @@
         <label for="staticPermanent_Address" class="col-sm-2 col-form-label">戶籍地址</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticPermanent_Address"
-                value="{{ $collection->Permanent_Address }}">
+                value="{{ $general_info->Permanent_Address }}">
         </div>
     </div>
 
@@ -57,7 +57,7 @@
         <label for="staticResidential_Address" class="col-sm-2 col-form-label">通訊地址</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticResidential_Address"
-                value="{{ $collection->Residential_Address }}">
+                value="{{ $general_info->Residential_Address }}">
         </div>
     </div>
 
@@ -65,16 +65,16 @@
         <label for="staticTeacherCertificateType" class="col-sm-2 col-form-label">教師證級別</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticTeacherCertificateType"
-                value="{{ $collection->teacherCertificateType }}">
+                value="{{ $general_info->teacherCertificateType }}">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="staticTeacherCertificateFiles" class="col-sm-2 col-form-label">教師證影本</label>
         <div class="col-sm-10">
-            @if(isset($collection->teacherCertificateFiles))
-            <span><a href="{{ url(Storage::url('general_info/' . $collection->teacherCertificateFiles)) }}"
-                    target="_blank" class="form-control-plaintext">{{ $collection->teacherCertificateFiles }}</a></span>
+            @if(isset($general_info->teacherCertificateFiles))
+            <span><a href="{{ url(Storage::url('general_info/' . $general_info->teacherCertificateFiles)) }}"
+                    target="_blank" class="form-control-plaintext">{{ $general_info->teacherCertificateFiles }}</a></span>
             <span></span>
             @else
             無
@@ -88,7 +88,7 @@
         <label for="staticWorking_units" class="col-sm-2 col-form-label">公司機構名稱</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticWorking_units"
-                value="{{ $collection->working_units }}">
+                value="{{ $general_info->working_units }}">
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <label for="staticPosition" class="col-sm-2 col-form-label">職位</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticPosition"
-                value="{{ $collection->position }}">
+                value="{{ $general_info->position }}">
         </div>
     </div>
 
@@ -104,7 +104,7 @@
         <label for="staticStartDate" class="col-sm-2 col-form-label">到職年月</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticStartDate"
-                value="{{ $collection->startDate }}">
+                value="{{ $general_info->startDate }}">
         </div>
     </div>
 
@@ -112,7 +112,7 @@
         <label for="staticSpecialization" class="col-sm-2 col-form-label">專長領域</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticSpecialization"
-                value="{{ $collection->specialization }}">
+                value="{{ $general_info->specialization }}">
         </div>
     </div>
 
@@ -120,7 +120,7 @@
         <label for="staticCourse" class="col-sm-2 col-form-label">曾授課程/可授課程</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticCourse"
-                value="{{ $collection->course }}">
+                value="{{ $general_info->course }}">
         </div>
     </div>
 </form>

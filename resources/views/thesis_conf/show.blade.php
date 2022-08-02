@@ -10,7 +10,7 @@
         <label for="staticConf_name" class="col-sm-2 col-form-label">研討會名稱</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticconf_name"
-                value="{{ $collection->conf_name }}">
+                value="{{ $thesis_conf->conf_name }}">
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <label for="staticThesisName" class="col-sm-2 col-form-label">論文名稱</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticThesisName"
-                value="{{ $collection->thesisName }}">
+                value="{{ $thesis_conf->thesisName }}">
         </div>
     </div>
 
@@ -26,7 +26,7 @@
         <label for="staticYears" class="col-sm-2 col-form-label">發表年份</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticYears"
-                value="{{ $collection->years }}">
+                value="{{ $thesis_conf->years }}">
         </div>
     </div>
 
@@ -34,7 +34,7 @@
         <label for="staticAuthorNo" class="col-sm-2 col-form-label">作者總人數</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticAuthorNo"
-                value="{{ $collection->authorNo }}">
+                value="{{ $thesis_conf->authorNo }}">
         </div>
     </div>
 
@@ -42,7 +42,7 @@
         <label for="staticCorresponding_author" class="col-sm-2 col-form-label">是否為通訊作者</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticCorresponding_author"
-                value="{{ $collection->corresponding_author }}">
+                value="{{ $thesis_conf->corresponding_author }}">
         </div>
     </div>
 
@@ -50,7 +50,7 @@
         <label for="staticCountry" class="col-sm-2 col-form-label">舉行之國家/城市</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticCountry"
-                value="{{ $collection->country }}">
+                value="{{ $thesis_conf->country }}">
         </div>
     </div>
 </form>
