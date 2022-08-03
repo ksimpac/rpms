@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
 @section('title')
-@include('most_project.title')
+    @include('most_project.title')
 @endsection
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0)
-<span class="d-flex justify-content-end"><a href="{{ route('most_project.create') }}"
+@can('create', App\Most_project::class)
+    <span class="d-flex justify-content-end"><a href="{{ route('most_project.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
-@endif
+@endcan
 
 <table class="table">
     <thead>
@@ -34,14 +34,17 @@
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('most_project.show', ['most_project' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
-                    @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('most_project.edit', ['most_project' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('most_project.destroy', ['most_project' => $item->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">刪除</button>
-                    </form>
-                    @endif
+                    @can('update', $item)
+                        <a href="{{ route('most_project.edit', ['most_project' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    @endcan
+
+                    @can('delete', $item)
+                        <form action="{{ route('most_project.destroy', ['most_project' => $item->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">刪除</button>
+                        </form>
+                    @endcan
                 </div>
             </td>
         </tr>

@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('title')
-@include('tcase.title')
+    @include('tcase.title')
 @endsection
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0)
-<span class="d-flex justify-content-end"><a href="{{ route('tcase.create') }}" class="btn btn-secondary">新增一筆</a></span>
-@endif
+@can('create', App\Tcase::class)
+    <span class="d-flex justify-content-end"><a href="{{ route('tcase.create') }}" class="btn btn-secondary">新增一筆</a></span>
+@endcan
 
 <table class="table">
     <thead>
@@ -34,14 +34,18 @@
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('tcase.show', ['tcase' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
-                    @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('tcase.edit', ['tcase' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('tcase.destroy', ['tcase' => $item->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">刪除</button>
-                    </form>
-                    @endif
+
+                    @can('update', $item)
+                        <a href="{{ route('tcase.edit', ['tcase' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    @endcan
+
+                    @can('delete', $item)
+                        <form action="{{ route('tcase.destroy', ['tcase' => $item->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">刪除</button>
+                        </form>
+                    @endcan
                 </div>
             </td>
         </tr>

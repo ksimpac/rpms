@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
 @section('title')
-@include('general_info.title')
+    @include('general_info.title')
 @endsection
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0 && $collection->count() < 1)
-<span class="d-flex justify-content-end"><a href="{{ route('general_info.create') }}"
+@can('create', App\General_info::class)
+    <span class="d-flex justify-content-end"><a href="{{ route('general_info.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
-@endif
+@endcan
 
 <table class="table">
     <thead>
@@ -31,23 +31,26 @@
             <td>{{ $item->teacherCertificateType }}</td>
             <td>
                 @if(isset($item->teacherCertificateFiles))
-                <a href="{{ url(Storage::url('general_info/' . $item->teacherCertificateFiles . '.pdf')) }}"
-                    target="_blank">{{ $item->teacherCertificateFiles }}</a>
+                    <a href="{{ url(Storage::url('general_info/' . $item->teacherCertificateFiles . '.pdf')) }}"
+                        target="_blank">{{ $item->teacherCertificateFiles }}</a>
                 @else
-                無
+                    無
                 @endif
             </td>
             <td>
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('general_info.show', ['general_info' => $item->id]) }}" class="btn btn-info mr-2">檢視</a>
-                    @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('general_info.edit', ['general_info' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('general_info.destroy', ['general_info' => $item->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">刪除</button>
-                    </form>
-                    @endif
+                    @can('update', $item)
+                        <a href="{{ route('general_info.edit', ['general_info' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    @endcan
+
+                    @can('delete', $item)
+                        <form action="{{ route('general_info.destroy', ['general_info' => $item->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">刪除</button>
+                        </form>
+                    @endcan
                 </div>
             </td>
 

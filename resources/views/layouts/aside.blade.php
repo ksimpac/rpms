@@ -35,19 +35,21 @@
                     <a class="nav-link pl-0" href="{{ route('other.index') }}"><span
                             class="d-none d-md-inline">其他有助審查資料</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="{{ route('signup.store') }}" onclick="event.preventDefault();
-                            document.getElementById('signupForm').submit();"><span
-                            class="d-none d-md-inline text-success">
-                            <h4>報名</h4>
-                        </span>
-                        <span class="text-danger">(點下報名後無法修改)</span>
-                    </a>
+                @can('check', App\User::class)
+                    <li class="nav-item">
+                        <a class="nav-link pl-0" href="{{ route('signup.store') }}" onclick="event.preventDefault();
+                                document.getElementById('signupForm').submit();"><span
+                                class="d-none d-md-inline text-success">
+                                <h4>報名</h4>
+                            </span>
+                            <span class="text-danger">(點下報名後無法修改)</span>
+                        </a>
 
-                    <form id="signupForm" action="{{ route('signup.store') }}" method="post" class="d-none">
-                        @csrf
-                    </form>
-                </li>
+                        <form id="signupForm" action="{{ route('signup.store') }}" method="post" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                @endcan
                 @else
                 <li class="nav-item">
                     <a class="nav-link pl-0" href="{{ route('admin.export') }}" onclick="event.preventDefault();

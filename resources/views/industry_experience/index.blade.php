@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
 @section('title')
-@include('industry_experience.title')
+    @include('industry_experience.title')
 @endsection
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0)
-<span class="d-flex justify-content-end"><a href="{{ route('industry_experience.create') }}"
+@can('create', App\Industry_experience::class)
+    <span class="d-flex justify-content-end"><a href="{{ route('industry_experience.create') }}"
         class="btn btn-secondary">新增一筆</a></span>
-@endif
+@endcan
 
 <table class="table">
     <thead>
@@ -35,15 +35,18 @@
                 <div class="d-flex justify-content-start">
                     <a href="{{ route('industry_experience.show', ['industry_experience' => $item->id]) }}"
                         class="btn btn-info mr-2">檢視</a>
-                    @if(Auth::user()->isSignup == 0)
-                    <a href="{{ route('industry_experience.edit', ['industry_experience' => $item->id]) }}"
-                        class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('industry_experience.destroy', ['industry_experience' => $item->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">刪除</button>
-                    </form>
-                    @endif
+                    @can('update', $item)
+                        <a href="{{ route('industry_experience.edit', ['industry_experience' => $item->id]) }}"
+                            class="btn btn-warning mr-2">修改</a>
+                    @endcan
+
+                    @can('delete', $item)
+                        <form action="{{ route('industry_experience.destroy', ['industry_experience' => $item->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">刪除</button>
+                        </form>
+                    @endcan
                 </div>
             </td>
         </tr>

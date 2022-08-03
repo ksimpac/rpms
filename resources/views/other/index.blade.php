@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('title')
-@include('other.title')
+    @include('other.title')
 @endsection
 
 @section('card-body-content')
 
-@if(Auth::user()->isSignup == 0)
-<span class="d-flex justify-content-end"><a href="{{ route('other.create') }}" class="btn btn-secondary">新增一筆</a></span>
-@endif
+@can('create', App\Other::class)
+    <span class="d-flex justify-content-end"><a href="{{ route('other.create') }}" class="btn btn-secondary">新增一筆</a></span>
+@endcan
 
 <table class="table">
     <thead>
@@ -25,16 +25,19 @@
             <td><a href="{{ url(Storage::url('other/' . $item->identification . '.pdf')) }}"
                     target="_blank">{{ $item->identification }}</a></td>
             <td>
-                @if(Auth::user()->isSignup == 0)
                 <div class="d-flex justify-content-start">
-                    <a href="{{ route('other.edit', ['other' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
-                    <form action="{{ route('other.destroy', ['other' => $item->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">刪除</button>
-                    </form>
+                    @can('update', $item)
+                        <a href="{{ route('other.edit', ['other' => $item->id]) }}" class="btn btn-warning mr-2">修改</a>
+                    @endcan
+
+                    @can('delete', $item)
+                        <form action="{{ route('other.destroy', ['other' => $item->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">刪除</button>
+                        </form>
+                    @endcan
                 </div>
-                @endif
             </td>
         </tr>
         @endforeach
