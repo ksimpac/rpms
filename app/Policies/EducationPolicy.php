@@ -41,7 +41,9 @@ class EducationPolicy
      */
     public function create(User $user)
     {
-        return !UserMethod::hasAdminPermission($user) && !UserMethod::missedTheDeadline();
+        return !UserMethod::hasAdminPermission($user) &&
+            !UserMethod::missedTheDeadline() &&
+            $user->educations()->count() < 3;
     }
 
     /**

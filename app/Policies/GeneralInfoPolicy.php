@@ -41,7 +41,9 @@ class GeneralInfoPolicy
      */
     public function create(User $user)
     {
-        return !UserMethod::hasAdminPermission($user) && !UserMethod::missedTheDeadline();
+        return !UserMethod::hasAdminPermission($user) &&
+            !UserMethod::missedTheDeadline() &&
+            $user->general_info()->count() < 1;
     }
 
     /**
