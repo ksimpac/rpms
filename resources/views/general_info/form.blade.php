@@ -152,7 +152,6 @@
         <label for="startDate">到職年月</label>
         <input type="text" class="form-control @error('startDate') is-invalid @enderror" id="startDate" name="startDate"
             aria-describedby="startDateHelp" value="{{ old('startDate') ?? $general_info->startDate ?? '' }}">
-        <small id="startDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
         @error('startDate')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -190,3 +189,18 @@
     </span>
     @enderror
 </div>
+
+<script>
+    document.getElementById('startDate').flatpickr({
+        enableTime: false,
+        locale: "zh_tw",
+        plugins: [
+            new monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "Y/m",
+                altFormat: "Y/m",
+                theme: "light"
+            })
+        ]
+    });
+</script>

@@ -25,6 +25,7 @@
     <label for="years">發表年份</label>
     <input type="number" class="form-control @error('years') is-invalid @enderror" id="years" name="years"
         value="{{ old('years') ?? $thesis_conf->years ?? '' }}">
+    <small id="yearsHelp" class="form-text text-muted">選單月份請隨意選擇，不影響結果</small>
     @error('years')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -77,3 +78,18 @@
     </span>
     @enderror
 </div>
+
+<script>
+    document.getElementById('years').flatpickr({
+        enableTime: false,
+        locale: "zh_tw",
+        plugins: [
+            new monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "Y",
+                altFormat: "Y",
+                theme: "light"
+            })
+        ]
+    });
+</script>

@@ -62,7 +62,6 @@
     <label for="startDate">任職時間起</label>
     <input type="text" class="form-control @error('startDate') is-invalid @enderror" id="startDate" name="startDate"
         aria-describedby="startDateHelp" value="{{ old('startDate') ?? $industry_experience->startDate ?? '' }}">
-    <small id="startDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
     @error('startDate')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -74,7 +73,6 @@
     <label for="endDate">任職時間迄</label>
     <input type="text" class="form-control @error('endDate') is-invalid @enderror" id="endDate" name="endDate"
         aria-describedby="endDateHelp" value="{{ old('endDate') ?? $industry_experience->endDate ?? '' }}">
-    <small id="endDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
     @error('endDate')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -92,3 +90,31 @@
     </span>
     @enderror
 </div>
+
+<script>
+    var param = {
+        enableTime: false,
+        locale: "zh_tw",
+        plugins: [
+            new monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "Y/m",
+                altFormat: "Y/m",
+                theme: "light"
+            })
+        ]
+    };
+
+    var startDate = document.getElementById('startDate');
+    var endDate = document.getElementById('endDate');
+
+    //Initialize
+    startDate.flatpickr(param);
+    endDate.flatpickr(param);
+
+    //Reinitialize endDate after startDate change
+    startDate.addEventListener('change', function() {
+        param.minDate = startDate.value;
+        endDate.flatpickr(param);
+    });
+</script>

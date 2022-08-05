@@ -25,7 +25,6 @@
     <label for="startDate">執行起始日期</label>
     <input type="text" class="form-control @error('startDate') is-invalid @enderror" id="startDate" name="startDate"
         aria-describedby="startDateHelp" value="{{ old('startDate') ?? $tcase->startDate ?? '' }}">
-    <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月/日，例如1901/01/01</small>
     @error('startDate')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -37,7 +36,6 @@
     <label for="endDate">執行結束日期</label>
     <input type="text" class="form-control @error('endDate') is-invalid @enderror" id="endDate" name="endDate"
         aria-describedby="endDateHelp" value="{{ old('endDate') ?? $tcase->endDate ?? '' }}">
-    <small id="birthdayHelp" class="form-text text-muted">格式為西元年/月/日，例如1901/01/01</small>
     @error('endDate')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -91,3 +89,25 @@
     </span>
     @enderror
 </div>
+
+<script>
+    var param = {
+        enableTime: false,
+        locale: "zh_tw",
+        dateFormat: "Y/m/d",
+        altFormat: "Y/m/d",
+    };
+
+    var startDate = document.getElementById('startDate');
+    var endDate = document.getElementById('endDate');
+
+    //Initialize
+    startDate.flatpickr(param);
+    endDate.flatpickr(param);
+
+    //Reinitialize endDate after startDate change
+    startDate.addEventListener('change', function() {
+        param.minDate = startDate.value;
+        endDate.flatpickr(param);
+    });
+</script>

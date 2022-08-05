@@ -15,7 +15,6 @@
     <input type="text" class="form-control @error('publicationDate') is-invalid @enderror" id="publicationDate"
         name="publicationDate" aria-describedby="publicationDateHelp"
         value="{{ old('publicationDate') ?? $thesis->publicationDate ?? '' }}">
-    <small id="publicationDateHelp" class="form-text text-muted">格式為西元年/月，例如1901/01</small>
     @error('publicationDate')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -142,3 +141,18 @@
     </span>
     @enderror
 </div>
+
+<script>
+    document.getElementById('publicationDate').flatpickr({
+        enableTime: false,
+        locale: "zh_tw",
+        plugins: [
+            new monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "Y/m",
+                altFormat: "Y/m",
+                theme: "light"
+            })
+        ]
+    });
+</script>
