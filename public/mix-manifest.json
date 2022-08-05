@@ -3,5 +3,7 @@
     "/css/app.css": "/css/app.css",
     "/node_modules/flatpickr/js/flatpickr.js": "/node_modules/flatpickr/js/flatpickr.js",
     "/node_modules/flatpickr/js/zh-tw.js": "/node_modules/flatpickr/js/zh-tw.js",
-    "/node_modules/flatpickr/css/flatpickr.css": "/node_modules/flatpickr/css/flatpickr.css"
+    "/node_modules/flatpickr/css/flatpickr.css": "/node_modules/flatpickr/css/flatpickr.css",
+    "/node_modules/flatpickr/js/index.js": "/node_modules/flatpickr/js/index.js",
+    "/node_modules/flatpickr/css/style.css": "/node_modules/flatpickr/css/style.css"
 }

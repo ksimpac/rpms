@@ -14,10 +14,12 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('node_modules/flatpickr/js/flatpickr.js') }}"></script>
     <script src="{{ asset('node_modules/flatpickr/js/zh-tw.js') }}"></script>
+    <script src="{{ asset('node_modules/flatpickr/js/index.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('node_modules/flatpickr/css/style.css') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

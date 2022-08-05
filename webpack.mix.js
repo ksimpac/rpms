@@ -16,4 +16,6 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.js('node_modules/flatpickr/dist/flatpickr.js', 'public/node_modules/flatpickr/js')
     .copy('node_modules/flatpickr/dist/flatpickr.css', 'public/node_modules/flatpickr/css/flatpickr.css')
-    .js('node_modules/flatpickr/dist/esm/l10n/zh-tw.js', 'public/node_modules/flatpickr/js');
+    .js('node_modules/flatpickr/dist/esm/l10n/zh-tw.js', 'public/node_modules/flatpickr/js')
+    .copy('node_modules/flatpickr/dist/plugins/monthSelect/index.js', 'public/node_modules/flatpickr/js/index.js')
+    .copy('node_modules/flatpickr/dist/plugins/monthSelect/style.css', 'public/node_modules/flatpickr/css/style.css');
