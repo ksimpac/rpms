@@ -25,14 +25,14 @@ class GeneralInfoController extends Controller
 
     public function index()
     {
-        $this->authorize($this->methodMappingTable['index'], Education::class);
+        $this->authorize($this->methodMappingTable['index'], General_info::class);
         $collection = General_info::where('username', Auth::user()->username)->get();
         return view('general_info.index', compact('collection'));
     }
 
     public function create()
     {
-        $this->authorize($this->methodMappingTable['create'], Education::class);
+        $this->authorize($this->methodMappingTable['create'], General_info::class);
 
         if (General_info::where('username', Auth::user()->username)->count() > 0) {
             Alert::error('錯誤', '基本資料只能新增一筆');
@@ -44,7 +44,7 @@ class GeneralInfoController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize($this->methodMappingTable['store'], Education::class);
+        $this->authorize($this->methodMappingTable['store'], General_info::class);
         $data = $this->validation($request);
         $data['username'] = Auth::user()->username;
         General_info::create($data);
