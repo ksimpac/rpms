@@ -36,6 +36,7 @@ class UserMethod
      */
     public static function missedTheDeadline()
     {
-        return isset(\App\Deadline::find(1)->time) && now() >= \App\Deadline::find(1)->time;
+        $time = \App\Deadline::find(1)->time ?? null;
+        return isset($time) && now() >= $time;
     }
 }
