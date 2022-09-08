@@ -24,6 +24,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('node_modules/flatpickr/css/flatpickr.css') }}" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    @include('sweetalert::alert')
 </head>
 
 <body>
