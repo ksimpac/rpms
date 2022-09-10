@@ -15,6 +15,7 @@
     <script src="{{ asset('node_modules/flatpickr/js/flatpickr.js') }}"></script>
     <script src="{{ asset('node_modules/flatpickr/js/zh-tw.js') }}"></script>
     <script src="{{ asset('node_modules/flatpickr/js/index.js') }}"></script>
+    @include('sweetalert::alert')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,9 +25,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('node_modules/flatpickr/css/flatpickr.css') }}" rel="stylesheet">
-
-    <!-- SweetAlert2 -->
-    @include('sweetalert::alert')
 </head>
 
 <body>
@@ -90,6 +88,10 @@
             @yield('content')
         </main>
 
+        @auth
+        @include('layouts.deleteConfirm')
+        @endauth
+
         <footer class="page-footer">
             <div class="footer text-center py-2">
                 <h4>
@@ -98,7 +100,6 @@
             </div>
         </footer>
     </div>
-    @include('sweetalert::alert')
 </body>
 
 </html>

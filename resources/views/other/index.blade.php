@@ -34,7 +34,7 @@
                         <form action="{{ route('other.destroy', ['other' => $item->id]) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger">刪除</button>
+                            <button class="btn btn-danger delete-confirm">刪除</button>
                         </form>
                     @endcan
                 </div>

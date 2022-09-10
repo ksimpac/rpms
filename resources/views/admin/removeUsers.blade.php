@@ -39,7 +39,7 @@
                 @endforeach
             </tbody>
         </table>
-        <button type="submit" class="btn btn-outline-danger">刪除勾選使用者</button>
+        <button type="submit" class="btn btn-outline-danger delete-confirm">刪除勾選使用者</button>
     </form>
 </div>
 
@@ -55,7 +55,7 @@
     <form action="{{ route('admin.removeUsers.delete') }}" method="post">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger">刪除所有使用者</button>
+        <button type="submit" class="btn btn-danger delete-confirm">刪除所有使用者</button>
     </form>
 </div>
 @endsection
