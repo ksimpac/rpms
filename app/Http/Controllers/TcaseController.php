@@ -38,6 +38,7 @@ class TcaseController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Tcase::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Tcase::create($data);
         return redirect()->route('tcase.index');
@@ -70,6 +71,7 @@ class TcaseController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $tcase);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         if (isset($data['identification'])) {
             $oldIdentification = $tcase->identification;
@@ -101,6 +103,15 @@ class TcaseController extends Controller
             $data['identification'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['projectName', 'collaboration_name'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

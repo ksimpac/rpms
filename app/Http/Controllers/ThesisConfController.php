@@ -40,6 +40,7 @@ class ThesisConfController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Thesis_conf::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Thesis_conf::create($data);
         return redirect()->route('thesis_conf.index');
@@ -69,6 +70,7 @@ class ThesisConfController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $thesis_conf);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         $thesis_conf->update($data);
         return redirect()->route('thesis_conf.index');
@@ -85,6 +87,15 @@ class ThesisConfController extends Controller
             'country' => ['required', 'string', 'max:255'],
         ]);
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['conf_name', 'thesisName', 'country'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

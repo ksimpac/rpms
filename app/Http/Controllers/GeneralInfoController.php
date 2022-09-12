@@ -46,6 +46,7 @@ class GeneralInfoController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], General_info::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         General_info::create($data);
         return redirect()->route('general_info.index');
@@ -73,6 +74,7 @@ class GeneralInfoController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $general_info);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         if (isset($data['teacherCertificateFiles'])) {
             $oldTeacherCertificateFiles = $general_info->teacherCertificateFiles;
@@ -138,6 +140,18 @@ class GeneralInfoController extends Controller
             $data['teacherCertificateFiles'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = [
+            'englishLastName', 'englishFirstName', 'telephone', 'Permanent_Address',
+            'Residential_Address', 'working_units', 'position', 'course'
+        ];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

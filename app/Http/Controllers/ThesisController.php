@@ -43,6 +43,7 @@ class ThesisController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Thesis::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Thesis::create($data);
         return redirect()->route('thesis.index');
@@ -74,6 +75,7 @@ class ThesisController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $thesis);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         if (isset($data['identification'])) {
             $oldIdentification = $thesis->identification;
@@ -107,6 +109,15 @@ class ThesisController extends Controller
             $data['identification'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['publicationName', 'DOI', 'rank_factor', 'thesisName'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

@@ -38,6 +38,7 @@ class MostProjectController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Most_project::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Most_project::create($data);
         return redirect()->route('most_project.index');
@@ -70,6 +71,7 @@ class MostProjectController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $most_project);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         if (isset($data['identification'])) {
             $oldIdentification = $most_project->identification;
@@ -100,6 +102,15 @@ class MostProjectController extends Controller
             $data['identification'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['projectName'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

@@ -45,6 +45,7 @@ class EducationController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Education::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Education::create($data);
         return redirect()->route('education.index');
@@ -89,6 +90,7 @@ class EducationController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $education);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         $oldCertificate = $education->certificate;
         $oldTranscript = $education->transcript;
@@ -149,6 +151,15 @@ class EducationController extends Controller
             $data['certificate'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['schoolName', 'department', 'country', 'thesis', 'advisor'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }

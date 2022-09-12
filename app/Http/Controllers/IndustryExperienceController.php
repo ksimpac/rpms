@@ -38,6 +38,7 @@ class IndustryExperienceController extends Controller
     {
         $this->authorize($this->methodMappingTable['store'], Industry_experience::class);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         Industry_experience::create($data);
         return redirect()->route('industry_experience.index');
@@ -68,6 +69,7 @@ class IndustryExperienceController extends Controller
     {
         $this->authorize($this->methodMappingTable['update'], $industry_experience);
         $data = $this->validation($request);
+        $data = $this->removeAsciiControlCharacter($data);
         $data['username'] = Auth::user()->username;
         if (isset($data['identification'])) {
             $oldIdentification = $industry_experience->identification;
@@ -100,6 +102,15 @@ class IndustryExperienceController extends Controller
             $data['identification'] = $fileName;
         }
 
+        return $data;
+    }
+
+    private function removeAsciiControlCharacter($data)
+    {
+        $stringColumns = ['working_units', 'position', 'job_description'];
+        foreach ($stringColumns as $column) {
+            preg_replace_array('/[\x00-\x1F\x7F]/', [''], $data[$column]);
+        }
         return $data;
     }
 }
