@@ -15,7 +15,6 @@
     <script src="{{ asset('node_modules/flatpickr/js/flatpickr.js') }}"></script>
     <script src="{{ asset('node_modules/flatpickr/js/zh-tw.js') }}"></script>
     <script src="{{ asset('node_modules/flatpickr/js/index.js') }}"></script>
-    @include('sweetalert::alert')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -28,6 +27,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
