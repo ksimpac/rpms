@@ -186,7 +186,7 @@
             {{ $most_project->startDate.'~'.$most_project->endDate }}、
             {{ $most_project->jobkind }}、
             {{ $most_project->plantotal_money }}、
-            <a href="{{ url(Storage::url('MOST_project/' . $most_project->identification)) }}" target="_blank">
+            <a href="{{ url(Storage::url('most_project/' . $most_project->identification)) }}" target="_blank">
                 PDF
             </a>
             <br />
