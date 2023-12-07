@@ -239,7 +239,7 @@
             <td>{{ $row->jobkind }}</td>
             <td>{{ $row->plantotal_money }}</td>
             <td>
-                <a href="{{ url(Storage::url('MOST_project/' . $row->identification)) }}">
+                <a href="{{ url(Storage::url('most_project/' . $row->identification)) }}">
                     {{ $row->identification }}
                 </a>
             </td>
